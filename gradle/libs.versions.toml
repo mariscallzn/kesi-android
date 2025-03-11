@@ -24,6 +24,9 @@ okhttp = "4.12.0"
 retrofit = "2.11.0"
 room = "2.6.1"
 
+[bundles]
+androidx-compose-ui-test = ["androidx-compose-ui-test", "androidx-compose-ui-testManifest"]
+
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -40,6 +43,8 @@ androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
