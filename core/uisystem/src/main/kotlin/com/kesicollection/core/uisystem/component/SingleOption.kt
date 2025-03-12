@@ -48,7 +48,7 @@ import com.kesicollection.core.uisystem.component.SingleOptionDefaults.trailingS
  * animate its size using [trailingScale] (between 0 and 1), and trailing element's color using the
  * [color] state.
  *
- * @sample com.kesicollection.core.uisystem.theme.component.PreviewSingleAnswerOption
+ * @sample com.kesicollection.core.uisystem.component.PreviewSingleAnswerOption
  *
  * @param modifier Modifier to be applied to the Card composable.
  * @param trailing A composable to be displayed at the trailing end of the option. Typically used for icons or indicators.
