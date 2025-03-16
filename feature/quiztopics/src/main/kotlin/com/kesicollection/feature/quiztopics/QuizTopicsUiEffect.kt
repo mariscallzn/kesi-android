@@ -1,0 +1,3 @@
+package com.kesicollection.feature.quiztopics
+
+sealed interface QuizTopicsUiEffect

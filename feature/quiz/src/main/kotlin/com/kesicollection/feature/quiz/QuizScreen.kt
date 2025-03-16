@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 fun QuizScreen(
     viewModel: QuizViewModel,
     topic: String,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -53,6 +54,7 @@ fun QuizScreen(
         uiState = uiState,
         topic = topic,
         onSelectedAnswer = { _, _ -> } /*viewModel::some*/,
+        onNavigateUp = onNavigateUp,
         modifier = modifier
     )
 }
@@ -64,6 +66,7 @@ internal fun QuizScreen(
     uiState: QuizUiState,
     topic: String,
     onSelectedAnswer: OnSelectedAnswer,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState { uiState.questions.size }
@@ -72,7 +75,7 @@ internal fun QuizScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = KIcon.ArrowBack,
                             contentDescription = null,
@@ -92,7 +95,6 @@ internal fun QuizScreen(
             }
         },
         modifier = modifier
-            .fillMaxSize()
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -163,6 +165,7 @@ private fun Example(modifier: Modifier = Modifier) {
             modifier = modifier,
             topic = "Jetpack Compose",
             onSelectedAnswer = { _, _ -> },
+            onNavigateUp = {},
             uiState = QuizUiState().copy(questions = generateQuestions())
         )
     }

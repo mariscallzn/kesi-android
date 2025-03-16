@@ -62,11 +62,15 @@ fun NavController.navigateToQuiz(route: QuizRoute, navOptions: NavOptions? = nul
  * @see composable
  * @see NavGraphBuilder
  */
-fun NavGraphBuilder.quiz(modifier: Modifier) {
+fun NavGraphBuilder.quiz(
+    onNavigateUp: () -> Unit,
+    modifier: Modifier
+) {
     composable<QuizRoute> { backStackEntry ->
         val route = backStackEntry.toRoute<QuizRoute>()
         QuizScreen(
             viewModel = hiltViewModel(),
+            onNavigateUp = onNavigateUp,
             topic = route.topic,
             modifier = modifier
         )
@@ -80,7 +84,7 @@ private fun ExampleQuizNavGraph(modifier: Modifier = Modifier) {
         navController = navController,
         startDestination = QuizRoute("Jetpack compose")
     ) {
-        quiz(modifier)
+        quiz(modifier = modifier, onNavigateUp = {})
     }
 }
 
