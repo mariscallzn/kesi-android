@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.core.uisystem)
     implementation(projects.core.model)
     implementation(projects.feature.quiz)
+    implementation(projects.feature.quiztopics)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
