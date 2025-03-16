@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation(projects.core.uisystem)
+    implementation(projects.core.model)
     implementation(projects.feature.quiz)
 
     implementation(libs.androidx.activity.compose)

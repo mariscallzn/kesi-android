@@ -4,12 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.quiz.QuizScreen
-import com.kesicollection.feature.quiz.QuizViewModel
+import com.kesicollection.feature.quiz.QuizRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -22,16 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: QuizViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             KesiTheme {
-                QuizScreen(
-                    viewModel = viewModel,
-                    topic = "Jetpack Compose",
-                    modifier = Modifier.fillMaxSize()
+                AppNavigation(
+                    navController = rememberNavController(),
+                    startDestination = QuizRoute("Jetpack Compose")
                 )
             }
         }
