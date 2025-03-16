@@ -33,6 +33,7 @@
             <option value="$PROJECT_DIR$/data/repository" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/feature/quiz" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

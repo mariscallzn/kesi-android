@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -48,7 +49,7 @@ import com.kesicollection.core.uisystem.component.SingleOptionDefaults.trailingS
  * animate its size using [trailingScale] (between 0 and 1), and trailing element's color using the
  * [color] state.
  *
- * @sample com.kesicollection.core.uisystem.theme.component.PreviewSingleAnswerOption
+ * @sample com.kesicollection.core.uisystem.component.PreviewSingleOption
  *
  * @param modifier Modifier to be applied to the Card composable.
  * @param trailing A composable to be displayed at the trailing end of the option. Typically used for icons or indicators.
@@ -82,8 +83,8 @@ fun SingleOption(
     } ?: Modifier
 
     Card(
-        modifier = clickModifier.
-            testTag(":core:uisystem:singleOptionCard")
+        modifier = clickModifier
+            .testTag(":core:uisystem:singleOptionCard")
             .drawWithContent {
                 drawContent()
                 drawRoundRect(
@@ -251,12 +252,17 @@ enum class AnsweredOption {
 @PreviewLightDark
 @Composable
 private fun LightDarkSingleAnswerOption() {
-    PreviewSingleAnswerOption()
+    ExampleSingleOption()
 }
 
 @Preview
 @Composable
-private fun PreviewSingleAnswerOption() {
+private fun PreviewSingleOption() {
+    ExampleSingleOption(Modifier.fillMaxSize())
+}
+
+@Composable
+private fun ExampleSingleOption(modifier: Modifier = Modifier) {
     val rotation = listOf(
         AnsweredOption.DEFAULT,
         AnsweredOption.CORRECT,
@@ -270,7 +276,7 @@ private fun PreviewSingleAnswerOption() {
         val scale by trailingScaleAnimation(answeredOptionIndex != 0)
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
