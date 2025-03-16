@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation(projects.core.uisystem)
-    implementation(projects.feature.home)
+    implementation(projects.feature.quiz)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
