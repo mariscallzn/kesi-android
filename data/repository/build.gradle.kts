@@ -8,5 +8,7 @@ android {
 }
 
 dependencies {
-    api(projects.data.api)
+    api(projects.core.model)
+    implementation(projects.data.retrofit)
+    implementation(projects.data.room)
 }

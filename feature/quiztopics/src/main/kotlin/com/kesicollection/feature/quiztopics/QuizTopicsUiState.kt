@@ -16,7 +16,7 @@ data class State(
 sealed interface QuizTopicsUiState {
     data object Loading : QuizTopicsUiState
     data object FetchingError : QuizTopicsUiState
-    data class Topics(
+    data class FetchedTopics(
         val topics: List<Topic>
     ) : QuizTopicsUiState
 }

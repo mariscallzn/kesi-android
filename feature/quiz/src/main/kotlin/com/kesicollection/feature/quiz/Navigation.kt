@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.kesicollection.core.model.AppRoute
+import com.kesicollection.core.model.Topic
 import kotlinx.serialization.Serializable
 
 /**
@@ -20,11 +21,11 @@ import kotlinx.serialization.Serializable
  * for a particular topic. It conforms to the [AppRoute] interface, signifying its role
  * as a screen destination within the application's navigation system.
  *
- * @property topic The topic of the quiz. This string uniquely identifies the quiz
- *                  content and is used to fetch relevant quiz data.
+ * @property id the id that need to be fetch to load the data
+ * @property name the name that will be display while the data is loading.
  */
 @Serializable
-data class QuizRoute(val topic: String) : AppRoute
+data class QuizRoute(val id: String, val name: String) : AppRoute
 
 /**
  * Navigates to [QuizScreen].
@@ -71,7 +72,7 @@ fun NavGraphBuilder.quiz(
         QuizScreen(
             viewModel = hiltViewModel(),
             onNavigateUp = onNavigateUp,
-            topic = route.topic,
+            topic = Topic(id = route.id, name = route.name),
             modifier = modifier
         )
     }
@@ -82,7 +83,9 @@ private fun ExampleQuizNavGraph(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = QuizRoute("Jetpack compose")
+        startDestination = QuizRoute(
+            id = "", name = "Jetpack compose"
+        )
     ) {
         quiz(modifier = modifier, onNavigateUp = {})
     }
@@ -91,5 +94,8 @@ private fun ExampleQuizNavGraph(modifier: Modifier = Modifier) {
 @Composable
 private fun ExampleNavigateToQuiz() {
     val navController = rememberNavController()
-    navController.navigateToQuiz(route = QuizRoute("Jetpack Compose"), navOptions = null)
+    navController.navigateToQuiz(
+        route = QuizRoute(id = "", name = "Jetpack Compose"),
+        navOptions = null
+    )
 }

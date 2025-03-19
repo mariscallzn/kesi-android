@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kesicollection.core.model.Topic
 import com.kesicollection.core.uisystem.component.ExpandableProgressCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -44,11 +46,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun QuizScreen(
     viewModel: QuizViewModel,
-    topic: String,
+    topic: Topic,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchQuestionsByTopicName(topic.name)
+    }
 
     QuizScreen(
         uiState = uiState,
@@ -64,7 +70,7 @@ fun QuizScreen(
 @Composable
 internal fun QuizScreen(
     uiState: QuizUiState,
-    topic: String,
+    topic: Topic,
     onSelectedAnswer: OnSelectedAnswer,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
@@ -83,7 +89,7 @@ internal fun QuizScreen(
                     }
                 },
                 title = {
-                    Text(text = topic, style = MaterialTheme.typography.headlineSmall)
+                    Text(text = topic.name, style = MaterialTheme.typography.headlineSmall)
                 }
             )
         },
@@ -102,7 +108,7 @@ internal fun QuizScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             var isProgressCardExpanded by rememberSaveable { mutableStateOf(false) }
-            val progress by rememberSaveable(pagerState.settledPage) {
+            val progress by rememberSaveable(pagerState.settledPage, uiState.questions.size) {
                 mutableFloatStateOf(
                     (pagerState.settledPage + 1).toFloat() / uiState.questions.size.toFloat()
                 )
@@ -163,10 +169,13 @@ private fun Example(modifier: Modifier = Modifier) {
     KesiTheme {
         QuizScreen(
             modifier = modifier,
-            topic = "Jetpack Compose",
+            topic = Topic(
+                id = "",
+                name = "Jetpack Compose"
+            ),
             onSelectedAnswer = { _, _ -> },
             onNavigateUp = {},
-            uiState = QuizUiState().copy(questions = generateQuestions())
+            uiState = QuizUiState().copy(questions = emptyList())
         )
     }
 }
