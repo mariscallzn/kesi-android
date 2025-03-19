@@ -61,9 +61,21 @@ private fun NavController.onNavigateUp() {
     popBackStack()
 }
 
-//TODO: It should send the whole Topic object.
-private fun NavController.onTopicClick(topicId: String) {
-    navigateToQuiz(QuizRoute(topicId))
+/**
+ * Navigates to the Quiz screen when a topic is clicked.
+ *
+ * This function is an extension function for [NavController]. It takes the topic's ID and name
+ * as parameters and uses them to construct a [QuizRoute] object. This object is then passed
+ * to the [navigateToQuiz] function to perform the actual navigation.
+ *
+ * @param id The unique identifier of the clicked topic.
+ * @param name The name of the clicked topic, which will be displayed on the Quiz screen.
+ *
+ * @see QuizRoute
+ * @see navigateToQuiz
+ */
+private fun NavController.onTopicClick(id: String, name: String) {
+    navigateToQuiz(QuizRoute(id = id, name = name))
 }
 
 @Composable
@@ -73,7 +85,8 @@ private fun ExampleAppNavigation(modifier: Modifier) {
         AppNavigation(
             navController = navController,
             startDestination = QuizRoute(
-                topic = "Jetpack Compose"
+                id = "",
+                name = "Jetpack Compose"
             ),
             modifier = modifier
         )
