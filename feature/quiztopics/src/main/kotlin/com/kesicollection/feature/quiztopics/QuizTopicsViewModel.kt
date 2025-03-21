@@ -2,6 +2,7 @@ package com.kesicollection.feature.quiztopics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kesicollection.core.model.TopicCard
 import com.kesicollection.data.repository.QuizTopicsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

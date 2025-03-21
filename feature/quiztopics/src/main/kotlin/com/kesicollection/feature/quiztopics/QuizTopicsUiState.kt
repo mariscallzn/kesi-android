@@ -1,6 +1,6 @@
 package com.kesicollection.feature.quiztopics
 
-import com.kesicollection.core.model.Topic
+import com.kesicollection.core.model.TopicCard
 
 data class State(
     val uiState: QuizTopicsUiState
@@ -17,6 +17,6 @@ sealed interface QuizTopicsUiState {
     data object Loading : QuizTopicsUiState
     data object FetchingError : QuizTopicsUiState
     data class FetchedTopics(
-        val topics: List<Topic>
+        val topicCards: List<TopicCard>
     ) : QuizTopicsUiState
 }

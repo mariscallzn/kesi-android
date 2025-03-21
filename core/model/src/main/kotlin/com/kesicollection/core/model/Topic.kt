@@ -14,5 +14,10 @@ import java.util.UUID
  */
 data class Topic(
     val id: String = UUID.randomUUID().toString(),
-    val name: String
+    val name: String,
+)
+
+data class TopicCard(
+    val topic: Topic,
+    val totalQuestions: Int
 )
