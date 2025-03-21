@@ -3,7 +3,9 @@ package com.kesicollection.feature.quiztopics
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -16,14 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.model.TopicCard
-import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.quiztopics.component.TopicCard
 
@@ -38,11 +38,11 @@ fun QuizTopicsScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.sendEvent(QuizTopicsUiEvent.FetchTopics)
+        viewModel.intent(QuizTopicsIntent.FetchTopics)
     }
 
     QuizTopicsScreen(
-        state = uiState,
+        state = uiState.uiState,
         onTopicClick = onTopicClick,
         modifier = modifier,
     )
@@ -51,7 +51,7 @@ fun QuizTopicsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizTopicsScreen(
-    state: State,
+    state: QuizTopicsUiState,
     onTopicClick: OnTopicClick,
     modifier: Modifier = Modifier
 ) {
@@ -64,24 +64,38 @@ fun QuizTopicsScreen(
                     style = MaterialTheme.typography.headlineMedium
                 )
             })
-        }
+        },
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
         ) {
-            when (state.uiState) {
-                QuizTopicsUiState.FetchingError -> Text("Error")
-                QuizTopicsUiState.Loading -> CircularProgressIndicator()
+            when (state) {
+                QuizTopicsUiState.FetchingError -> Text(
+                    "Error",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize()
+                )
+
+                QuizTopicsUiState.Loading -> CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize()
+                )
+
                 is QuizTopicsUiState.FetchedTopics -> {
                     LazyColumn(
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp)
                     ) {
-                        items(state.uiState.topicCards, key = { it.topic.id }) { topicCard ->
+                        items(state.topicCards, key = { it.topic.id }) { topicCard ->
                             TopicCard(
                                 onCardClick = { onTopicClick(it.topic.id, it.topic.name) },
                                 topicCard = topicCard,
-                                modifier = Modifier.fillParentMaxWidth()
+                                modifier = Modifier
+                                    .fillParentMaxWidth()
+                                    .animateItem()
                             )
                         }
                     }
@@ -104,8 +118,8 @@ private fun PreviewQuizTopics() {
                     ),
                     it * 6
                 )
-            })),
-            onTopicClick = { _, _ -> }
+            })).uiState,
+            onTopicClick = { _, _ -> },
         )
     }
 }

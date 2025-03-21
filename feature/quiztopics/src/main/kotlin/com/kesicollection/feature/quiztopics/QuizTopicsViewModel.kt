@@ -2,17 +2,13 @@ package com.kesicollection.feature.quiztopics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kesicollection.core.model.TopicCard
 import com.kesicollection.data.repository.QuizTopicsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,38 +28,25 @@ class QuizTopicsViewModel @Inject constructor(
     val uiState: StateFlow<State>
         get() = _uiState.asStateFlow()
 
-    private val uiEvent = MutableSharedFlow<QuizTopicsUiEvent>()
-
-    private val _uiEffect = Channel<QuizTopicsUiEffect>(Channel.UNLIMITED)
-    val uiEffect = _uiEffect.receiveAsFlow()
+    private val intent = MutableSharedFlow<QuizTopicsIntent>()
 
     init {
         viewModelScope.launch {
-            uiEvent.asSharedFlow().collect {
-                handleEvent(it)
+            intent.asSharedFlow().collect {
+                when (it) {
+                    QuizTopicsIntent.FetchTopics -> fetchTopics()
+                }
             }
         }
     }
 
-    //Normally called intent in the MVI architecture
-    fun sendEvent(event: QuizTopicsUiEvent) {
-        viewModelScope.launch { uiEvent.emit(event) }
-    }
-
-    //Again this will be called Intent on a MVI
-    private fun handleEvent(event: QuizTopicsUiEvent) {
-        when (event) {
-            is QuizTopicsUiEvent.FetchTopics -> fetchTopics()
-        }
+    fun intent(userIntent: QuizTopicsIntent) {
+        viewModelScope.launch { intent.emit(userIntent) }
     }
 
     private fun reduce(reducer: State.() -> State) {
         val newState = _uiState.value.reducer()
         _uiState.value = newState
-    }
-
-    private fun launchEffect(effect: () -> QuizTopicsUiEffect) {
-        viewModelScope.launch { _uiEffect.send(effect()) }
     }
 
     private fun fetchTopics() {
