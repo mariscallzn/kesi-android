@@ -19,7 +19,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kesicollection.core.model.Question
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.uisystem.component.ExpandableProgressCard
+import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.quiz.component.OnSelectedAnswer
@@ -79,8 +79,7 @@ internal fun QuizScreen(
 ) {
     val pagerState = rememberPagerState { uiState.questions.size }
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
+    KScaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 navigationIcon = {

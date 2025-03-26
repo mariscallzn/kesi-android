@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.model.TopicCard
+import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.quiztopics.component.TopicCard
 
@@ -55,9 +55,8 @@ fun QuizTopicsScreen(
     onTopicClick: OnTopicClick,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
+    KScaffold(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             TopAppBar(title = {
                 Text(
