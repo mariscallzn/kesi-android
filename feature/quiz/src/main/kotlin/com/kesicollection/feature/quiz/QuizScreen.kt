@@ -111,7 +111,7 @@ internal fun QuizScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(scrollableState),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             var progress by rememberSaveable {
                 mutableFloatStateOf(0f)
@@ -120,8 +120,12 @@ internal fun QuizScreen(
             LaunchedEffect(pagerState.currentPageOffsetFraction) {
                 snapshotFlow { pagerState.currentPageOffsetFraction }
                     .collect { offset ->
-                        progress =
-                            (pagerState.currentPage + offset) / (uiState.questions.size - 1).toFloat()
+                        val totalQuestions = (uiState.questions.size - 1).toFloat()
+                        progress = if (totalQuestions > 0) {
+                            (pagerState.currentPage + offset) / totalQuestions
+                        }else{
+                            0f
+                        }
                     }
             }
 
