@@ -57,6 +57,7 @@ fun QuizTopicsScreen(
 ) {
     Scaffold(
         modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             TopAppBar(title = {
                 Text(

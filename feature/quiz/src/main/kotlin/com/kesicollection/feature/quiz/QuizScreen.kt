@@ -33,7 +33,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -81,6 +80,7 @@ internal fun QuizScreen(
     val pagerState = rememberPagerState { uiState.questions.size }
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             CenterAlignedTopAppBar(
                 navigationIcon = {
@@ -164,12 +164,6 @@ internal fun QuizScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewQuizScreen() {
-    Example(modifier = Modifier.fillMaxSize())
 }
 
 @PreviewLightDark
