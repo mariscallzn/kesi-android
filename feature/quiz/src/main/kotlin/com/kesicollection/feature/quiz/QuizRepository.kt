@@ -18,7 +18,7 @@ class QuizRepositoryImpl @Inject constructor(
     override suspend fun fetchQuestionByTopicName(name: String): Result<List<Question>> =
         Result.runCatching {
             questionApi.fetchQuestions().getOrThrow()
-                .filter { it.topic == name }
+                .filter { it.topic.name == name }
                 .groupBy { it.topic }
                 .map { it.value }
                 .flatten()

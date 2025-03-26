@@ -35,14 +35,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kesicollection.core.model.Difficulty
 import com.kesicollection.core.model.Question
+import com.kesicollection.core.model.QuestionType
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.uisystem.component.ExpandableProgressCard
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.quiz.component.OnSelectedAnswer
 import com.kesicollection.feature.quiz.component.QuestionCard
+import com.kesicollection.feature.quiz.component.TextQuestion
 import kotlinx.coroutines.launch
 
 @Composable
@@ -73,7 +75,7 @@ fun QuizScreen(
 internal fun QuizScreen(
     uiState: QuizUiState,
     topic: Topic,
-    onSelectedAnswer: OnSelectedAnswer,
+    onSelectedAnswer: (questionId: String, selectedIndex: Int) -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -123,7 +125,7 @@ internal fun QuizScreen(
                         val totalQuestions = (uiState.questions.size - 1).toFloat()
                         progress = if (totalQuestions > 0) {
                             (pagerState.currentPage + offset) / totalQuestions
-                        }else{
+                        } else {
                             0f
                         }
                     }
@@ -188,19 +190,23 @@ private fun Example(modifier: Modifier = Modifier) {
             onNavigateUp = {},
             uiState = QuizUiState().copy(
                 questions = listOf(
-                    Question(
-                        question = "Consider a complex custom layout in Compose that requires precise measurement and placement of children based on dynamic content. How would you optimize its performance to minimize recompositions and layout passes, especially when dealing with large datasets?",
-                        options = listOf(
-                            "Using `Modifier.layout` with direct manipulation of `Placeable` instances and extensive caching.",
-                            "Relying solely on built-in Compose layouts and modifiers, hoping for automatic optimization.",
-                            "Creating a custom `Layout` composable with minimal logic and relying on recomposition for updates.",
-                            "Using `SubcomposeLayout` for all child elements, regardless of complexity."
+                    UiQuestion(
+                        Question(
+                            content = "Consider a complex custom layout in Compose that requires precise measurement and placement of children based on dynamic content. How would you optimize its performance to minimize recompositions and layout passes, especially when dealing with large datasets?",
+                            options = listOf(
+                                "Using `Modifier.layout` with direct manipulation of `Placeable` instances and extensive caching.",
+                                "Relying solely on built-in Compose layouts and modifiers, hoping for automatic optimization.",
+                                "Creating a custom `Layout` composable with minimal logic and relying on recomposition for updates.",
+                                "Using `SubcomposeLayout` for all child elements, regardless of complexity."
+                            ),
+                            topic = Topic(name = "Jetpack Compose"),
+                            correctAnswerIndex = 0,
+                            difficulty = Difficulty.Hard,
+                            explanation = "Direct manipulation of `Placeable` instances in `Modifier.layout` and strategic caching allows for fine-grained control and performance optimization. It minimizes unnecessary recompositions and layout calculations.",
+                            tags = emptyList(),
+                            questionType = QuestionType.Text
                         ),
-                        topic = "Jetpack Compose",
-                        correctAnswerIndex = 0,
-                        difficulty = "Hard",
-                        explanation = "Direct manipulation of `Placeable` instances in `Modifier.layout` and strategic caching allows for fine-grained control and performance optimization. It minimizes unnecessary recompositions and layout calculations.",
-                        tags = listOf("performance", "custom layout", "optimization")
+                        TextQuestion("Consider a complex custom layout in Compose that requires precise measurement and placement of children based on dynamic content. How would you optimize its performance to minimize recompositions and layout passes, especially when dealing with large datasets?")
                     ),
                 )
             )

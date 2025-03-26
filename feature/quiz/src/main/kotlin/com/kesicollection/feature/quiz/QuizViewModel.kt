@@ -17,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     private val repository: QuizRepository,
+    private val uiQuestionTypeFactory: UIQuestionTypeFactory
 ) : ViewModel() {
     val uiState: StateFlow<QuizUiState>
         get() = _uiState.asStateFlow().stateIn(
@@ -28,9 +29,13 @@ class QuizViewModel @Inject constructor(
 
     fun fetchQuestionsByTopicName(name: String) {
         viewModelScope.launch {
-            val questions = repository.fetchQuestionByTopicName(name).getOrThrow()
+            val questions = repository.fetchQuestionByTopicName(name).getOrThrow().map {
+                UiQuestion(
+                    metadata = it,
+                    question = uiQuestionTypeFactory.create(it)
+                )
+            }
             _uiState.value = _uiState.value.copy(questions = questions)
         }
     }
-
 }

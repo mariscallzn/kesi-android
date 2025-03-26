@@ -21,7 +21,7 @@ class QuizTopicsRepositoryImpl @Inject constructor(
             it.topic
         }.map { pair ->
             TopicCard(
-                topic = Topic(name = pair.key),
+                topic = Topic(name = pair.key.name),
                 totalQuestions = pair.value.size
             )
         }
