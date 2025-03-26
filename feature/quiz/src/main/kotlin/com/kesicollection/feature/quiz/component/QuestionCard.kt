@@ -3,6 +3,8 @@ package com.kesicollection.feature.quiz.component
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -14,7 +16,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.kesicollection.core.model.Question
@@ -24,7 +25,6 @@ import com.kesicollection.core.uisystem.component.SingleOptionDefaults.colorAnim
 import com.kesicollection.core.uisystem.component.SingleOptionDefaults.trailingScaleAnimation
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.quiz.initialState
 
 typealias OnSelectedAnswer = (questionId: String, selectedIndex: Int) -> Unit
 
@@ -42,11 +42,9 @@ fun QuestionCard(
                 .animateContentSize()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Text(
-                text = question.question,
-                style = MaterialTheme.typography.headlineSmall,
-            )
-
+            Text(text = question.question, style = MaterialTheme.typography.bodyLarge)
+            Spacer(Modifier.height(24.dp))
+            Text(text = "Choose the answer", style = MaterialTheme.typography.labelLarge)
             question.options.forEachIndexed { index, item ->
                 val color by colorAnimation(
                     when {
@@ -73,9 +71,11 @@ fun QuestionCard(
                         onSelectedAnswer(question.id, index)
                     },
                 ) {
-                    Text(item, style = MaterialTheme.typography.titleMedium)
+                    Text(item, style = MaterialTheme.typography.bodyMedium)
                 }
-
+                if (index == question.options.lastIndex) {
+                    Spacer(Modifier.height(8.dp))
+                }
             }
             question.explanation?.let {
                 if (selectedAnswer >= 0) {
@@ -92,20 +92,22 @@ private fun PreviewLightDarkQuestionCard() {
     Example(modifier = Modifier.padding(8.dp))
 }
 
-@Preview
-@Composable
-private fun PreviewQuestionCard() {
-    Example()
-}
-
-
 @Composable
 private fun Example(modifier: Modifier = Modifier) {
     KesiTheme {
-        QuestionCard(
-            question = initialState.questions.first(),
-            onSelectedAnswer = { _, _ -> },
-            modifier = modifier,
-        )
+        KesiTheme {
+            QuestionCard(
+                question = Question(
+                    id = "1",
+                    question = "What is the capital of France?",
+                    options = listOf("London", "Paris", "Berlin", "Madrid"),
+                    topic = "Geography",
+                    correctAnswerIndex = 1,
+                    explanation = "Paris is the capital of France.",
+                ),
+                onSelectedAnswer = { _, _ -> },
+                modifier = modifier
+            )
+        }
     }
 }
