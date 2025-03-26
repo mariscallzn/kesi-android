@@ -1,4 +1,4 @@
-package com.kesicollection.data.repository
+package com.kesicollection.feature.quiztopics
 
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.model.TopicCard

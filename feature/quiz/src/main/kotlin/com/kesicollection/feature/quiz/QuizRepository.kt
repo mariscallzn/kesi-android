@@ -1,4 +1,4 @@
-package com.kesicollection.data.repository
+package com.kesicollection.feature.quiz
 
 import com.kesicollection.core.model.Question
 import com.kesicollection.data.api.QuestionApi

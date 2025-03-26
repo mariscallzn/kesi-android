@@ -30,7 +30,6 @@
             <option value="$PROJECT_DIR$/core/uisystem" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/data/api" />
-            <option value="$PROJECT_DIR$/data/repository" />
             <option value="$PROJECT_DIR$/data/retrofit" />
             <option value="$PROJECT_DIR$/data/room" />
             <option value="$PROJECT_DIR$/feature" />
@@ -39,7 +38,6 @@
             <option value="$PROJECT_DIR$/feature/quiztopics" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

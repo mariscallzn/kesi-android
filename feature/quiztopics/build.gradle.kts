@@ -6,7 +6,3 @@ plugins {
 android {
     namespace = "com.kesicollection.feature.quiztopics"
 }
-
-dependencies {
-    implementation(projects.data.repository)
-}

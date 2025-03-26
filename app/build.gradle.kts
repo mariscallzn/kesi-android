@@ -34,6 +34,9 @@ dependencies {
     implementation(projects.feature.quiz)
     implementation(projects.feature.quiztopics)
 
+    implementation(projects.data.retrofit)
+    implementation(projects.data.room)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)

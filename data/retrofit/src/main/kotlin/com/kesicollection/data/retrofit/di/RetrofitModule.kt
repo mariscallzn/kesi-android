@@ -12,6 +12,7 @@ import javax.inject.Named
 @InstallIn(SingletonComponent::class)
 abstract class RetrofitModule {
 
+    //TODO: Let the app module define this.
     @Binds
     @Named("retrofit_question_api")
     abstract fun bindRetrofitQuestionApi(
