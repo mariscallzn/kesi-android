@@ -1,11 +1,12 @@
 package com.kesicollection.feature.quiz
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -28,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kesicollection.core.model.Question
 import com.kesicollection.core.model.Topic
 import com.kesicollection.core.uisystem.component.ExpandableProgressCard
 import com.kesicollection.core.uisystem.theme.KIcon
@@ -102,40 +105,51 @@ internal fun QuizScreen(
         },
         modifier = modifier
     ) { innerPadding ->
+        val scrollableState = rememberScrollState()
+        var isProgressCardExpanded by rememberSaveable { mutableStateOf(false) }
         Column(
             modifier = Modifier
-                .padding(innerPadding),
+                .fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(scrollableState),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            var isProgressCardExpanded by rememberSaveable { mutableStateOf(false) }
-            val progress by rememberSaveable(pagerState.settledPage, uiState.questions.size) {
-                mutableFloatStateOf(
-                    (pagerState.settledPage + 1).toFloat() / uiState.questions.size.toFloat()
-                )
+            var progress by rememberSaveable {
+                mutableFloatStateOf(0f)
             }
-            val animatedProgress by animateFloatAsState(progress)
+
+            LaunchedEffect(pagerState.currentPageOffsetFraction) {
+                snapshotFlow { pagerState.currentPageOffsetFraction }
+                    .collect { offset ->
+                        progress =
+                            (pagerState.currentPage + offset) / (uiState.questions.size - 1).toFloat()
+                    }
+            }
+
             ExpandableProgressCard(
-                progress = { animatedProgress },
+                progress = { progress },
                 onExpandedClick = { isProgressCardExpanded = !isProgressCardExpanded },
                 state = { isProgressCardExpanded },
                 currentIndex = { Text("${pagerState.settledPage + 1}") },
                 total = { Text("${uiState.questions.size}") },
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
             ) {
-                //TODO: Create progress content
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(165.dp)
+                )
             }
             HorizontalPager(
                 state = pagerState,
                 verticalAlignment = Alignment.Top,
-                modifier = Modifier
-                    .weight(1f),
                 contentPadding = PaddingValues(16.dp),
                 pageSpacing = 16.dp,
             ) { page ->
                 val question = uiState.questions[page]
                 val coroutineScope = rememberCoroutineScope()
-                val scrollableState = rememberScrollState()
-                Column(modifier = Modifier.verticalScroll(scrollableState)) {
+                Column {
                     QuestionCard(
                         question = question,
                         onSelectedAnswer = { q, i ->
@@ -175,7 +189,24 @@ private fun Example(modifier: Modifier = Modifier) {
             ),
             onSelectedAnswer = { _, _ -> },
             onNavigateUp = {},
-            uiState = QuizUiState().copy(questions = emptyList())
+            uiState = QuizUiState().copy(
+                questions = listOf(
+                    Question(
+                        question = "Consider a complex custom layout in Compose that requires precise measurement and placement of children based on dynamic content. How would you optimize its performance to minimize recompositions and layout passes, especially when dealing with large datasets?",
+                        options = listOf(
+                            "Using `Modifier.layout` with direct manipulation of `Placeable` instances and extensive caching.",
+                            "Relying solely on built-in Compose layouts and modifiers, hoping for automatic optimization.",
+                            "Creating a custom `Layout` composable with minimal logic and relying on recomposition for updates.",
+                            "Using `SubcomposeLayout` for all child elements, regardless of complexity."
+                        ),
+                        topic = "Jetpack Compose",
+                        correctAnswerIndex = 0,
+                        difficulty = "Hard",
+                        explanation = "Direct manipulation of `Placeable` instances in `Modifier.layout` and strategic caching allows for fine-grained control and performance optimization. It minimizes unnecessary recompositions and layout calculations.",
+                        tags = listOf("performance", "custom layout", "optimization")
+                    ),
+                )
+            )
         )
     }
 }

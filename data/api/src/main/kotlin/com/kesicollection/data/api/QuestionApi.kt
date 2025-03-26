@@ -9,6 +9,20 @@ interface QuestionApi {
 fun mockedQuestions(): List<Question> {
     return listOf(
         Question(
+            question = "Short",
+            options = listOf(
+                "Short",
+                "Short",
+                "Short",
+                "Short."
+            ),
+            topic = "Jetpack Compose",
+            correctAnswerIndex = 0,
+            difficulty = "Hard",
+            explanation = "Short",
+            tags = listOf("performance", "custom layout", "optimization")
+        ),
+        Question(
             question = "Consider a complex custom layout in Compose that requires precise measurement and placement of children based on dynamic content. How would you optimize its performance to minimize recompositions and layout passes, especially when dealing with large datasets?",
             options = listOf(
                 "Using `Modifier.layout` with direct manipulation of `Placeable` instances and extensive caching.",
