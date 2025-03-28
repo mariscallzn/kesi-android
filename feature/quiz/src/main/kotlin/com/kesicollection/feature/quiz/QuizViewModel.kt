@@ -28,9 +28,14 @@ class QuizViewModel @Inject constructor(
                     is QuizIntent.FetchQuestionsByName -> fetchQuestionsByTopicName(it.name)
                     is QuizIntent.SubmitAnswer -> selectAnswer(it.questionId, it.selectedIndex)
                     QuizIntent.HideNextButton -> reducer { copy(showNextButton = false) }
+                    is QuizIntent.QuestionSelected -> questionSelected(it.questionIndex)
                 }
             }
         }
+    }
+
+    private fun questionSelected(questionIndex: Int) {
+        reducer { copy(showNextButton = uiState.value.selectedAnswers[questionIndex] != null) }
     }
 
     private fun selectAnswer(questionId: String, selectedIndex: Int) {

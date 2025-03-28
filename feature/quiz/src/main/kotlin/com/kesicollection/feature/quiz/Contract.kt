@@ -17,6 +17,7 @@ sealed interface QuizIntent {
     ) : QuizIntent
 
     data object HideNextButton : QuizIntent
+    data class QuestionSelected(val questionIndex: Int) : QuizIntent
 }
 
 /**

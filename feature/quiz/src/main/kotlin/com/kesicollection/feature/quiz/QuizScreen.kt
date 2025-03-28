@@ -89,6 +89,7 @@ fun QuizScreen(
         topic = topic,
         onSelectedAnswer = viewModel::sendIntent,
         hideNextButton = viewModel::sendIntent,
+        onQuestionSelected = viewModel::sendIntent,
         onNavigateUp = onNavigateUp,
         modifier = modifier
     )
@@ -101,11 +102,16 @@ fun QuizScreen(
  * This screen presents a series of questions to the user, allowing them to select answers and track their progress.
  * It features a top app bar, a floating action button for navigation, and a progress card to visualize the user's advancement.
  * The screen dynamically updates based on the [uiState] and allows interaction through callbacks for answer submission and navigation.
+ *  The quiz is displayed using a [HorizontalPager] for smooth transitions between questions.
+ *  The progress is tracked using a progress bar and a table with [ProgressTable].
  *
  * @param uiState The current state of the quiz UI, containing questions, loading status, and other relevant information.
+ *                It also shows whether the "next" button should be shown or not.
  * @param topic The topic associated with the quiz, used to display the quiz title.
  * @param onSelectedAnswer Callback invoked when the user selects an answer for a question. It takes a [QuizIntent.SubmitAnswer] as parameter.
  * @param hideNextButton Callback to be invoked to hide next button. It takes a [QuizIntent.HideNextButton] as parameter.
+ * @param onQuestionSelected Callback invoked when a question is selected from the progress table.
+ *      It provides a [QuizIntent.QuestionSelected] containing the index of the selected question.
  * @param onNavigateUp Callback invoked when the user wants to navigate back from the quiz screen.
  * @param modifier Modifier to be applied to the root layout of the quiz screen.
  */
@@ -116,6 +122,7 @@ internal fun QuizScreen(
     topic: Topic,
     onSelectedAnswer: (QuizIntent.SubmitAnswer) -> Unit,
     hideNextButton: (QuizIntent.HideNextButton) -> Unit,
+    onQuestionSelected: (QuizIntent.QuestionSelected) -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -216,7 +223,12 @@ internal fun QuizScreen(
                         ) {
                             ProgressTable(
                                 state = progressTableState,
-                                onIndexClick = { },
+                                onIndexClick = {
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(it)
+                                        onQuestionSelected(QuizIntent.QuestionSelected(it))
+                                    }
+                                },
                                 selectedAnswers = { uiState.selectedAnswers }
                             )
                         }
@@ -269,6 +281,7 @@ private fun Example(modifier: Modifier = Modifier) {
             ),
             onSelectedAnswer = { },
             hideNextButton = { },
+            onQuestionSelected = {},
             onNavigateUp = {},
             uiState = UiState(
                 isLoading = false,
