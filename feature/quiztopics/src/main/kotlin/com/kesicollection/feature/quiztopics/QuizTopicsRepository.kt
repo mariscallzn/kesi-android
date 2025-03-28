@@ -18,10 +18,10 @@ class QuizTopicsRepositoryImpl @Inject constructor(
 ) : QuizTopicsRepository {
     override suspend fun fetchTopics(): Result<List<TopicCard>> = Result.runCatching {
         questionApi.fetchQuestions().getOrThrow().groupBy {
-            it.topic
+            it.topic.name
         }.map { pair ->
             TopicCard(
-                topic = Topic(name = pair.key.name),
+                topic = Topic(name = pair.key),
                 totalQuestions = pair.value.size
             )
         }
