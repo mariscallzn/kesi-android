@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.feature.quiz)
     implementation(projects.feature.quiztopics)
+    implementation(projects.feature.doggallery)
 
     implementation(projects.data.retrofit)
     implementation(projects.data.room)

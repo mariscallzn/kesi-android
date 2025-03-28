@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kesicollection.core.model.AppRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.doggallery.dogGallery
 import com.kesicollection.feature.quiz.QuizRoute
 import com.kesicollection.feature.quiz.navigateToQuiz
 import com.kesicollection.feature.quiz.quiz
@@ -15,14 +16,19 @@ import com.kesicollection.feature.quiztopics.quizTopics
 
 /**
  * [AppNavigation] is the main navigation component for the application.
- * It uses a [NavHost] to manage the navigation between different screens.
+ * It uses a [NavHost] to define and manage the application's navigation graph.
+ *
+ * This composable sets up the navigation host and defines the available destinations within it.
+ * It handles navigation between different screens, each defined as a composable destination
+ * within the [NavHost].
  *
  * @sample com.kesicollection.kesiandroid.ExampleAppNavigation
  *
- * @param navController The [NavHostController] that manages the navigation state.
- * @param startDestination The initial destination route where the navigation starts.
- * This must be any data class or data object that inherits from [AppRoute]
- * @param modifier Modifier for styling and layout adjustments of the `NavHost`. Defaults to `Modifier`.
+ * @param navController The [NavHostController] that manages the navigation state and back stack.
+ * @param startDestination The initial [AppRoute] where the navigation begins.
+ * This should be an instance of a class or object that implements [AppRoute].
+ * @param modifier Modifier for styling and layout adjustments applied to the underlying `NavHost`.
+ * Defaults to [Modifier] for no specific styling.
  */
 @Composable
 fun AppNavigation(
@@ -42,6 +48,7 @@ fun AppNavigation(
             modifier = modifier,
             onTopicClick = navController::onTopicClick
         )
+        dogGallery(modifier = modifier)
     }
 }
 

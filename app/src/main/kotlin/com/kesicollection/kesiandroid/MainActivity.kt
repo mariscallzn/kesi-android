@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.doggallery.DogGallery
 import com.kesicollection.feature.quiztopics.QuizTopicsRoute
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
             KesiTheme {
                 AppNavigation(
                     navController = rememberNavController(),
-                    startDestination = QuizTopicsRoute,
+                    startDestination = DogGallery,
                     modifier = Modifier.fillMaxSize()
                 )
             }
