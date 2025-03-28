@@ -1,5 +1,6 @@
 package com.kesicollection.core.uisystem.component
 
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.Spring
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -37,12 +37,11 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.core.uisystem.component.SingleOptionDefaults.colorAnimation
 import com.kesicollection.core.uisystem.component.SingleOptionDefaults.trailingScaleAnimation
+import com.kesicollection.core.uisystem.theme.KesiTheme
 
 /**
  * This composable renders content within a rounded outline. You can add a [trailing] element,
@@ -67,10 +66,11 @@ fun SingleOption(
     modifier: Modifier = Modifier,
     trailing: @Composable () -> Unit = {},
     color: () -> Color = { Color.Unspecified },
-    trailingScale: () -> Float = { 1f },
+//    trailingScale: () -> Float = { 1f },
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
+    Log.d("Andres", "QuestionCard: QUEPEDO!!!")
     val shape = MaterialTheme.shapes.large
     val currentDensity = LocalDensity.current
 
@@ -110,19 +110,7 @@ fun SingleOption(
                 content()
             }
 
-            Surface(
-                modifier = Modifier
-                    .widthIn(24.dp)
-                    .graphicsLayer {
-                        val scale = trailingScale().coerceIn(0f, 1f)
-                        scaleX = scale
-                        scaleY = scale
-                        transformOrigin = TransformOrigin.Center
-                    },
-                contentColor = color(),
-                color = Color.Transparent,
-                content = trailing
-            )
+            trailing()
         }
     }
 }
@@ -255,12 +243,6 @@ private fun LightDarkSingleAnswerOption() {
     ExampleSingleOption()
 }
 
-@Preview
-@Composable
-private fun PreviewSingleOption() {
-    ExampleSingleOption(Modifier.fillMaxSize())
-}
-
 @Composable
 private fun ExampleSingleOption(modifier: Modifier = Modifier) {
     val rotation = listOf(
@@ -286,7 +268,7 @@ private fun ExampleSingleOption(modifier: Modifier = Modifier) {
                 trailing = {
                     Text("Passed")
                 },
-                trailingScale = { scale },
+//                trailingScale = { scale },
                 onClick = {
                     answeredOptionIndex = (answeredOptionIndex + 1) % rotation.size
                 },

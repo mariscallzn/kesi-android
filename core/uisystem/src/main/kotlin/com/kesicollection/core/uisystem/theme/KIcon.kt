@@ -7,6 +7,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ExpandMore
 
 object KIcon {
@@ -16,5 +17,5 @@ object KIcon {
     val Check = Icons.Rounded.Check
     val Cancel = Icons.Rounded.Cancel
     val ChevronRight = Icons.Rounded.ChevronRight
-    val Add = Icons.Rounded.Add
+    val Close = Icons.Rounded.Close
 }

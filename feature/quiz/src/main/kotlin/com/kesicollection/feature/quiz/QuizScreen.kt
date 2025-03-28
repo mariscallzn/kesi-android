@@ -54,6 +54,7 @@ import com.kesicollection.feature.quiz.component.ProgressTable
 import com.kesicollection.feature.quiz.component.QuestionCard
 import com.kesicollection.feature.quiz.component.TextQuestion
 import com.kesicollection.feature.quiz.component.rememberProgressTableState
+import com.kesicollection.feature.quiz.component.rememberQuestionCardState
 import kotlinx.coroutines.launch
 
 /**
@@ -228,8 +229,10 @@ internal fun QuizScreen(
                         userScrollEnabled = false
                     ) { page ->
                         val question = uiState.questions[page]
+                        val questionCardState = rememberQuestionCardState()
                         Column {
                             QuestionCard(
+                                state = questionCardState,
                                 question = question,
                                 onSelectedAnswer = { q, i ->
                                     coroutineScope.launch {
