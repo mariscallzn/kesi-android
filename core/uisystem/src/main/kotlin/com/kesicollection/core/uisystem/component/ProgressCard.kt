@@ -89,7 +89,10 @@ fun ExpandableProgressCard(
                 )
             }
         }
-        AnimatedVisibility(state()) { content() }
+        AnimatedVisibility(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            visible = state(),
+        ) { content() }
     }
 }
 
