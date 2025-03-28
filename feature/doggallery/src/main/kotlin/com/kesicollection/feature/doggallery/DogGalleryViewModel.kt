@@ -47,7 +47,7 @@ class DogGalleryViewModel @Inject constructor(
 
     private fun fetchDogsByBreed(breed: String) {
         viewModelScope.launch {
-            val images = repo.getDogImagesByBreed(breed, 10).getOrThrow()
+            val images = repo.getDogImagesByBreed(breed, 50).getOrThrow()
             reduce { copy(images = images) }
         }
     }
