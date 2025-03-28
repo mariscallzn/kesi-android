@@ -5,6 +5,7 @@ import coil3.ImageLoader
 import coil3.network.NetworkFetcher
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import coil3.request.crossfade
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoint
@@ -49,6 +50,24 @@ interface ImageLoaderEntryPoint {
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class DogGalleryModule {
+
+    /**
+     * Binds the concrete implementation [DogGalleryRepositoryImpl] to the [DogGalleryRepository] interface.
+     *
+     * This provides a way for dependency injection to resolve dependencies on [DogGalleryRepository]
+     * with an instance of [DogGalleryRepositoryImpl].
+     *
+     * This binding is scoped to the [SingletonComponent], ensuring a single instance of the repository
+     * is used throughout the application.
+     *
+     * @param impl The concrete implementation of the dog gallery repository.
+     * @return An instance of [DogGalleryRepository].
+     */
+    @Singleton
+    @Binds
+    abstract fun bindDogGalleryRepository(
+        impl: DogGalleryRepositoryImpl
+    ): DogGalleryRepository
 
     companion object {
         @Provides

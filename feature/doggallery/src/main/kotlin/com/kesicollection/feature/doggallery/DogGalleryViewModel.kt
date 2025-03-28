@@ -2,15 +2,19 @@ package com.kesicollection.feature.doggallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class DogGalleryViewModel @Inject constructor() : ViewModel() {
+@HiltViewModel
+class DogGalleryViewModel @Inject constructor(
+    private val repo: DogGalleryRepository
+) : ViewModel() {
 
-    private val intent = MutableSharedFlow<Intent>()
+    private val intentFlow = MutableSharedFlow<Intent>()
 
     private var _uiState = MutableStateFlow(initialState)
     val uiState: StateFlow<UiDoggGalleryState>
@@ -18,7 +22,7 @@ class DogGalleryViewModel @Inject constructor() : ViewModel() {
 
     init {
         viewModelScope.launch {
-            intent.collect {
+            intentFlow.collect {
                 processIntent(it)
             }
         }
@@ -29,17 +33,22 @@ class DogGalleryViewModel @Inject constructor() : ViewModel() {
         _uiState.value = newState
     }
 
-    fun sendIntent() {
-
+    fun sendIntent(intent: Intent) {
+        viewModelScope.launch {
+            intentFlow.emit(intent)
+        }
     }
 
     private fun processIntent(intent: Intent) {
-        when(intent) {
+        when (intent) {
             is Intent.FetchDogsByBreed -> fetchDogsByBreed(intent.breed)
         }
     }
 
     private fun fetchDogsByBreed(breed: String) {
-        //TODO:
+        viewModelScope.launch {
+            val images = repo.getDogImagesByBreed(breed, 10).getOrThrow()
+            reduce { copy(images = images) }
+        }
     }
 }

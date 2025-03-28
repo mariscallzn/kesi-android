@@ -1,9 +1,13 @@
 package com.kesicollection.feature.doggallery
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +36,10 @@ fun DogGalleryScreen(
         ImageLoaderEntryPoint::class.java
     ).imageLoader()
 
+    LaunchedEffect(Unit) {
+        viewModel.sendIntent(Intent.FetchDogsByBreed("maltese"))
+    }
+
     CompositionLocalProvider(LocalImageLoader provides imageLoader) {
         DogGalleryScreen(
             uiState = uiState,
@@ -45,13 +53,14 @@ fun DogGalleryScreen(
     uiState: UiDoggGalleryState,
     modifier: Modifier = Modifier
 ) {
-    AsyncImage(
-        modifier = modifier,
-        model = ImageRequest.Builder(LocalContext.current)
-            .data("https://images.dog.ceo/breeds/corgi-cardigan/n02113186_4711.jpg")
-            .crossfade(true)
-            .build(),
-        imageLoader = LocalImageLoader.current,
-        contentDescription = ""
-    )
+    LazyColumn(modifier = modifier) {
+        items(uiState.images, key = { it }) { image ->
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current).data(image).crossfade(true)
+                    .build(),
+                contentDescription = "",
+                imageLoader = LocalImageLoader.current
+            )
+        }
+    }
 }
