@@ -70,21 +70,58 @@ abstract class DogGalleryModule {
     ): DogGalleryRepository
 
     companion object {
+
+        /**
+         * Provides a singleton instance of [OkHttpClient].
+         *
+         * This [OkHttpClient] is configured with a basic interceptor that
+         * simply proceeds with the original request, making it ready for adding
+         * more complex interceptors in the future if needed.
+         *
+         * @return A singleton instance of [OkHttpClient].
+         */
         @Provides
         @Singleton
         fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addInterceptor {
                 // Keep it ready for extensions
                 it.proceed(it.request())
-            }
-            .build()
+            }.build()
 
+        /**
+         * Provides a [NetworkFetcher.Factory] for fetching images over the network using OkHttp.
+         *
+         * This function creates and returns an instance of [OkHttpNetworkFetcherFactory], which is
+         * responsible for creating [NetworkFetcher] instances that use OkHttp for network requests.
+         *
+         * The factory is configured to use the provided [OkHttpClient] for making network calls.
+         *
+         * This provider is scoped to the [SingletonComponent], ensuring a single instance of the
+         * fetcher factory is available throughout the application.
+         *
+         * @param okHttpClient The [OkHttpClient] instance to be used by the network fetcher factory.
+         * @return A [NetworkFetcher.Factory] instance configured with OkHttp.
+         */
         @Provides
         @Singleton
         fun providesNetworkFetcherFactory(
             okHttpClient: OkHttpClient
         ): NetworkFetcher.Factory = OkHttpNetworkFetcherFactory(callFactory = { okHttpClient })
 
+        /**
+         * Provides a singleton instance of [ImageLoader] configured for the application.
+         *
+         * This method configures the [ImageLoader] with:
+         * - Crossfade transition enabled for smooth image loading.
+         * - [NetworkFetcher.Factory] for handling network image requests using OkHttp.
+         *
+         * The [ImageLoader] instance is built using the application context and is intended for
+         * general-purpose image loading throughout the application.
+         *
+         * @param context The application context, used to initialize the [ImageLoader].
+         * @param okHttpNetworkFetcherFactory The [NetworkFetcher.Factory] for handling network image requests.
+         * @return A configured [ImageLoader] instance.
+         */
         @Provides
         @Singleton
         fun providesImageLoader(
