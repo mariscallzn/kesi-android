@@ -47,21 +47,21 @@ fun DogGalleryScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-//    val imageLoader = EntryPointAccessors.fromApplication(
-//        LocalContext.current.applicationContext,
-//        ImageLoaderEntryPoint::class.java
-//    ).imageLoader()
+    val imageLoader = EntryPointAccessors.fromApplication(
+        LocalContext.current.applicationContext,
+        ImageLoaderEntryPoint::class.java
+    ).imageLoader()
 
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.FetchDogsByBreed("maltese"))
     }
 
-//    CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+    CompositionLocalProvider(LocalImageLoader provides imageLoader) {
         DogGalleryScreen(
             uiState = uiState,
             modifier = modifier,
         )
-//    }
+    }
 }
 
 @Composable
@@ -79,19 +79,19 @@ fun DogGalleryScreen(
                 .padding(innerPadding)
         ) {
             items(uiState.images, key = { it }) { image ->
-//                AsyncImage(
-//                    modifier = Modifier
-//                        .clip(RoundedCornerShape(5))
-//                        .fillMaxWidth()
-//                        .wrapContentHeight(),
-//                    contentScale = ContentScale.Crop,
-//                    model = ImageRequest.Builder(LocalContext.current)
-//                        .data(image)
-//                        .crossfade(true)
-//                        .build(),
-//                    contentDescription = "",
-//                    imageLoader = LocalImageLoader.current
-//                )
+                AsyncImage(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(5))
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    contentScale = ContentScale.Crop,
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "",
+                    imageLoader = LocalImageLoader.current
+                )
             }
         }
     }

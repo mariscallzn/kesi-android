@@ -16,7 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.ImageLoader
 import com.kesicollection.articles.componets.Article
 import com.kesicollection.core.uisystem.component.KScaffold
-import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.EntryPoints
 
 /**
  * Provides a [CompositionLocal] for accessing an [ImageLoader] instance.
@@ -39,9 +39,9 @@ fun ArticlesScreen(
     modifier: Modifier = Modifier,
     viewModel: ArticlesViewModel = hiltViewModel()
 ) {
-    val imageLoader = EntryPointAccessors.fromApplication(
-        context = LocalContext.current.applicationContext,
-        entryPoint = ImageLoaderEntryPoint::class.java
+    val imageLoader = EntryPoints.get(
+        LocalContext.current.applicationContext,
+        ImageLoaderEntryPoint::class.java
     ).imageLoader()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
