@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.doggallery.DogGallery
 import com.kesicollection.feature.quiztopics.QuizTopicsRoute
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
             KesiTheme {
                 AppNavigation(
                     navController = rememberNavController(),
-                    startDestination = QuizTopicsRoute,
+                    startDestination = ArticlesRoute,
                     modifier = Modifier.fillMaxSize()
                 )
             }

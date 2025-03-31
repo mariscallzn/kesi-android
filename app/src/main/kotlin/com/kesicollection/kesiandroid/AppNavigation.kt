@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.kesicollection.articles.articles
 import com.kesicollection.core.model.AppRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.doggallery.dogGallery
@@ -49,6 +50,7 @@ fun AppNavigation(
             onTopicClick = navController::onTopicClick
         )
         dogGallery(modifier = modifier)
+        articles(modifier = modifier)
     }
 }
 
