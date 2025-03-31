@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             KesiTheme {
                 AppNavigation(
                     navController = rememberNavController(),
-                    startDestination = DogGallery,
+                    startDestination = QuizTopicsRoute,
                     modifier = Modifier.fillMaxSize()
                 )
             }

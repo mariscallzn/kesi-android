@@ -13,7 +13,7 @@ interface QuestionApi {
 fun mockedQuestions(): List<Question> {
     return listOf(
         Question(
-            questionType = QuestionType.Text,
+            questionType = QuestionType.CodeSnippet,
             content = "Pattern with inherent challenges in managing complex side effects:",
             options = listOf("MVC", "MVP", "MVVM", "MVI"),
             topic = Topic(name = "Android Architecture"),
