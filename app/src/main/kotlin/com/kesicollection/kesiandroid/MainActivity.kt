@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.doggallery.DogGallery
-import com.kesicollection.feature.quiztopics.QuizTopicsRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

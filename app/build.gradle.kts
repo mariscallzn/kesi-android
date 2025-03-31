@@ -31,9 +31,6 @@ android {
 dependencies {
     implementation(projects.core.uisystem)
     implementation(projects.core.model)
-    implementation(projects.feature.quiz)
-    implementation(projects.feature.quiztopics)
-    implementation(projects.feature.doggallery)
     implementation(projects.feature.articles)
 
     implementation(projects.data.retrofit)
