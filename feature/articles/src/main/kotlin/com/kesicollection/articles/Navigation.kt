@@ -9,8 +9,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object ArticlesRoute : AppRoute
 
-fun NavGraphBuilder.articles(modifier: Modifier = Modifier) {
+fun NavGraphBuilder.articles(
+    modifier: Modifier = Modifier,
+    onArticleClick: (id: String) -> Unit,
+) {
     composable<ArticlesRoute> {
-        ArticlesScreen(modifier = modifier)
+        ArticlesScreen(modifier = modifier, onArticleClick)
     }
 }

@@ -1,5 +1,6 @@
 package com.kesicollection.kesiandroid
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -50,7 +51,9 @@ fun AppNavigation(
             onTopicClick = navController::onTopicClick
         )
         dogGallery(modifier = modifier)
-        articles(modifier = modifier)
+        articles(modifier = modifier, onArticleClick = {
+            Log.d(this::class.java.name, "AppNavigation: onArticleClick $it")
+        })
     }
 }
 

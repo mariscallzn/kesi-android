@@ -15,16 +15,16 @@ class FetchArticlesIntentProcessor @Inject constructor(
             copy(
                 articles = listOf(
                     UiArticle(
-                        title = "Article 1",
-                        description = "Description 1",
-                        articleId = "2",
-                        thumbnail = "https://images.ctfassets.net/23aumh6u8s0i/4JQe27JmEip0X21uRGa0sr/ae23bfa547ed18a019c6fd92615f1eff/jetpack_compose_icon.png",
+                        title = "Modern Android development ",
+                        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.",
+                        articleId = "1",
+                        thumbnail = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
                     ),
                     UiArticle(
-                        title = "Article 1",
-                        description = "Description 1",
-                        articleId = "1",
-                        thumbnail = "https://images.ctfassets.net/23aumh6u8s0i/4JQe27JmEip0X21uRGa0sr/ae23bfa547ed18a019c6fd92615f1eff/jetpack_compose_icon.png",
+                        title = "Modern Android development ",
+                        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.",
+                        articleId = "2",
+                        thumbnail = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
                     )
                 )
             )
