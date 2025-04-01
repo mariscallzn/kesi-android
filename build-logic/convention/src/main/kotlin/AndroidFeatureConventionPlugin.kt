@@ -1,8 +1,12 @@
+import com.android.build.gradle.LibraryExtension
+import com.kesicollection.buildlogic.debugImplementation
 import com.kesicollection.buildlogic.implementation
 import com.kesicollection.buildlogic.libs
+import com.kesicollection.buildlogic.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -37,6 +41,14 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             apply(plugin = "kesiandroid.android.library")
             apply(plugin = "kesiandroid.hilt")
 
+            extensions.configure<LibraryExtension> {
+                testOptions {
+                    unitTests {
+                        isIncludeAndroidResources = true
+                    }
+                }
+            }
+
             dependencies {
                 implementation(project(":core:uisystem"))
                 implementation(project(":data:api"))
@@ -44,6 +56,11 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementation(libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
                 implementation(libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
                 implementation(libs.findLibrary("androidx.navigation.compose").get())
+
+                testImplementation(project(":testing"))
+                testImplementation(libs.findLibrary("robolectric").get())
+                debugImplementation(libs.findBundle("androidx.compose.ui.test").get())
+
             }
         }
     }

@@ -2,9 +2,6 @@ package com.kesicollection.articles
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -32,9 +30,8 @@ import coil3.ImageLoader
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
-import com.kesicollection.articles.componets.Article
-import com.kesicollection.articles.componets.LoadingArticles
-import com.kesicollection.articles.componets.ShimmerArticle
+import com.kesicollection.articles.components.Article
+import com.kesicollection.articles.components.LoadingArticles
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -130,9 +127,17 @@ internal fun ArticlesScreen(
         }
     ) { innerPadding ->
         if (uiState.isLoading) {
-            LoadingArticles(modifier = Modifier.padding(innerPadding))
+            LoadingArticles(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .testTag(":feature:articles:loading")
+            )
         } else {
-            LazyColumn(modifier = Modifier.padding(innerPadding)) {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .testTag(":feature:articles:articles")
+            ) {
                 itemsIndexed(uiState.articles, key = { _, item -> item.articleId }) { index, item ->
                     Article(article = item, onArticleClick = { onArticleClick(it.articleId) })
                     if (index < uiState.articles.size - 1) {

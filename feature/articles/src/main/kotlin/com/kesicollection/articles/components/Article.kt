@@ -1,4 +1,4 @@
-package com.kesicollection.articles.componets
+package com.kesicollection.articles.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -28,8 +29,6 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.kesicollection.articles.LocalImageLoader
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -67,13 +66,10 @@ fun Article(
             modifier = Modifier
                 .clip(RoundedCornerShape(5))
                 .heightIn(max = 80.dp)
-                .width(120.dp),
+                .width(120.dp)
+                .testTag(":feature:articles:imageArticle"),
             contentScale = ContentScale.Fit,
-            model =
-                ImageRequest.Builder(LocalContext.current)
-                    .data(article.thumbnail)
-                    .crossfade(true)
-                    .build(),
+            model = article.thumbnail,
             imageLoader = LocalImageLoader.current,
             contentDescription = null
         )

@@ -1,4 +1,4 @@
-package com.kesicollection.articles.componets
+package com.kesicollection.articles.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
