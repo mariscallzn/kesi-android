@@ -2,6 +2,9 @@ package com.kesicollection.articles
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,6 +33,8 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.componets.Article
+import com.kesicollection.articles.componets.LoadingArticles
+import com.kesicollection.articles.componets.ShimmerArticle
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -52,6 +57,21 @@ val LocalImageLoader = compositionLocalOf<ImageLoader> {
     error("")
 }
 
+/**
+ * Composable function that displays a screen for listing articles.
+ *
+ * This function fetches articles from the [ArticlesViewModel] and displays them in a list.
+ * It also handles the initial loading state and provides a mechanism to navigate to a
+ * detailed view of an article when clicked.
+ *
+ * The [ImageLoader] is provided through a [CompositionLocal], ensuring that components
+ * within this screen can easily access it for image loading operations.
+ *
+ * @param modifier Modifier for styling the layout.
+ * @param onArticleClick Callback invoked when an article is clicked, providing the article ID.
+ * @param viewModel The [ArticlesViewModel] instance used to manage and retrieve article data.
+ * It defaults to an instance provided by [hiltViewModel].
+ */
 @Composable
 fun ArticlesScreen(
     modifier: Modifier = Modifier,
@@ -78,6 +98,22 @@ fun ArticlesScreen(
     }
 }
 
+/**
+ * Internal composable function that renders the articles screen.
+ *
+ * This function is responsible for displaying the list of articles fetched from the
+ * [UiArticlesState]. It handles both the loading and success states of the articles data.
+ *
+ * - When `uiState.isLoading` is true, it shows a loading indicator ([LoadingArticles]).
+ * - When `uiState.isLoading` is false, it displays the list of articles using [LazyColumn]
+ *   and [Article] composables.
+ * - Each article is clickable, triggering [onArticleClick] with the corresponding article ID.
+ * - A divider is displayed between articles.
+ *
+ * @param uiState The current state of the articles UI, containing the loading state and the list of articles.
+ * @param onArticleClick Callback invoked when an article is clicked, providing the clicked article's ID.
+ * @param modifier Modifier for styling the layout.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ArticlesScreen(
@@ -93,16 +129,20 @@ internal fun ArticlesScreen(
             })
         }
     ) { innerPadding ->
-        LazyColumn(modifier = Modifier.padding(innerPadding)) {
-            itemsIndexed(uiState.articles, key = { _, item -> item.articleId }) { index, item ->
-                Article(article = item, onArticleClick = { onArticleClick(it.articleId) })
-                if (index < uiState.articles.size - 1) {
-                    Box(
-                        Modifier
-                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
-                            .height(1.dp)
-                            .fillParentMaxWidth()
-                    )
+        if (uiState.isLoading) {
+            LoadingArticles(modifier = Modifier.padding(innerPadding))
+        } else {
+            LazyColumn(modifier = Modifier.padding(innerPadding)) {
+                itemsIndexed(uiState.articles, key = { _, item -> item.articleId }) { index, item ->
+                    Article(article = item, onArticleClick = { onArticleClick(it.articleId) })
+                    if (index < uiState.articles.size - 1) {
+                        Box(
+                            Modifier
+                                .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
+                                .height(1.dp)
+                                .fillParentMaxWidth()
+                        )
+                    }
                 }
             }
         }
@@ -113,6 +153,12 @@ internal fun ArticlesScreen(
 @Composable
 private fun ArticlesScreenPreview() {
     ArticlesScreenExample()
+}
+
+@PreviewLightDark
+@Composable
+private fun LoadingArticlesScreenPreview() {
+    ArticlesScreenExample(uiState = UiArticlesState(isLoading = true))
 }
 
 @OptIn(ExperimentalCoilApi::class)

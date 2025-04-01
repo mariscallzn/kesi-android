@@ -3,6 +3,7 @@ package com.kesicollection.articles.intentprocessor
 import com.kesicollection.articles.IntentProcessor
 import com.kesicollection.articles.Reducer
 import com.kesicollection.articles.model.UiArticle
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -11,8 +12,11 @@ class FetchArticlesIntentProcessor @Inject constructor(
 
 ) : IntentProcessor {
     override suspend fun processIntent(reducer: (Reducer) -> Unit) {
+        reducer { copy(isLoading = true) }
+        delay(1500)
         reducer {
             copy(
+                isLoading = false,
                 articles = listOf(
                     UiArticle(
                         title = "Modern Android development ",

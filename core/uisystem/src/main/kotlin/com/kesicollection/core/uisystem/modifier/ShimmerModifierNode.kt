@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -122,6 +123,31 @@ private data class ShimmerElement(
  * @return A [Modifier] with the shimmer animation applied.
  */
 fun Modifier.animateShimmer(colors: List<Color>) = this then ShimmerElement(colors)
+
+/**
+ * Default values for the shimmer effect.
+ */
+object ShimmerModifierDefaults {
+
+    /**
+     * Provides a default list of colors for the shimmer effect.
+     *
+     * This list consists of surface container colors from the Material Theme, with varying alpha levels
+     * to create a subtle shimmer effect.
+     *
+     * @return A list of [Color] objects representing the default shimmer colors.
+     */
+    @Composable
+    fun defaultColorList() : List<Color> {
+        return listOf(
+            MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.2f),
+            MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.4f),
+            MaterialTheme.colorScheme.surfaceContainer,
+            MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.4f),
+            MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.2f),
+        )
+    }
+}
 
 @Preview
 @Composable
