@@ -1,6 +1,5 @@
 package com.kesicollection.kesiandroid
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -11,6 +10,9 @@ import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.articles.articles
 import com.kesicollection.core.model.AppRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.article.ArticleRoute
+import com.kesicollection.feature.article.article
+import com.kesicollection.feature.article.navigateToArticle
 
 /**
  * Defines the main navigation structure of the application.
@@ -39,8 +41,12 @@ fun AppNavigation(
         startDestination = startDestination
     ) {
         articles(modifier = modifier, onArticleClick = {
-            Log.d(this::class.java.name, "AppNavigation: onArticleClick $it")
+            navController.navigateToArticle(ArticleRoute(it))
         })
+        article(
+            modifier = modifier,
+            onNavigateUp = navController::onNavigateUp
+        )
     }
 }
 

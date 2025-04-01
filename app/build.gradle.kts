@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.core.uisystem)
     implementation(projects.core.model)
     implementation(projects.feature.articles)
+    implementation(projects.feature.article)
 
     implementation(projects.data.retrofit)
     implementation(projects.data.room)
