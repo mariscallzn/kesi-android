@@ -30,7 +30,7 @@ val testData = listOf<ContentType>(
     Paragraph(lorem.take(100)),
     BulletList(
         "Bullet list example with more data to test",
-        listOf(lorem.take(150), lorem, lorem.take(80), lorem.take(30), lorem)
+        listOf(lorem.take(150))
     ),
     Code("""
 ```
