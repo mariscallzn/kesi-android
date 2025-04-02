@@ -9,5 +9,6 @@ android {
 
 dependencies {
     implementation(libs.coil.compose)
+    implementation(libs.markdown)
     testImplementation(libs.coil.test)
 }
