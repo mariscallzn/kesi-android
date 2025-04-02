@@ -62,11 +62,11 @@ fun Code(
 
     AndroidView(
         modifier = modifier
-            .clip(RoundedCornerShape(5))
+            .clip(RoundedCornerShape(5.dp))
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(5)
+                RoundedCornerShape(5.dp)
             )
             .horizontalScroll(
                 rememberScrollState()
