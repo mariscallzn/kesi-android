@@ -1,6 +1,7 @@
 package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.uisystem.component.ContentType
+import com.kesicollection.core.uisystem.uimodel.UiPodcast
 import com.kesicollection.feature.article.Reducer
 import com.kesicollection.feature.article.components.BulletList
 import com.kesicollection.feature.article.components.Code
@@ -18,7 +19,12 @@ class FetchArticleIntentProcessor(
             copy(
                 isLoading = false,
                 title = "This is the loaded content $articleId",
-                content = testData
+                content = testData,
+                podcast = UiPodcast(
+                    title = "Building rock solid apps: The art of testing in jetpack compose",
+                    id = "",
+                    audioUrl = ""
+                )
             )
         }
     }

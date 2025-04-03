@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.core.uisystem.uimodel.UiPodcast
 
 /**
  * A composable function that displays a card representing a podcast.
@@ -36,14 +37,14 @@ import com.kesicollection.core.uisystem.theme.KesiTheme
  */
 @Composable
 fun PodcastCard(
-    uiPodcast: String = "TODO: Define the model",
-    onPodcastClick: (podcastId: String) -> Unit,
+    uiPodcast: UiPodcast,
+    onPodcastClick: (audioUrl: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .clickable { onPodcastClick(uiPodcast) },
+            .clickable { onPodcastClick(uiPodcast.audioUrl) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -55,7 +56,7 @@ fun PodcastCard(
         }
         Spacer(Modifier.width(16.dp))
         Text(
-            "Android Media Playback Power: Matering ExoPlayer, MediaSession and Background Audio",
+            uiPodcast.title,
             modifier = Modifier.weight(1f),
             maxLines = 3,
             overflow = TextOverflow.Ellipsis
@@ -82,13 +83,18 @@ fun PodcastCard(
 @PreviewLightDark
 @Composable
 private fun PodcastCardPreview() {
-    PodcastCardExample(modifier = Modifier.padding(8.dp))
+    PodcastCardExample(modifier = Modifier.padding(16.dp))
 }
 
 @Composable
 private fun PodcastCardExample(modifier: Modifier = Modifier) {
     KesiTheme {
         PodcastCard(
+            uiPodcast = UiPodcast(
+                id = "1",
+                title = "Podcast Title: This will generate a long test to show case the overflow of text",
+                audioUrl = "test"
+            ),
             modifier = modifier,
             onPodcastClick = {}
         )

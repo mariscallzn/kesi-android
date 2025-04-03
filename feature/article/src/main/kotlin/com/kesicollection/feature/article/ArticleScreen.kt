@@ -68,6 +68,7 @@ import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.component.PodcastCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.core.uisystem.uimodel.UiPodcast
 import com.kesicollection.feature.article.components.LoadingArticle
 import com.kesicollection.feature.article.intent.testData
 import dagger.hilt.android.EntryPointAccessors
@@ -248,19 +249,22 @@ fun ArticleScreen(
                             modifier = Modifier.fillParentMaxWidth()
                         )
                     }
-                    stickyHeader {
-                        Column(
-                            Modifier
-                                .background(MaterialTheme.colorScheme.surface)
-                        ) {
-                            AnimatedVisibility(shouldComeDown) {
+                    uiState.podcast?.let { podcast ->
+                        stickyHeader {
+                            Column(
+                                Modifier
+                                    .background(MaterialTheme.colorScheme.surface)
+                            ) {
+                                AnimatedVisibility(shouldComeDown) {
+                                    Spacer(Modifier.height(16.dp))
+                                }
+                                PodcastCard(
+                                    uiPodcast = podcast,
+                                    modifier = Modifier.fillParentMaxWidth(),
+                                    onPodcastClick = {}
+                                )
                                 Spacer(Modifier.height(16.dp))
                             }
-                            PodcastCard(
-                                modifier = Modifier.fillParentMaxWidth(),
-                                onPodcastClick = {}
-                            )
-                            Spacer(Modifier.height(16.dp))
                         }
                     }
                     items(
@@ -278,10 +282,26 @@ fun ArticleScreen(
 
 @PreviewLightDark
 @Composable
+private fun ArticleWithPodcastPreview() {
+    ArticleExample(
+        uiState = UiArticleState(
+            isLoading = false,
+            title = "This Articles comes with a podcast an a long header to see how it looks",
+            content = testData,
+            podcast = UiPodcast(
+                title = "Building rock solid apps: The art of testing in jetpack compose",
+                id = "",
+                audioUrl = ""
+            )
+        )
+    )
+}
+
+@PreviewLightDark
+@Composable
 private fun ArticlePreview() {
     ArticleExample()
 }
-
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
