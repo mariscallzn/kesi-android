@@ -38,13 +38,13 @@ import com.kesicollection.core.uisystem.uimodel.UiPodcast
 @Composable
 fun PodcastCard(
     uiPodcast: UiPodcast,
-    onPodcastClick: (audioUrl: String) -> Unit,
+    onPodcastClick: (uiPodcast: UiPodcast) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .clickable { onPodcastClick(uiPodcast.audioUrl) },
+            .clickable { onPodcastClick(uiPodcast) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

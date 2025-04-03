@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.feature.articles)
     implementation(projects.feature.article)
+    implementation(projects.feature.audioplayer)
 
     implementation(projects.data.retrofit)
     implementation(projects.data.room)

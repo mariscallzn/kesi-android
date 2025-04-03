@@ -102,6 +102,7 @@ val LocalImageLoader = compositionLocalOf<ImageLoader> {
 fun ArticleScreen(
     articleId: String,
     onNavigateUp: () -> Unit,
+    onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     viewModel: ArticleViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -120,6 +121,7 @@ fun ArticleScreen(
         ArticleScreen(
             uiState = uiState,
             onNavigateUp = onNavigateUp,
+            onPodcastClick = onPodcastClick,
             modifier = modifier,
         )
     }
@@ -138,9 +140,10 @@ fun ArticleScreen(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArticleScreen(
+internal fun ArticleScreen(
     uiState: UiArticleState,
     onNavigateUp: () -> Unit,
+    onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val maxSize = 320.dp
@@ -261,7 +264,7 @@ fun ArticleScreen(
                                 PodcastCard(
                                     uiPodcast = podcast,
                                     modifier = Modifier.fillParentMaxWidth(),
-                                    onPodcastClick = {}
+                                    onPodcastClick = { onPodcastClick(it.title, it.audioUrl) }
                                 )
                                 Spacer(Modifier.height(16.dp))
                             }
@@ -325,6 +328,7 @@ private fun ArticleExample(
                 ArticleScreen(
                     uiState = uiState,
                     onNavigateUp = {},
+                    onPodcastClick = { _, _ -> },
                     modifier = modifier,
                 )
             }

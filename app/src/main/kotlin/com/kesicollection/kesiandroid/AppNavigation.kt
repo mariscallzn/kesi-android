@@ -13,6 +13,9 @@ import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.ArticleRoute
 import com.kesicollection.feature.article.article
 import com.kesicollection.feature.article.navigateToArticle
+import com.kesicollection.feature.audioplayer.AudioPlayerRoute
+import com.kesicollection.feature.audioplayer.audioPlayer
+import com.kesicollection.feature.audioplayer.navigateToAudiPlayer
 
 /**
  * Defines the main navigation structure of the application.
@@ -44,6 +47,15 @@ fun AppNavigation(
             navController.navigateToArticle(ArticleRoute(it))
         })
         article(
+            modifier = modifier,
+            onNavigateUp = navController::onNavigateUp,
+            onPodcastClick = { title, url ->
+                navController.navigateToAudiPlayer(
+                    AudioPlayerRoute(title = title, url = url)
+                )
+            }
+        )
+        audioPlayer(
             modifier = modifier,
             onNavigateUp = navController::onNavigateUp
         )
