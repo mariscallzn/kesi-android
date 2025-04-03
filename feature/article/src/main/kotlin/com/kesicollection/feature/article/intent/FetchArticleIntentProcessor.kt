@@ -6,11 +6,14 @@ import com.kesicollection.feature.article.components.BulletList
 import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.SubHeader
+import kotlinx.coroutines.delay
 
 class FetchArticleIntentProcessor(
     private val articleId: String,
 ) : IntentProcessor {
     override suspend fun processIntent(reducer: (Reducer) -> Unit) {
+        reducer { copy(isLoading = true) }
+        delay(1500)
         reducer {
             copy(
                 isLoading = false,

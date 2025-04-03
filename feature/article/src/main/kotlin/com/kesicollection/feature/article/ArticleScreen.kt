@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -63,6 +64,7 @@ import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.article.components.LoadingArticle
 import com.kesicollection.feature.article.intent.testData
 import dagger.hilt.android.EntryPointAccessors
 
@@ -162,80 +164,93 @@ fun ArticleScreen(
                 }
             })
     ) {
-        BottomTopVerticalGradient(
-            Modifier
-                .height(maxSize)
-                .fillMaxWidth()
-                .offset {
-                    IntOffset(0, scrollOffset)
-                }
-                .align(Alignment.TopCenter)
-        ) {
-            AsyncImage(
-                model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
-                imageLoader = LocalImageLoader.current,
-                modifier = Modifier
+        if (uiState.isLoading) {
+            LoadingArticle(
+                Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = safeContent.calculateTopPadding(),
+                        bottom = safeContent.calculateBottomPadding()
+                    )
+            )
+        } else {
+            BottomTopVerticalGradient(
+                Modifier
                     .height(maxSize)
                     .fillMaxWidth()
-                    .blur(30.dp)
-            )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            val windowSize = currentWindowAdaptiveInfo().windowSizeClass
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                title = {}, navigationIcon = {
-                    IconButton(onNavigateUp) {
-                        Icon(KIcon.ArrowBack, "")
+                    .offset {
+                        IntOffset(0, scrollOffset)
                     }
-                })
-            LazyColumn(
-                state = lazyColumState,
-                contentPadding = PaddingValues(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = safeContent.calculateBottomPadding()
-                ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                    .align(Alignment.TopCenter)
             ) {
-                item(key = uiState.title, contentType = "Title") {
-                    Text(
-                        uiState.title,
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.Medium,
-                        ),
-                        modifier = Modifier.fillParentMaxWidth()
-                    )
-                }
-                item(key = "${uiState.imageUrl}+", contentType = "Image") {
-                    AsyncImage(
-                        model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
-                        contentDescription = null,
-                        imageLoader = LocalImageLoader.current,
-                        modifier = Modifier
-                            .heightIn(
-                                max = when (windowSize.windowWidthSizeClass) {
-                                    WindowWidthSizeClass.EXPANDED -> 550.dp
-                                    else -> 210.dp
-                                }
-                            )
-                            .fillParentMaxWidth()
-                            .wrapContentSize()
-                            .align(Alignment.CenterHorizontally)
-
-                    )
-                }
-                items(
-                    items = uiState.content,
-                    key = { it.uiId },
-                    contentType = { it.type }
+                AsyncImage(
+                    model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    imageLoader = LocalImageLoader.current,
+                    modifier = Modifier
+                        .height(maxSize)
+                        .fillMaxWidth()
+                        .blur(30.dp)
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                val windowSize = currentWindowAdaptiveInfo().windowSizeClass
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
+                    title = {}, navigationIcon = {
+                        IconButton(onNavigateUp) {
+                            Icon(KIcon.ArrowBack, "")
+                        }
+                    })
+                LazyColumn(
+                    state = lazyColumState,
+                    contentPadding = PaddingValues(
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = safeContent.calculateBottomPadding()
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    DisplayContent(it, modifier = Modifier.fillParentMaxWidth())
+                    item(key = uiState.title, contentType = "Title") {
+                        Text(
+                            uiState.title,
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            modifier = Modifier.fillParentMaxWidth()
+                        )
+                    }
+                    item(key = "${uiState.imageUrl}+", contentType = "Image") {
+                        AsyncImage(
+                            model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                            contentDescription = null,
+                            imageLoader = LocalImageLoader.current,
+                            modifier = Modifier
+                                .heightIn(
+                                    max = when (windowSize.windowWidthSizeClass) {
+                                        WindowWidthSizeClass.EXPANDED -> 550.dp
+                                        else -> 210.dp
+                                    }
+                                )
+                                .fillParentMaxWidth()
+                                .wrapContentSize()
+                                .align(Alignment.CenterHorizontally)
+
+                        )
+                    }
+                    items(
+                        items = uiState.content,
+                        key = { it.uiId },
+                        contentType = { it.type }
+                    ) {
+                        DisplayContent(it, modifier = Modifier.fillParentMaxWidth())
+                    }
                 }
             }
         }
