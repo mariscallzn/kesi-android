@@ -3,12 +3,13 @@ package com.kesicollection.core.uisystem.theme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowForward
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Podcasts
 
 object KIcon {
     val ArrowBack = Icons.AutoMirrored.Rounded.ArrowBack
@@ -18,4 +19,6 @@ object KIcon {
     val Cancel = Icons.Rounded.Cancel
     val ChevronRight = Icons.Rounded.ChevronRight
     val Close = Icons.Rounded.Close
+    val Podcasts = Icons.Rounded.Podcasts
+    val PlayArrow = Icons.Rounded.PlayArrow
 }

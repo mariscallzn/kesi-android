@@ -1,9 +1,12 @@
 package com.kesicollection.feature.article
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -62,6 +65,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
+import com.kesicollection.core.uisystem.component.PodcastCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.components.LoadingArticle
@@ -217,15 +221,6 @@ fun ArticleScreen(
                     ),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    item(key = uiState.title, contentType = "Title") {
-                        Text(
-                            uiState.title,
-                            style = MaterialTheme.typography.headlineMedium.copy(
-                                fontWeight = FontWeight.Medium,
-                            ),
-                            modifier = Modifier.fillParentMaxWidth()
-                        )
-                    }
                     item(key = "${uiState.imageUrl}+", contentType = "Image") {
                         AsyncImage(
                             model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
@@ -243,6 +238,30 @@ fun ArticleScreen(
                                 .align(Alignment.CenterHorizontally)
 
                         )
+                    }
+                    item(key = uiState.title, contentType = "Title") {
+                        Text(
+                            uiState.title,
+                            style = MaterialTheme.typography.headlineMedium.copy(
+                                fontWeight = FontWeight.Medium,
+                            ),
+                            modifier = Modifier.fillParentMaxWidth()
+                        )
+                    }
+                    stickyHeader {
+                        Column(
+                            Modifier
+                                .background(MaterialTheme.colorScheme.surface)
+                        ) {
+                            AnimatedVisibility(shouldComeDown) {
+                                Spacer(Modifier.height(16.dp))
+                            }
+                            PodcastCard(
+                                modifier = Modifier.fillParentMaxWidth(),
+                                onPodcastClick = {}
+                            )
+                            Spacer(Modifier.height(16.dp))
+                        }
                     }
                     items(
                         items = uiState.content,
