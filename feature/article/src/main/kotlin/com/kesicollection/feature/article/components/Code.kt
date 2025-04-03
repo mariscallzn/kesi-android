@@ -23,35 +23,53 @@ import com.kesicollection.core.uisystem.theme.KesiTheme
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.core.MarkwonTheme
+import java.util.UUID
+
 
 /**
- * Represents a code block content type for displaying code snippets.
+ * Represents a code block content type.
  *
- * @param content The code content to be displayed.
+ * This class encapsulates a string of code and provides a composable function to display it
+ * within the UI. It implements the [ContentType] interface and is designed to be used with
+ * the `DisplayContent` composable.
+ *
+ * @sample com.kesicollection.feature.article.components.CodeExample
+ *
+ * @param content The string content of the code block.
+ * @param uiId A unique identifier for this code block instance. Defaults to a newly generated UUID.
  */
-class Code(val content: String) : ContentType {
+class Code(
+    private val content: String,
+    override val uiId: String = UUID.randomUUID().toString()
+) : ContentType {
+    override val type: String
+        get() = this::class.simpleName!!
+
     @Composable
     override fun Content(modifier: Modifier) {
-        Code(
+        CodeContent(
             modifier = modifier,
             content = content
         )
     }
 }
 
+
 /**
- * Composable function to display code blocks with syntax highlighting.
+ * Composable function to display code content within a styled code block.
  *
- * **NOTE: This code has room for improvements but for the sake of speed we'll keep it like this
- * That is why this component it's localized with in this module and not in the `:uisystem`**
+ * This function takes a string of code as input and displays it within a styled
+ * code block using the `Markwon` library for Markdown rendering. The code block
+ * is designed to be visually distinct, with customizable colors based on the
+ * current system theme (light or dark).
  *
- * @sample com.kesicollection.feature.article.components.CodeExample
- *
- * @param content The code content to be displayed.
- * @param modifier Modifier to apply to the code block container.
+ * @param content The string content of the code to be displayed.
+ * @param modifier Modifier to apply to the code block container. This allows for
+ *  customization of the layout and appearance of the code block. By default it uses
+ *  a horizontal scroll and rounded corners.
  */
 @Composable
-fun Code(
+fun CodeContent(
     content: String,
     modifier: Modifier = Modifier
 ) {
@@ -120,6 +138,6 @@ val textView = TextView(context).apply {
     modifier: Modifier = Modifier
 ) {
     KesiTheme {
-        DisplayContent(Code(content), modifier = modifier)
+        DisplayContent(Code(content = content), modifier = modifier)
     }
 }

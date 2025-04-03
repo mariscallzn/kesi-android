@@ -193,12 +193,11 @@ private fun ArticlesScreenExample(
             ColorImage(imageColor.toArgb())
         }
 
+        val imageLoader = ImageLoader.Builder(LocalContext.current)
+            .build()
+
         CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
-            CompositionLocalProvider(
-                LocalImageLoader provides ImageLoader.Builder(
-                    LocalContext.current
-                ).build()
-            ) {
+            CompositionLocalProvider(LocalImageLoader provides imageLoader) {
                 ArticlesScreen(
                     modifier = modifier,
                     uiState = uiState,

@@ -6,7 +6,6 @@ import com.kesicollection.feature.article.components.BulletList
 import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.SubHeader
-import kotlinx.coroutines.delay
 
 class FetchArticleIntentProcessor(
     private val articleId: String,
@@ -32,7 +31,8 @@ val testData = listOf<ContentType>(
         "Bullet list example with more data to test",
         listOf(lorem.take(150))
     ),
-    Code("""
+    Code(
+        """
 ```
 import android.view.ViewGroup
 import android.widget.TextView
@@ -120,6 +120,7 @@ private fun CodePreview() {
     )
 }                      
 ```
-        """.trimIndent()),
+        """.trimIndent()
+    ),
     Paragraph(lorem),
 )

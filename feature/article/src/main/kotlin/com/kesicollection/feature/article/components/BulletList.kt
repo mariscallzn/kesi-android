@@ -21,11 +21,25 @@ import androidx.compose.ui.unit.dp
 import com.kesicollection.core.uisystem.component.ContentType
 import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import java.util.UUID
 
+/**
+ * Represents a bulleted list content type.
+ *
+ * @sample com.kesicollection.feature.article.components.BulletListExample
+ *
+ * @property content The introductory content displayed above the bullet points.
+ * @property bullets The list of bullet points to display.
+ * @property uiId A unique identifier for this content instance. Defaults to a randomly generated UUID.
+ */
 class BulletList(
     val content: String,
-    val bullets: List<String>
+    val bullets: List<String>,
+    override val uiId: String = UUID.randomUUID().toString()
 ) : ContentType {
+    override val type: String
+        get() = this::class.simpleName!!
+
     @Composable
     override fun Content(modifier: Modifier) {
         BulletListContent(
@@ -36,6 +50,13 @@ class BulletList(
     }
 }
 
+/**
+ * Composable function that displays a bulleted list.
+ *
+ * @param content The introductory text displayed above the list of bullets.
+ * @param bullets The list of strings to be displayed as bullet points.
+ * @param modifier Modifier to apply to the container of the bullet list.
+ */
 @Composable
 fun BulletListContent(
     content: String,
@@ -88,6 +109,11 @@ private fun BulletListExample(
     modifier: Modifier = Modifier
 ) {
     KesiTheme {
-        DisplayContent(BulletList(content, bullets), modifier = modifier)
+        DisplayContent(
+            contentType = BulletList(
+                content = content,
+                bullets = bullets
+            ), modifier = modifier
+        )
     }
 }
