@@ -1,60 +1,26 @@
 package com.kesicollection.data.retrofit
 
 import com.kesicollection.core.model.Article
-import com.kesicollection.core.model.ArticleContent
 import com.kesicollection.data.api.ArticleApi
+import com.kesicollection.data.retrofit.model.kesiandroid.asArticle
+import com.kesicollection.data.retrofit.service.KesiAndroidService
 import javax.inject.Inject
 
+/**
+ * Implementation of [ArticleApi] that fetches article data from a remote source using Retrofit.
+ *
+ * This class utilizes the [KesiAndroidService] to communicate with the backend API.
+ *
+ * @property kesiAndroidService The service responsible for handling network requests to the Kesi Android API.
+ */
 class RetrofitArticleApi @Inject constructor(
-//    private val kesiAndroidService: KesiAndroidService,
+    private val kesiAndroidService: KesiAndroidService,
 ) : ArticleApi {
-    override suspend fun getAll(): Result<List<Article>> {
-        return Result.success(
-            listOf(
-                Article(
-                    "1",
-                    "title1",
-                    "description1",
-                    "thumbnail1"
-                ),
-                Article(
-                    "2",
-                    "title2",
-                    "description2",
-                    "thumbnail2"
-                ),
-                Article(
-                    "3",
-                    "title3",
-                    "description3",
-                    "thumbnail3"
-                ),
-                Article(
-                    "4",
-                    "title4",
-                    "description4",
-                    "thumbnail4"
-                ),
-                Article(
-                    "5",
-                    "title5",
-                    "description5",
-                    "thumbnail5"
-                ),
-                Article(
-                    "6",
-                    "title6",
-                    "description6",
-                    "thumbnail6"
-                ),
-                Article(
-                    "7", "title7", "description7", "thumbnail7"
-                )
-            )
-        )
+    override suspend fun getAll(): Result<List<Article>> = Result.runCatching {
+        kesiAndroidService.fetchAllArticles().getOrThrow().map { it.asArticle() }
     }
 
-    override suspend fun getContentById(id: String): Result<ArticleContent> {
+    override suspend fun getContentById(id: String): Result<Article> {
         TODO("Not yet implemented")
     }
 }

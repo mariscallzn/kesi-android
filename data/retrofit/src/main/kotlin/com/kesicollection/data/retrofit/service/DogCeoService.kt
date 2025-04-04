@@ -1,6 +1,6 @@
 package com.kesicollection.data.retrofit.service
 
-import com.kesicollection.data.retrofit.model.DogPhotosResponse
+import com.kesicollection.data.retrofit.model.dogceo.DogPhotosResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

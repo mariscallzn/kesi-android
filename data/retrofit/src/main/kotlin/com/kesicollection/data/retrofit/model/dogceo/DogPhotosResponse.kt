@@ -1,4 +1,4 @@
-package com.kesicollection.data.retrofit.model
+package com.kesicollection.data.retrofit.model.dogceo
 
 import kotlinx.serialization.Serializable
 
