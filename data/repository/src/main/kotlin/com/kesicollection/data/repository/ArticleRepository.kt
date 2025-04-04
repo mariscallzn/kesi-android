@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface ArticleRepository {
     suspend fun getArticles(): Result<List<Article>>
+    suspend fun getArticleById(id: String): Result<Article>
 }
 
 class ArticleRepositoryImpl @Inject constructor(
@@ -15,5 +16,9 @@ class ArticleRepositoryImpl @Inject constructor(
 ) : ArticleRepository {
     override suspend fun getArticles(): Result<List<Article>> {
         return remoteArticleApi.getAll()
+    }
+
+    override suspend fun getArticleById(id: String): Result<Article> {
+        return remoteArticleApi.getContentById(id)
     }
 }

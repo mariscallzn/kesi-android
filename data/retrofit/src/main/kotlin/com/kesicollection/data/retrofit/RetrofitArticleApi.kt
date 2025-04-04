@@ -20,7 +20,8 @@ class RetrofitArticleApi @Inject constructor(
         kesiAndroidService.fetchAllArticles().getOrThrow().map { it.asArticle() }
     }
 
-    override suspend fun getContentById(id: String): Result<Article> {
-        TODO("Not yet implemented")
+    override suspend fun getContentById(id: String): Result<Article> = Result.runCatching {
+        kesiAndroidService.getArticleById(id).getOrThrow().asArticle()
     }
+
 }
