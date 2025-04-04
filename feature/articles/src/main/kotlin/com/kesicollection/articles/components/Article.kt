@@ -69,7 +69,7 @@ fun Article(
                 .width(120.dp)
                 .testTag(":feature:articles:imageArticle"),
             contentScale = ContentScale.Fit,
-            model = article.thumbnail,
+            model = "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/images/${article.thumbnail}",
             imageLoader = LocalImageLoader.current,
             contentDescription = null
         )

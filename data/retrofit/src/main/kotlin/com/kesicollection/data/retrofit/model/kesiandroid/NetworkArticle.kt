@@ -5,6 +5,14 @@ import com.kesicollection.core.model.ContentSection
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
+data class NetworkIndexArticle(
+    val id: String,
+    val title: String,
+    val description: String,
+    val thumbnail: String,
+)
+
 /**
  * Represents an article fetched from the network.
  *
@@ -82,6 +90,15 @@ class BulletList(
 class Code(
     override val content: String
 ) : NetworkContentSection()
+
+fun NetworkIndexArticle.asArticle() = Article(
+    id = id,
+    title = title,
+    description = description,
+    thumbnail = thumbnail,
+    content = emptyList(),
+    podcast = null,
+)
 
 /**
  * Converts a [NetworkArticle] to an [Article].

@@ -1,5 +1,6 @@
 package com.kesicollection.feature.article
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -149,6 +150,7 @@ internal fun ArticleScreen(
     onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    Log.d("OKOKO", "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/images/${uiState.imageUrl}")
     val maxSize = 320.dp
     val safeContent = WindowInsets.Companion.safeContent.asPaddingValues()
     var scrollOffset by rememberSaveable { mutableIntStateOf(0) }
@@ -197,7 +199,7 @@ internal fun ArticleScreen(
                     .align(Alignment.TopCenter)
             ) {
                 AsyncImage(
-                    model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                    model = "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/images/${uiState.imageUrl}",
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     imageLoader = LocalImageLoader.current,
@@ -230,7 +232,7 @@ internal fun ArticleScreen(
                 ) {
                     item(key = "${uiState.imageUrl}+", contentType = "Image") {
                         AsyncImage(
-                            model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                            model = "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/images/${uiState.imageUrl}",
                             contentDescription = null,
                             imageLoader = LocalImageLoader.current,
                             modifier = Modifier
