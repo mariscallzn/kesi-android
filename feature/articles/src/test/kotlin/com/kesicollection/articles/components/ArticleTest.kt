@@ -13,7 +13,7 @@ import coil3.annotation.DelicateCoilApi
 import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
 import com.kesicollection.articles.LocalImageLoader
-import com.kesicollection.articles.model.toUiModel
+import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.testing.ArticlesTestData
 import org.junit.Before
 import org.junit.Rule
@@ -39,7 +39,7 @@ class ArticleTest {
     @OptIn(ExperimentalCoilApi::class, DelicateCoilApi::class)
     @Test
     fun `validate that all components are present`() {
-        val article = ArticlesTestData.items.first().toUiModel()
+        val article = ArticlesTestData.items.first().asUiArticle()
         with(composeRule) {
             setContent {
                 val imageLoader = ImageLoader.Builder(LocalContext.current)

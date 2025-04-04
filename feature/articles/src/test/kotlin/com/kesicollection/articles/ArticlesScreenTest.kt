@@ -11,7 +11,7 @@ import coil3.ImageLoader
 import coil3.annotation.DelicateCoilApi
 import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
-import com.kesicollection.articles.model.toUiModel
+import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.testing.ArticlesTestData
 import org.junit.Before
@@ -68,7 +68,7 @@ class ArticlesScreenTest {
                         ArticlesScreen(
                             uiState = UiArticlesState(
                                 isLoading = false,
-                                articles = ArticlesTestData.items.map { it.toUiModel() }),
+                                articles = ArticlesTestData.items.map { it.asUiArticle() }),
                             onArticleClick = { })
                     }
                 }

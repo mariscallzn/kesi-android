@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.kesicollection.core.model.AppRoute
+import com.kesicollection.core.uisystem.AppRoute
 import com.kesicollection.core.model.Topic
 import kotlinx.serialization.Serializable
 

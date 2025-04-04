@@ -65,12 +65,12 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
-import com.kesicollection.core.uisystem.component.PodcastCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.core.uisystem.uimodel.UiPodcast
 import com.kesicollection.feature.article.components.LoadingArticle
+import com.kesicollection.feature.article.components.PodcastCard
 import com.kesicollection.feature.article.intent.testData
+import com.kesicollection.feature.article.uimodel.UiPodcast
 import dagger.hilt.android.EntryPointAccessors
 
 /**

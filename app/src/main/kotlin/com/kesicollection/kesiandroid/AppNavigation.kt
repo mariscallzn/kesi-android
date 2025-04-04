@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.articles.articles
-import com.kesicollection.core.model.AppRoute
+import com.kesicollection.core.uisystem.AppRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.ArticleRoute
 import com.kesicollection.feature.article.article

@@ -2,6 +2,7 @@ package com.kesicollection.articles.intentprocessor
 
 import com.kesicollection.articles.Intent
 import com.kesicollection.articles.IntentProcessor
+import com.kesicollection.data.usecase.GetArticlesUseCase
 import javax.inject.Inject
 
 interface IntentProcessorFactory {
@@ -9,7 +10,7 @@ interface IntentProcessorFactory {
 }
 
 class DefaultIntentProcessorFactory @Inject constructor(
-    //todo: pass down use cases so you can pass it to the intent processors instances.
+    private val getArticlesUseCase: GetArticlesUseCase,
 ) : IntentProcessorFactory {
 
     // NOTE: Two options here: Either make some how lightweight intent processor instances
@@ -18,7 +19,7 @@ class DefaultIntentProcessorFactory @Inject constructor(
     // to the DefaultsIntentProcessorFactory as singletons.
     override fun create(intent: Intent): IntentProcessor {
         return when (intent) {
-            Intent.FetchArticles -> FetchArticlesIntentProcessor()
+            Intent.FetchArticles -> FetchArticlesIntentProcessor(getArticlesUseCase = getArticlesUseCase)
         }
     }
 }

@@ -23,7 +23,7 @@ data class UiArticle(
  * @receiver The [Article] instance to convert.
  * @return A [UiArticle] instance containing the relevant data for display.
  */
-fun Article.toUiModel() = UiArticle(
+fun Article.asUiArticle() = UiArticle(
     articleId = id,
     title = title,
     description = description,

@@ -1,9 +1,7 @@
 package com.kesicollection.core.model
 
 data class ArticleContent(
-    val articleId: String,
-    val title: String,
-    val image: String,
+    val article: Article,
     val podcast: Podcast,
     val content: List<ContentSection>
 )

@@ -1,4 +1,4 @@
-package com.kesicollection.core.uisystem.component
+package com.kesicollection.feature.article.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,14 +21,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.core.uisystem.uimodel.UiPodcast
+import com.kesicollection.feature.article.uimodel.UiPodcast
 
 /**
  * A composable function that displays a card representing a podcast.
  *
- *  @sample com.kesicollection.core.uisystem.component.PodcastCardExample
+ *  @sample com.kesicollection.feature.article.components.PodcastCardExample
  *
  * @param uiPodcast The unique identifier of the podcast.
  * @param onPodcastClick A lambda function that is invoked when the podcast card is clicked.

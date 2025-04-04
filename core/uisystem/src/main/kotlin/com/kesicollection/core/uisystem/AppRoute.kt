@@ -1,4 +1,4 @@
-package com.kesicollection.core.model
+package com.kesicollection.core.uisystem
 
 /**
  * `AppRoute` is a marker interface used to identify classes that represent routes within the application.

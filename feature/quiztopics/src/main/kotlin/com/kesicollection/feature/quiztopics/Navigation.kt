@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.kesicollection.core.model.AppRoute
+import com.kesicollection.core.uisystem.AppRoute
 import com.kesicollection.core.model.Topic
 import kotlinx.serialization.Serializable
 

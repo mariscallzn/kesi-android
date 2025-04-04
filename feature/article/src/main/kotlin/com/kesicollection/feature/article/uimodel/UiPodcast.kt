@@ -1,4 +1,4 @@
-package com.kesicollection.core.uisystem.uimodel
+package com.kesicollection.feature.article.uimodel
 
 /**
  * Represents a podcast in the user interface.

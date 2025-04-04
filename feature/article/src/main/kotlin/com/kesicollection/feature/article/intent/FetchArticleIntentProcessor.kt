@@ -1,12 +1,12 @@
 package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.uisystem.component.ContentType
-import com.kesicollection.core.uisystem.uimodel.UiPodcast
 import com.kesicollection.feature.article.Reducer
 import com.kesicollection.feature.article.components.BulletList
 import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.SubHeader
+import com.kesicollection.feature.article.uimodel.UiPodcast
 import kotlinx.coroutines.delay
 
 class FetchArticleIntentProcessor(
