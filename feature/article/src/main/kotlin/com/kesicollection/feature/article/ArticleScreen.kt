@@ -197,7 +197,7 @@ internal fun ArticleScreen(
                     .align(Alignment.TopCenter)
             ) {
                 AsyncImage(
-                    model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                    model = uiState.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     imageLoader = LocalImageLoader.current,
@@ -230,7 +230,7 @@ internal fun ArticleScreen(
                 ) {
                     item(key = "${uiState.imageUrl}+", contentType = "Image") {
                         AsyncImage(
-                            model = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+                            model = uiState.imageUrl,
                             contentDescription = null,
                             imageLoader = LocalImageLoader.current,
                             modifier = Modifier

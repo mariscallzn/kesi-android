@@ -8,7 +8,6 @@ import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.SubHeader
 import com.kesicollection.feature.article.uimodel.UiPodcast
-import kotlinx.coroutines.delay
 
 class FetchArticleIntentProcessor(
     private val articleId: String,
@@ -17,11 +16,11 @@ class FetchArticleIntentProcessor(
     override suspend fun processIntent(reducer: (Reducer) -> Unit) {
         reducer { copy(isLoading = true) }
         val result = getArticleByIdUseCase(articleId).getOrThrow()
-        delay(1500)
         reducer {
             copy(
                 isLoading = false,
                 title = result.title,
+                imageUrl = result.thumbnail,
                 content = result.content.map {
                     when (it) {
                         is ContentSection.BulletList -> BulletList(it.content, it.bulletPoints)

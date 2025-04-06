@@ -6,6 +6,22 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
+ * Represents a summary of an article fetched from the network, typically for display in a list or index.
+ *
+ * @property id The unique identifier of the article.
+ * @property title The title of the article.
+ * @property description A short description of the article.
+ * @property thumbnail The URL of the article's thumbnail image.
+ */
+@Serializable
+data class NetworkIndexArticle(
+    val id: String,
+    val title: String,
+    val description: String,
+    val thumbnail: String,
+)
+
+/**
  * Represents an article fetched from the network.
  *
  * @property id The unique identifier of the article.
@@ -82,6 +98,15 @@ class BulletList(
 class Code(
     override val content: String
 ) : NetworkContentSection()
+
+fun NetworkIndexArticle.asArticle() = Article(
+    id = id,
+    title = title,
+    description = description,
+    thumbnail = thumbnail,
+    content = emptyList(),
+    podcast = null,
+)
 
 /**
  * Converts a [NetworkArticle] to an [Article].

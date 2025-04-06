@@ -17,11 +17,11 @@ class RetrofitArticleApi @Inject constructor(
     private val kesiAndroidService: KesiAndroidService,
 ) : ArticleApi {
     override suspend fun getAll(): Result<List<Article>> = Result.runCatching {
-        kesiAndroidService.fetchAllArticles().getOrThrow().map { it.asArticle() }
+        kesiAndroidService.fetchAllArticles().map { it.asArticle() }
     }
 
     override suspend fun getContentById(id: String): Result<Article> = Result.runCatching {
-        kesiAndroidService.getArticleById(id).getOrThrow().asArticle()
+        kesiAndroidService.getArticleById(id).asArticle()
     }
 
 }

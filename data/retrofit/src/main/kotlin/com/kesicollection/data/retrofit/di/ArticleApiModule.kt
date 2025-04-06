@@ -4,12 +4,16 @@ import com.kesicollection.data.api.ArticleApi
 import com.kesicollection.data.api.RemoteArticleSource
 import com.kesicollection.data.retrofit.RetrofitArticleApi
 import com.kesicollection.data.retrofit.service.KesiAndroidService
-import com.kesicollection.data.retrofit.service.fakeData
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.Call
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -39,6 +43,14 @@ abstract class ArticleApiModule {
 
         @Provides
         @Singleton
-        fun providesKesiAndroidService(): KesiAndroidService = fakeData
+        fun providesKesiAndroidService(
+            json: Json,
+            callFactory: Call.Factory
+        ): KesiAndroidService = Retrofit.Builder()
+            .baseUrl("https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/")
+            .callFactory { callFactory.newCall(it) }
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
+            .create(KesiAndroidService::class.java)
     }
 }

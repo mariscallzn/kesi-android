@@ -12,7 +12,6 @@ class FetchArticlesIntentProcessor(
     override suspend fun processIntent(reducer: (Reducer) -> Unit) {
         reducer { copy(isLoading = true) }
         val articles = getArticlesUseCase().getOrThrow()
-        delay(1500)
         reducer {
             copy(
                 isLoading = false,
