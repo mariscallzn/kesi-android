@@ -73,6 +73,7 @@ import com.kesicollection.feature.article.components.LoadingArticle
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.PodcastCard
 import com.kesicollection.feature.article.components.SubHeader
+import com.kesicollection.feature.article.di.ArticleImageLoader
 import com.kesicollection.feature.article.uimodel.UiPodcast
 import dagger.hilt.android.EntryPointAccessors
 
