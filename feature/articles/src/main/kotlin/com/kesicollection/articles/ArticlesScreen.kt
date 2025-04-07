@@ -33,7 +33,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
-import com.kesicollection.articles.components.ShowError
+import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
@@ -135,7 +135,7 @@ internal fun ArticlesScreen(
     ) { innerPadding ->
         uiState.screenError?.let {
             ShowError(
-                onTryAgain, modifier = Modifier
+                { onTryAgain(Intent.FetchArticles) }, modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
                     .padding(horizontal = 16.dp)

@@ -63,8 +63,10 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
+import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
+import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.components.BulletList
@@ -126,6 +128,7 @@ fun ArticleScreen(
             uiState = uiState,
             onNavigateUp = onNavigateUp,
             onPodcastClick = onPodcastClick,
+            onTryAgain = { viewModel.sendIntent(Intent.FetchArticle(articleId)) },
             modifier = modifier,
         )
     }
@@ -134,12 +137,18 @@ fun ArticleScreen(
 /**
  * Composable function that displays the main content of an article.
  *
- * This composable displays the article's title, image, and content,
- * allowing for a smooth scrolling experience. It also includes a
- * collapsing top image that hides as the user scrolls down.
+ * This composable orchestrates the display of an article, handling various states like loading, error, and success.
+ * It features a collapsing top image that smoothly transitions out of view as the user scrolls down,
+ * providing an engaging and interactive reading experience. The article content, including the title, image,
+ * and body, is presented within a scrollable layout. It can also display a podcast card if available.
  *
- * @param uiState The [UiArticleState] representing the current state of the article.
+ * The collapsing behavior of the top image is achieved through nested scrolling, allowing for a natural
+ * and responsive animation.
+ *
+ * @param uiState The [UiArticleState] representing the current state of the article, including content, loading, and error status.
  * @param onNavigateUp Callback invoked when the user wants to navigate up (e.g., back).
+ * @param onPodcastClick Callback invoked when the user clicks on the podcast card. It provides the podcast's title and audio URL.
+ * @param onTryAgain Callback invoked when there's an error and the user wants to retry loading the article.
  * @param modifier Modifier for styling and layout customization.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -148,6 +157,7 @@ internal fun ArticleScreen(
     uiState: UiArticleState,
     onNavigateUp: () -> Unit,
     onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
+    onTryAgain: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val maxSize = 320.dp
@@ -176,7 +186,14 @@ internal fun ArticleScreen(
                 }
             })
     ) {
-        if (uiState.isLoading) {
+        uiState.error?.let {
+            ShowError(
+                onTryAgain = onTryAgain, modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize()
+                    .padding(horizontal = 16.dp)
+            )
+        } ?: if (uiState.isLoading) {
             LoadingArticle(
                 Modifier
                     .fillMaxSize()
@@ -310,6 +327,12 @@ private fun ArticlePreview() {
     ArticleExample()
 }
 
+@PreviewLightDark
+@Composable
+private fun ArticleErrorPreview() {
+    ArticleExample(uiState = UiArticleState(error = ErrorState(ArticleErrors.NetworkError)))
+}
+
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ArticleExample(
@@ -333,6 +356,7 @@ private fun ArticleExample(
                     uiState = uiState,
                     onNavigateUp = {},
                     onPodcastClick = { _, _ -> },
+                    onTryAgain = {},
                     modifier = modifier,
                 )
             }

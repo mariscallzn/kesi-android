@@ -1,4 +1,4 @@
-package com.kesicollection.articles.components
+package com.kesicollection.core.uisystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,13 +15,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kesicollection.articles.Intent
-import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.core.uisystem.R
+import com.kesicollection.core.uisystem.theme.KesiTheme
 
 @Composable
 fun ShowError(
-    onTryAgain: (Intent.FetchArticles) -> Unit,
+    onTryAgain: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -37,7 +36,7 @@ fun ShowError(
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(32.dp))
-        Button({ onTryAgain(Intent.FetchArticles) }) {
+        Button(onTryAgain) {
             Text(stringResource(R.string.core_uisystem_try_again))
         }
     }

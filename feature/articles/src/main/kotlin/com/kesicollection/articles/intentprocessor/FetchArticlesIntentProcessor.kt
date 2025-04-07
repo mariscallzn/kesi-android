@@ -6,7 +6,6 @@ import com.kesicollection.articles.Reducer
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.data.usecase.GetArticlesUseCase
-import kotlinx.coroutines.delay
 
 
 /**
@@ -26,8 +25,6 @@ class FetchArticlesIntentProcessor(
     override suspend fun processIntent(reducer: (Reducer) -> Unit) {
         reducer { copy(isLoading = true, screenError = null) }
         try {
-            delay(1500)
-            throw IllegalStateException("test")
             val articles = getArticlesUseCase().getOrThrow()
             reducer {
                 copy(
