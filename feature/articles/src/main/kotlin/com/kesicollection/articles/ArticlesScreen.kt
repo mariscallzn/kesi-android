@@ -32,6 +32,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
+import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KesiTheme
