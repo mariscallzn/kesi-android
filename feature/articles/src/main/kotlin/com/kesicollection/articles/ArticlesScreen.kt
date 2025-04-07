@@ -2,6 +2,7 @@ package com.kesicollection.articles
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,8 +33,10 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
+import com.kesicollection.articles.components.ShowError
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
+import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.articles.R
@@ -91,6 +94,7 @@ fun ArticlesScreen(
         ArticlesScreen(
             modifier = modifier,
             onArticleClick = onArticleClick,
+            onTryAgain = viewModel::sendIntent,
             uiState = uiState,
         )
     }
@@ -99,24 +103,26 @@ fun ArticlesScreen(
 /**
  * Internal composable function that renders the articles screen.
  *
- * This function is responsible for displaying the list of articles fetched from the
- * [UiArticlesState]. It handles both the loading and success states of the articles data.
+ * This function displays the list of articles based on the provided [UiArticlesState].
+ * It gracefully handles different UI states, such as loading, success, and error.
  *
- * - When `uiState.isLoading` is true, it shows a loading indicator ([LoadingArticles]).
- * - When `uiState.isLoading` is false, it displays the list of articles using [LazyColumn]
- *   and [Article] composables.
- * - Each article is clickable, triggering [onArticleClick] with the corresponding article ID.
- * - A divider is displayed between articles.
+ * - **Loading State:** When `uiState.isLoading` is true, a loading indicator ([LoadingArticles]) is shown.
+ * - **Success State:** When `uiState.isLoading` is false and `uiState.screenError` is null, it renders a list of articles using [LazyColumn] and [Article] composables.
+ *   - Each article is made clickable, invoking the [onArticleClick] callback with the clicked article's ID.
+ *   - A divider visually separates each article in the list.
+ * - **Error State:** When `uiState.screenError` is not null, it displays an error message with a retry option via [ShowError], triggered by the [onTryAgain] callback.
  *
- * @param uiState The current state of the articles UI, containing the loading state and the list of articles.
- * @param onArticleClick Callback invoked when an article is clicked, providing the clicked article's ID.
- * @param modifier Modifier for styling the layout.
+ * @param uiState The current state of the articles UI, encompassing the loading state, error state, and the list of articles.
+ * @param onArticleClick Callback function invoked when an article is clicked, providing the ID of the clicked article.
+ * @param onTryAgain Callback function invoked when the user attempts to retry fetching articles after an error.
+ * @param modifier Modifier for styling and customizing the layout of the articles screen.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ArticlesScreen(
     uiState: UiArticlesState,
     onArticleClick: (articleId: String) -> Unit,
+    onTryAgain: (Intent.FetchArticles) -> Unit,
     modifier: Modifier = Modifier
 ) {
     KScaffold(
@@ -127,7 +133,14 @@ internal fun ArticlesScreen(
             })
         }
     ) { innerPadding ->
-        if (uiState.isLoading) {
+        uiState.screenError?.let {
+            ShowError(
+                onTryAgain, modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(horizontal = 16.dp)
+            )
+        } ?: if (uiState.isLoading) {
             LoadingArticles(
                 modifier = Modifier
                     .padding(innerPadding)
@@ -139,7 +152,9 @@ internal fun ArticlesScreen(
                     .padding(innerPadding)
                     .testTag(":feature:articles:articles")
             ) {
-                itemsIndexed(uiState.articles, key = { _, item -> item.articleId }) { index, item ->
+                itemsIndexed(
+                    uiState.articles,
+                    key = { _, item -> item.articleId }) { index, item ->
                     Article(article = item, onArticleClick = { onArticleClick(it.articleId) })
                     if (index < uiState.articles.size - 1) {
                         Box(
@@ -165,6 +180,12 @@ private fun ArticlesScreenPreview() {
 @Composable
 private fun LoadingArticlesScreenPreview() {
     ArticlesScreenExample(uiState = UiArticlesState(isLoading = true))
+}
+
+@PreviewLightDark
+@Composable
+private fun ErrorArticlesScreenPreview() {
+    ArticlesScreenExample(uiState = UiArticlesState(screenError = ErrorState(ArticlesErrors.NetworkCallError)))
 }
 
 @OptIn(ExperimentalCoilApi::class)
@@ -202,7 +223,8 @@ private fun ArticlesScreenExample(
                 ArticlesScreen(
                     modifier = modifier,
                     uiState = uiState,
-                    onArticleClick = {}
+                    onArticleClick = {},
+                    onTryAgain = {}
                 )
             }
         }
