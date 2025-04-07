@@ -2,9 +2,11 @@ package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.model.ContentSection
 import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.uisystem.IntentProcessor
+import com.kesicollection.core.uisystem.Reducer
 import com.kesicollection.data.usecase.GetArticleByIdUseCase
 import com.kesicollection.feature.article.ArticleErrors
-import com.kesicollection.feature.article.Reducer
+import com.kesicollection.feature.article.UiArticleState
 import com.kesicollection.feature.article.components.BulletList
 import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.Paragraph
@@ -14,30 +16,31 @@ import com.kesicollection.feature.article.uimodel.UiPodcast
 /**
  * [IntentProcessor] responsible for fetching an article by its ID.
  *
- * This class uses the [GetArticleByIdUseCase] to retrieve the article data
- * and updates the [Reducer] accordingly with the fetched content or any errors.
+ * This class orchestrates the retrieval of an article using [GetArticleByIdUseCase] and updates the [Reducer]
+ * with the fetched content or any encountered errors.
  *
- * The processing happens in the following steps:
+ * The process is divided into the following steps:
  *
- * 1.  **Loading State:** It initially sets the `isLoading` flag in the [Reducer] to `true` and clears any previous errors.
- * 2.  **Fetch Article:** It uses the [GetArticleByIdUseCase] to fetch the article data associated with the provided [articleId].
- * 3.  **Successful Retrieval:** If the article is fetched successfully:
- *     *   It updates the [Reducer] with the article's `title`, `imageUrl`, and `content`.
- *     *   The content, which is a list of `ContentSection` models, is mapped to a list of UI components, like [BulletList], [Code], [Paragraph], and [SubHeader].
- *     * The podcast information is mapped to a [UiPodcast].
- *     *   It sets `isLoading` to `false` in the [Reducer].
- * 4.  **Error Handling:** If an exception occurs during the fetching process:
- *     *   It updates the [Reducer] with an [ErrorState], including the error type ([ArticleErrors.NetworkError]) and the error message.
- *     *   It sets `isLoading` to `false` in the [Reducer].
+ * 1. **Loading State:** The processor starts by setting the `isLoading` flag in the [Reducer] to `true` and clearing any pre-existing errors,
+ *    indicating that the article fetching process has begun.
+ * 2. **Fetch Article:** It invokes [GetArticleByIdUseCase] to fetch the article data, identified by the provided [articleId].
+ * 3. **Successful Retrieval:** Upon successfully fetching the article:
+ *    - The [Reducer] is updated with the article's `title`, `imageUrl`, and `content`.
+ *    - The `content`, which is a list of `ContentSection` models, is transformed into a list of UI components: [BulletList], [Code], [Paragraph], and [SubHeader].
+ *    - The podcast information, if present, is converted into a [UiPodcast] object.
+ *    - The `isLoading` flag in the [Reducer] is set to `false`, indicating the completion of the fetching process.
+ * 4. **Error Handling:** In case of an exception during the fetching process:
+ *    - The [Reducer] is updated with an [ErrorState], including the error type (e.g., [ArticleErrors.NetworkError]) and the error message.
+ *    - The `isLoading` flag in the [Reducer] is set to `false`, indicating that the process has finished with an error.
  *
- * @property articleId The ID of the article to be fetched.
- * @property getArticleByIdUseCase The use case for retrieving article data by ID.
+ * @property articleId The unique identifier of the article to be fetched.
+ * @property getArticleByIdUseCase The use case responsible for retrieving article data based on its ID.
  */
 class FetchArticleIntentProcessor(
     private val articleId: String,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
-) : IntentProcessor {
-    override suspend fun processIntent(reducer: (Reducer) -> Unit) {
+) : IntentProcessor<UiArticleState> {
+    override suspend fun processIntent(reducer: (Reducer<UiArticleState>) -> Unit) {
         reducer { copy(isLoading = true, error = null) }
         try {
             val result = getArticleByIdUseCase(articleId).getOrThrow()

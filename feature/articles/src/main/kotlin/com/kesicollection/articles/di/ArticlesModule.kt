@@ -1,7 +1,9 @@
 package com.kesicollection.articles.di
 
+import com.kesicollection.articles.Intent
+import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.intentprocessor.DefaultIntentProcessorFactory
-import com.kesicollection.articles.intentprocessor.IntentProcessorFactory
+import com.kesicollection.core.uisystem.IntentProcessorFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -40,7 +42,7 @@ abstract class ArticlesModule {
     @Singleton
     abstract fun bindIntentProcessorFactory(
         impl: DefaultIntentProcessorFactory
-    ): IntentProcessorFactory
+    ): IntentProcessorFactory<UiArticlesState, Intent>
 
     companion object {
 

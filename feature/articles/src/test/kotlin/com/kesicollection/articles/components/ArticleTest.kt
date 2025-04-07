@@ -14,13 +14,21 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
 import com.kesicollection.articles.LocalImageLoader
 import com.kesicollection.articles.model.asUiArticle
-import com.kesicollection.testing.ArticlesTestData
+import com.kesicollection.testing.testdata.ArticlesTestData
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.test.Test
 
+/**
+ * Test class for the [Article] composable.
+ *
+ * This class tests the rendering of the [Article] composable,
+ * ensuring that all its main components (title, description, and image) are correctly displayed.
+ *
+ * It uses Robolectric for running tests in a simulated Android environment, Compose testing library to interact with the UI and FakeImageLoader to simulate loading of images.
+ */
 @RunWith(RobolectricTestRunner::class)
 class ArticleTest {
     @get:Rule
@@ -28,6 +36,13 @@ class ArticleTest {
 
     private lateinit var fakeImageLoaderEngine: FakeImageLoaderEngine
 
+    /**
+     * Sets up the test environment before each test.
+     *
+     * This function initializes a [FakeImageLoaderEngine] to simulate image loading during tests.
+     * It configures the engine to return a default blue color image for any image request.
+     * This allows testing the UI's response to image loading without actually loading images from a network or file.
+     */
     @OptIn(DelicateCoilApi::class, ExperimentalCoilApi::class)
     @Before
     fun before() {
@@ -36,6 +51,17 @@ class ArticleTest {
             .build()
     }
 
+    /**
+     * This test verifies that all the expected UI components are present within the [Article] composable.
+     * It checks for the presence of:
+     * - The article's title.
+     * - The article's description.
+     * - The article's image.
+     *
+     * It uses a [FakeImageLoaderEngine] to simulate image loading during the test and
+     * avoids making actual network requests.
+     * It set the image to blue for testing purposes.
+     */
     @OptIn(ExperimentalCoilApi::class, DelicateCoilApi::class)
     @Test
     fun `validate that all components are present`() {

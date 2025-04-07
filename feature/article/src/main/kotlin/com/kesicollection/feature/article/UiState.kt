@@ -22,5 +22,3 @@ enum class ArticleErrors {
 sealed interface Intent {
     data class FetchArticle(val id: String) : Intent
 }
-
-typealias Reducer = UiArticleState.() -> UiArticleState

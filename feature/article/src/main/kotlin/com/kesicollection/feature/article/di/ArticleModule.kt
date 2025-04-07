@@ -1,7 +1,9 @@
 package com.kesicollection.feature.article.di
 
+import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.feature.article.Intent
+import com.kesicollection.feature.article.UiArticleState
 import com.kesicollection.feature.article.intent.DefaultIntentProcessorFactory
-import com.kesicollection.feature.article.intent.IntentProcessorFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,7 +25,7 @@ annotation class ArticleDefaultDispatcher
  * dependencies will be available throughout the application's lifecycle.
  *
  * It currently provides:
- * - [IntentProcessorFactory]: A factory for creating [com.kesicollection.feature.article.intent.IntentProcessor] instances.
+ * - [IntentProcessorFactory]: A factory for creating [com.kesicollection.core.uisystem.IntentProcessor] instances.
  *   The implementation provided is [DefaultIntentProcessorFactory].
  */
 @Module
@@ -34,7 +36,7 @@ abstract class ArticleModule {
     @Singleton
     abstract fun bindInterProcessorFactory(
         impl: DefaultIntentProcessorFactory
-    ): IntentProcessorFactory
+    ): IntentProcessorFactory<UiArticleState, Intent>
 
     companion object {
         @Provides

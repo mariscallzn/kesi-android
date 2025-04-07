@@ -3,7 +3,9 @@ package com.kesicollection.articles
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kesicollection.articles.di.ArticlesDefaultDispatcher
-import com.kesicollection.articles.intentprocessor.IntentProcessorFactory
+import com.kesicollection.core.uisystem.IntentProcessor
+import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.core.uisystem.Reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,18 +17,25 @@ import javax.inject.Inject
 /**
  * The ViewModel for the Articles screen.
  *
- * This class manages the UI state of the Articles screen and handles incoming user intents.
- * It uses a unidirectional data flow pattern, where UI events are translated into [Intent]s,
- * which are then processed to update the [uiState].
+ * This ViewModel is responsible for managing the UI state ([uiState]) of the Articles screen and
+ * processing user interactions. It follows a unidirectional data flow (UDF) pattern.
  *
- * @property intentProcessorFactory A factory responsible for creating [IntentProcessor] instances
- *                                  based on the received [Intent].
- * @property dispatcher The [CoroutineDispatcher] used for launching coroutines within the ViewModel.
- *                     This allows for background processing and non-blocking UI updates.
+ * User interactions are represented as [Intent]s. These are sent to the ViewModel and processed.
+ * Processing an [Intent] can result in a state change, which is reflected in the [uiState].
+ *
+ * The ViewModel utilizes an [IntentProcessorFactory] to create [IntentProcessor] instances that handle
+ * the logic for each specific [Intent] type.
+ *
+ * @property intentProcessorFactory A factory for creating [IntentProcessor] instances based on the
+ *                                  received [Intent]. Each intent type has its own associated
+ *                                  [IntentProcessor] for specialized handling.
+ * @property dispatcher The [CoroutineDispatcher] used for all coroutine operations within this
+ *                     ViewModel, ensuring that background tasks and state updates are managed
+ *                     efficiently without blocking the main thread.
  */
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
-    private val intentProcessorFactory: IntentProcessorFactory,
+    private val intentProcessorFactory: IntentProcessorFactory<UiArticlesState, Intent>,
     @ArticlesDefaultDispatcher
     private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -50,7 +59,7 @@ class ArticlesViewModel @Inject constructor(
         }
     }
 
-    private fun reducer(reducer: Reducer) {
+    private fun reducer(reducer: Reducer<UiArticlesState>) {
         val newState = _uiState.value.reducer()
         _uiState.value = newState
     }

@@ -1,12 +1,12 @@
 package com.kesicollection.articles.intentprocessor
 
 import com.kesicollection.articles.ArticlesErrors
-import com.kesicollection.articles.IntentProcessor
-import com.kesicollection.articles.Reducer
+import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.uisystem.IntentProcessor
+import com.kesicollection.core.uisystem.Reducer
 import com.kesicollection.data.usecase.GetArticlesUseCase
-
 
 /**
  * [IntentProcessor] responsible for fetching articles from the [GetArticlesUseCase] and updating the UI state.
@@ -21,8 +21,8 @@ import com.kesicollection.data.usecase.GetArticlesUseCase
  */
 class FetchArticlesIntentProcessor(
     private val getArticlesUseCase: GetArticlesUseCase,
-) : IntentProcessor {
-    override suspend fun processIntent(reducer: (Reducer) -> Unit) {
+) : IntentProcessor<UiArticlesState> {
+    override suspend fun processIntent(reducer: (Reducer<UiArticlesState>) -> Unit) {
         reducer { copy(isLoading = true, screenError = null) }
         try {
             val articles = getArticlesUseCase().getOrThrow()

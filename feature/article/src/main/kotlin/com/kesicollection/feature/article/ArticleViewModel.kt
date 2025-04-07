@@ -2,9 +2,10 @@ package com.kesicollection.feature.article
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kesicollection.core.uisystem.IntentProcessor
+import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.core.uisystem.Reducer
 import com.kesicollection.feature.article.di.ArticleDefaultDispatcher
-import com.kesicollection.feature.article.intent.IntentProcessor
-import com.kesicollection.feature.article.intent.IntentProcessorFactory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,17 +15,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * [ArticleViewModel] is the ViewModel for the article feature.
- * It handles the UI state and processes user intents to update the state accordingly.
+ * [ArticleViewModel] is responsible for managing the UI state and handling user interactions for the article feature.
+ * It acts as the central component for processing user intents and updating the UI state accordingly.
  *
- * This ViewModel follows the MVI (Model-View-Intent) pattern.
+ * This ViewModel adheres to the MVI (Model-View-Intent) architectural pattern, ensuring a unidirectional flow of data.
  *
- * @property intentProcessorFactory Factory for creating [IntentProcessor] instances.
- * @property dispatcher The CoroutineDispatcher for background operations.
+ * @property intentProcessorFactory Factory used to create [IntentProcessor] instances based on incoming intents.
+ * This allows for different intents to be processed by different [IntentProcessor].
+ * @property dispatcher The [CoroutineDispatcher] used for performing background tasks and asynchronous operations,
+ * ensuring that UI updates are handled efficiently.
  */
 @HiltViewModel
 class ArticleViewModel @Inject constructor(
-    private val intentProcessorFactory: IntentProcessorFactory,
+    private val intentProcessorFactory: IntentProcessorFactory<UiArticleState, Intent>,
     @ArticleDefaultDispatcher
     private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
@@ -48,7 +51,7 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
-    private fun reducer(reducer: Reducer) {
+    private fun reducer(reducer: Reducer<UiArticleState>) {
         val newState = _uiState.value.reducer()
         _uiState.value = newState
     }

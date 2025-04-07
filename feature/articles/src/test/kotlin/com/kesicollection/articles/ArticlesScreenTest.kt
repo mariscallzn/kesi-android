@@ -13,7 +13,7 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.testing.ArticlesTestData
+import com.kesicollection.testing.testdata.ArticlesTestData
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,7 +43,9 @@ class ArticlesScreenTest {
                 KesiTheme {
                     ArticlesScreen(
                         uiState = UiArticlesState(isLoading = true),
-                        onArticleClick = { })
+                        onArticleClick = { },
+                        onTryAgain = {}
+                    )
                 }
             }
             onNode(hasTestTag(":feature:articles:articles"))
@@ -69,7 +71,9 @@ class ArticlesScreenTest {
                             uiState = UiArticlesState(
                                 isLoading = false,
                                 articles = ArticlesTestData.items.map { it.asUiArticle() }),
-                            onArticleClick = { })
+                            onArticleClick = { },
+                            onTryAgain = {}
+                        )
                     }
                 }
             }
