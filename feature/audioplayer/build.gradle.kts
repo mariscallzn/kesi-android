@@ -6,3 +6,9 @@ plugins {
 android {
     namespace = "com.kesicollection.feature.audioplayer"
 }
+
+dependencies {
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui.compose)
+    implementation(libs.androidx.media3.session)
+}

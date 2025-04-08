@@ -1,5 +1,6 @@
 package com.kesicollection.feature.audioplayer
 
+import android.content.ComponentName
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,14 +22,22 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.media3.common.MediaItem
+import androidx.media3.session.MediaController
+import androidx.media3.session.SessionToken
+import com.google.common.util.concurrent.MoreExecutors
 import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -46,6 +55,27 @@ fun AudioPlayerScreen(
 
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.InitScreen(title))
+    }
+
+    val context = LocalContext.current
+    var mediaController: MediaController? by remember { mutableStateOf(null) }
+
+    LaunchedEffect(Unit) {
+        val sessionToken =
+            SessionToken(context, ComponentName(context, AudioPlayerService::class.java))
+        val controllerFuture =
+            MediaController.Builder(context, sessionToken).buildAsync()
+        controllerFuture.addListener({
+            mediaController = controllerFuture.get()
+        }, MoreExecutors.directExecutor())
+    }
+
+    LaunchedEffect(mediaController) {
+        mediaController?.let {
+            it.setMediaItem(MediaItem.fromUri("https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/podcasts/02_coroutines.m4a"))
+            it.prepare()
+            it.play()
+        }
     }
 
     AudioPlayerScreen(
