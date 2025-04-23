@@ -51,7 +51,7 @@ fun AppNavigation(
             onNavigateUp = navController::onNavigateUp,
             onPodcastClick = { title, url ->
                 navController.navigateToAudiPlayer(
-                    AudioPlayerRoute(title = title, url = url)
+                    AudioPlayerRoute(title = title, fileName = url)
                 )
             }
         )

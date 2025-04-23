@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Podcasts
 
@@ -22,5 +23,6 @@ object KIcon {
     val Close = Icons.Rounded.Close
     val Podcasts = Icons.Rounded.Podcasts
     val PlayArrow = Icons.Rounded.PlayArrow
+    val Pause = Icons.Rounded.Pause
     val Bookmark = Icons.Rounded.Bookmark
 }
