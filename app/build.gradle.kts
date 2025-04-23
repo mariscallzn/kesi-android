@@ -37,6 +37,7 @@ dependencies {
 
     implementation(projects.data.retrofit)
     implementation(projects.data.room)
+    implementation(projects.data.datastore)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)

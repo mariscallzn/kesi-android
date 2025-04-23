@@ -44,7 +44,8 @@ class ArticlesScreenTest {
                     ArticlesScreen(
                         uiState = UiArticlesState(isLoading = true),
                         onArticleClick = { },
-                        onTryAgain = {}
+                        onTryAgain = {},
+                        onBookmarkClick = {}
                     )
                 }
             }
@@ -72,7 +73,8 @@ class ArticlesScreenTest {
                                 isLoading = false,
                                 articles = ArticlesTestData.items.map { it.asUiArticle() }),
                             onArticleClick = { },
-                            onTryAgain = {}
+                            onTryAgain = {},
+                            onBookmarkClick = {}
                         )
                     }
                 }

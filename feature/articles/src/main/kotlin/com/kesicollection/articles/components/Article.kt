@@ -3,11 +3,16 @@ package com.kesicollection.articles.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +36,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.LocalImageLoader
 import com.kesicollection.articles.model.UiArticle
+import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 
 @Composable
@@ -38,12 +44,15 @@ fun Article(
     article: UiArticle,
     modifier: Modifier = Modifier,
     onArticleClick: (UiArticle) -> Unit = {},
+    onBookmarkClick: (id: String) -> Unit = {},
 ) {
     Row(
         modifier = modifier.then(
             Modifier
                 .clickable { onArticleClick(article) }
-                .padding(horizontal = 16.dp, vertical = 24.dp)),
+                .height(IntrinsicSize.Min)
+                .padding(horizontal = 16.dp)
+                .padding(top = 24.dp, bottom = 8.dp)),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -62,17 +71,34 @@ fun Article(
                 color = MaterialTheme.colorScheme.outline
             )
         }
-        AsyncImage(
+        Column(
             modifier = Modifier
-                .clip(RoundedCornerShape(5))
-                .heightIn(max = 80.dp)
-                .width(120.dp)
-                .testTag(":feature:articles:imageArticle"),
-            contentScale = ContentScale.Fit,
-            model = article.thumbnail,
-            imageLoader = LocalImageLoader.current,
-            contentDescription = null
-        )
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween,
+        ) {
+            AsyncImage(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(5))
+                    .heightIn(max = 80.dp)
+                    .width(120.dp)
+                    .testTag(":feature:articles:imageArticle"),
+                contentScale = ContentScale.Fit,
+                model = article.thumbnail,
+                imageLoader = LocalImageLoader.current,
+                contentDescription = null
+            )
+            IconButton(
+                { onBookmarkClick(article.articleId) },
+                modifier = Modifier
+                    .align(Alignment.End),
+            ) {
+                Icon(
+                    tint = if (article.isBookmarked) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.outline,
+                    imageVector = KIcon.Bookmark,
+                    contentDescription = null
+                )
+            }
+        }
     }
 }
 
@@ -82,16 +108,30 @@ private fun PreviewArticle() {
     ExampleArticle()
 }
 
+@PreviewLightDark
+@Composable
+private fun PreviewArticleBookmarked() {
+    ExampleArticle(
+        article = UiArticle(
+            title = "Modern Android development Bigger Text",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.",
+            articleId = "1",
+            thumbnail = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
+            isBookmarked = true,
+        )
+    )
+}
+
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ExampleArticle(
+    modifier: Modifier = Modifier,
     article: UiArticle = UiArticle(
-        title = "Modern Android development ",
+        title = "Modern Android development Bigger Text",
         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.",
         articleId = "1",
         thumbnail = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
     ),
-    modifier: Modifier = Modifier
 ) {
     KesiTheme {
         val imageColor = MaterialTheme.colorScheme.tertiaryContainer

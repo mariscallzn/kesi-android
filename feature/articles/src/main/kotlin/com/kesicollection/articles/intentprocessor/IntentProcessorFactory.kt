@@ -4,19 +4,26 @@ import com.kesicollection.articles.Intent
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.core.uisystem.IntentProcessor
 import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.data.usecase.BookmarkArticleByIdUseCase
 import com.kesicollection.data.usecase.GetArticlesUseCase
+import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
 import javax.inject.Inject
 
 /**
- * A factory class responsible for creating [IntentProcessor] instances based on the provided [Intent].
+ * The `DefaultIntentProcessorFactory` is a concrete implementation of the [IntentProcessorFactory]
+ * interface. It's responsible for creating and providing [IntentProcessor] instances tailored to
+ * specific [Intent] types.
  *
- * This implementation currently creates lightweight [IntentProcessor] objects on each request.
- * Alternative strategies, such as caching, could be implemented for performance optimization in the future.
+ * This factory currently adopts a lightweight strategy by creating new [IntentProcessor] objects
+ * upon each request. However, it's designed with future flexibility in mind, allowing for the
+ * potential integration of caching or other performance enhancement strategies if needed.
  *
  * @property getArticlesUseCase A [GetArticlesUseCase] instance used by [FetchArticlesIntentProcessor].
  */
 class DefaultIntentProcessorFactory @Inject constructor(
     private val getArticlesUseCase: GetArticlesUseCase,
+    private val isArticleBookmarkedUseCase: IsArticleBookmarkedUseCase,
+    private val bookmarkArticleByIdUseCase: BookmarkArticleByIdUseCase,
 ) : IntentProcessorFactory<UiArticlesState, Intent> {
 
     // NOTE: Two options here: Either make some how lightweight intent processor instances
@@ -25,7 +32,17 @@ class DefaultIntentProcessorFactory @Inject constructor(
     // to the DefaultsIntentProcessorFactory as singletons.
     override fun create(intent: Intent): IntentProcessor<UiArticlesState> {
         return when (intent) {
-            Intent.FetchArticles -> FetchArticlesIntentProcessor(getArticlesUseCase = getArticlesUseCase)
+            Intent.FetchArticles -> FetchArticlesIntentProcessor(
+                getArticlesUseCase = getArticlesUseCase,
+                isArticleBookmarkedUseCase = isArticleBookmarkedUseCase,
+            )
+
+            is Intent.BookmarkClicked -> BookmarkArticleIntentProcessor(
+                articleId = intent.articleId,
+                bookmarkArticleByIdUseCase = bookmarkArticleByIdUseCase,
+                getArticlesUseCase = getArticlesUseCase,
+                isArticleBookmarkedUseCase = isArticleBookmarkedUseCase,
+            )
         }
     }
 }

@@ -6,7 +6,9 @@ import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.Reducer
 import com.kesicollection.data.usecase.GetArticlesUseCase
+import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
 import com.kesicollection.testing.api.TestDoubleArticleRepository
+import com.kesicollection.testing.api.TestDoubleBookmarkRepository
 import com.kesicollection.testing.api.getArticlesResult
 import com.kesicollection.testing.api.successGetArticleResult
 import com.kesicollection.testing.testdata.ArticlesTestData
@@ -47,6 +49,9 @@ class FetchArticlesIntentProcessorTest {
         fetchArticlesIntentProcessor = FetchArticlesIntentProcessor(
             getArticlesUseCase = GetArticlesUseCase(
                 articleRepository = TestDoubleArticleRepository()
+            ),
+            isArticleBookmarkedUseCase = IsArticleBookmarkedUseCase(
+                bookmarkRepository = TestDoubleBookmarkRepository()
             )
         )
     }
@@ -76,10 +81,10 @@ class FetchArticlesIntentProcessorTest {
     @Test
     fun `validate is loading before a success response`() = runTest {
         val expectedStates: List<UiArticlesState> = listOf(
-            UiArticlesState(isLoading = true, screenError = null, articles = emptyList()),
+            UiArticlesState(isLoading = true, error = null, articles = emptyList()),
             UiArticlesState(
                 isLoading = false,
-                screenError = null,
+                error = null,
                 articles = ArticlesTestData.items.map { it.asUiArticle() }
             ),
         )
@@ -91,10 +96,10 @@ class FetchArticlesIntentProcessorTest {
 
         assertEquals(expectedStates.size, capturedStates.size)
         assertEquals(expectedStates[0].isLoading, capturedStates[0].isLoading)
-        assertEquals(expectedStates[0].screenError, capturedStates[0].screenError)
+        assertEquals(expectedStates[0].error, capturedStates[0].error)
         assertEquals(expectedStates[0].articles, capturedStates[0].articles)
         assertEquals(expectedStates[1].isLoading, capturedStates[1].isLoading)
-        assertEquals(expectedStates[1].screenError, capturedStates[1].screenError)
+        assertEquals(expectedStates[1].error, capturedStates[1].error)
         assertEquals(expectedStates[1].articles, capturedStates[1].articles)
     }
 
@@ -114,13 +119,13 @@ class FetchArticlesIntentProcessorTest {
     @Test
     fun `validate is loading before error fetching`() = runTest {
         val mockErrorMessage = "This is a error"
-        val exception = Exception(mockErrorMessage )
+        val exception = Exception(mockErrorMessage)
         getArticlesResult = Result.failure(exception)
         val expectedStates: List<UiArticlesState> = listOf(
-            UiArticlesState(isLoading = true, screenError = null, articles = emptyList()),
+            UiArticlesState(isLoading = true, error = null, articles = emptyList()),
             UiArticlesState(
                 isLoading = false,
-                screenError = ErrorState(ArticlesErrors.NetworkCallError, exception.message),
+                error = ErrorState(ArticlesErrors.NetworkError, exception.message),
                 articles = emptyList()
             ),
         )
@@ -132,10 +137,10 @@ class FetchArticlesIntentProcessorTest {
 
         assertEquals(expectedStates.size, capturedStates.size)
         assertEquals(expectedStates[0].isLoading, capturedStates[0].isLoading)
-        assertEquals(expectedStates[0].screenError, capturedStates[0].screenError)
+        assertEquals(expectedStates[0].error, capturedStates[0].error)
         assertEquals(expectedStates[0].articles, capturedStates[0].articles)
         assertEquals(expectedStates[1].isLoading, capturedStates[1].isLoading)
-        assertEquals(expectedStates[1].screenError, capturedStates[1].screenError)
+        assertEquals(expectedStates[1].error, capturedStates[1].error)
         assertEquals(expectedStates[1].articles, capturedStates[1].articles)
     }
 }

@@ -37,6 +37,7 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
             configureKotlinJvm()
             dependencies {
                 implementation(libs.findLibrary("kotlinx.serialization.json").get())
+                implementation(libs.findLibrary("kotlinx.coroutines.core").get())
                 testImplementation(libs.findLibrary("kotlin.test").get())
                 testImplementation(libs.findLibrary("kotlinx.coroutines.test").get())
             }

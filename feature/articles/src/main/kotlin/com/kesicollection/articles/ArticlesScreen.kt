@@ -33,11 +33,11 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
-import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.component.KScaffold
+import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.articles.R
 import dagger.hilt.EntryPoints
@@ -94,6 +94,7 @@ fun ArticlesScreen(
         ArticlesScreen(
             modifier = modifier,
             onArticleClick = onArticleClick,
+            onBookmarkClick = viewModel::sendIntent,
             onTryAgain = viewModel::sendIntent,
             uiState = uiState,
         )
@@ -122,6 +123,7 @@ fun ArticlesScreen(
 internal fun ArticlesScreen(
     uiState: UiArticlesState,
     onArticleClick: (articleId: String) -> Unit,
+    onBookmarkClick: (Intent.BookmarkClicked) -> Unit,
     onTryAgain: (Intent.FetchArticles) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -133,7 +135,7 @@ internal fun ArticlesScreen(
             })
         }
     ) { innerPadding ->
-        uiState.screenError?.let {
+        uiState.error?.let {
             ShowError(
                 { onTryAgain(Intent.FetchArticles) }, modifier = Modifier
                     .fillMaxSize()
@@ -155,7 +157,11 @@ internal fun ArticlesScreen(
                 itemsIndexed(
                     uiState.articles,
                     key = { _, item -> item.articleId }) { index, item ->
-                    Article(article = item, onArticleClick = { onArticleClick(it.articleId) })
+                    Article(
+                        article = item,
+                        onArticleClick = { onArticleClick(it.articleId) },
+                        onBookmarkClick = { onBookmarkClick(Intent.BookmarkClicked(it)) },
+                    )
                     if (index < uiState.articles.size - 1) {
                         Box(
                             Modifier
@@ -185,7 +191,7 @@ private fun LoadingArticlesScreenPreview() {
 @PreviewLightDark
 @Composable
 private fun ErrorArticlesScreenPreview() {
-    ArticlesScreenExample(uiState = UiArticlesState(screenError = ErrorState(ArticlesErrors.NetworkCallError)))
+    ArticlesScreenExample(uiState = UiArticlesState(error = ErrorState(ArticlesErrors.NetworkError)))
 }
 
 @OptIn(ExperimentalCoilApi::class)
@@ -224,6 +230,7 @@ private fun ArticlesScreenExample(
                     modifier = modifier,
                     uiState = uiState,
                     onArticleClick = {},
+                    onBookmarkClick = {},
                     onTryAgain = {}
                 )
             }

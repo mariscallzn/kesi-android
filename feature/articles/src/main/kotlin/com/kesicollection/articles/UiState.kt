@@ -10,21 +10,22 @@ val initialState = UiArticlesState()
  *
  * @property articles The list of articles to be displayed. Defaults to an empty list.
  * @property isLoading Indicates whether the articles are currently being loaded. Defaults to false.
- * @property screenError Represents an error state that might occur during loading. Null if no error.
+ * @property error Represents an error state that might occur during loading. Null if no error.
  */
 data class UiArticlesState(
     val articles: List<UiArticle> = emptyList(),
     val isLoading: Boolean = false,
-    val screenError: ErrorState<ArticlesErrors>? = null
+    val error: ErrorState<ArticlesErrors>? = null
 )
 
 /**
  * Represents the possible errors that can occur in the articles feature.
  *
- * @property NetworkCallError Indicates an error occurred during a network call.
+ * @property NetworkError Indicates an error occurred during a network call.
  */
 enum class ArticlesErrors {
-    NetworkCallError
+    GenericError,
+    NetworkError,
 }
 
 /**
@@ -35,5 +36,6 @@ enum class ArticlesErrors {
  */
 sealed interface Intent {
     data object FetchArticles : Intent
+    data class BookmarkClicked(val articleId: String) : Intent
 }
 

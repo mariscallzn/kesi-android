@@ -14,7 +14,8 @@ data class UiArticle(
     val articleId: String,
     val title: String,
     val description: String,
-    val thumbnail: String
+    val thumbnail: String,
+    val isBookmarked: Boolean = false,
 )
 
 /**
