@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.KesiAndroid" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.KesiAndroid.Starting" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.KesiAndroid</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+    </style>
+</resources>
