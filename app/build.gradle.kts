@@ -36,7 +36,6 @@ dependencies {
     implementation(projects.feature.audioplayer)
 
     implementation(projects.data.retrofit)
-    implementation(projects.data.room)
     implementation(projects.data.datastore)
 
     implementation(libs.androidx.activity.compose)
@@ -44,4 +43,5 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
     implementation(libs.androidx.core.splashscreen)
+
 }

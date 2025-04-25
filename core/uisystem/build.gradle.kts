@@ -16,6 +16,7 @@ dependencies {
     api(libs.androidx.compose.material3.navigationSuite)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.compose.ui.util)
+    api(libs.play.services.ads)
 
     debugImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.androidx.test.rules)

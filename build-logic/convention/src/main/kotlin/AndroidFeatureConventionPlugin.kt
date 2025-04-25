@@ -42,6 +42,37 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             apply(plugin = "kesiandroid.hilt")
 
             extensions.configure<LibraryExtension> {
+                buildFeatures {
+                    buildConfig = true
+                }
+
+                buildTypes {
+                    debug {
+                        buildConfigField(
+                            "String",
+                            "AD_UNIT_ARTICLES",
+                            "\"ca-app-pub-3940256099942544/9214589741\""
+                        )
+                        buildConfigField(
+                            "String",
+                            "AD_UNIT_ARTICLE",
+                            "\"ca-app-pub-3940256099942544/9214589741\""
+                        )
+                    }
+                    release {
+                        buildConfigField(
+                            "String",
+                            "AD_UNIT_ARTICLES",
+                            "\"${System.getenv("AD_UNIT_ARTICLES_ID")}\""
+                        )
+                        buildConfigField(
+                            "String",
+                            "AD_UNIT_ARTICLE",
+                            "\"${System.getenv("AD_UNIT_ARTICLE_ID")}\""
+                        )
+                    }
+                }
+
                 testOptions {
                     unitTests {
                         isIncludeAndroidResources = true

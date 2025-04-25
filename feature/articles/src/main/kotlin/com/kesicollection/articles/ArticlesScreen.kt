@@ -1,8 +1,11 @@
 package com.kesicollection.articles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -36,9 +40,11 @@ import com.kesicollection.articles.components.LoadingArticles
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.articles.BuildConfig
 import com.kesicollection.feature.articles.R
 import dagger.hilt.EntryPoints
 
@@ -149,28 +155,39 @@ internal fun ArticlesScreen(
                     .testTag(":feature:articles:loading")
             )
         } else {
-            LazyColumn(
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .padding(innerPadding)
-                    .testTag(":feature:articles:articles")
             ) {
-                itemsIndexed(
-                    uiState.articles,
-                    key = { _, item -> item.articleId }) { index, item ->
-                    Article(
-                        article = item,
-                        onArticleClick = { onArticleClick(it.articleId) },
-                        onBookmarkClick = { onBookmarkClick(Intent.BookmarkClicked(it)) },
-                    )
-                    if (index < uiState.articles.size - 1) {
-                        Box(
-                            Modifier
-                                .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
-                                .height(1.dp)
-                                .fillParentMaxWidth()
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag(":feature:articles:articles")
+                ) {
+                    itemsIndexed(
+                        uiState.articles,
+                        key = { _, item -> item.articleId }) { index, item ->
+                        Article(
+                            article = item,
+                            onArticleClick = { onArticleClick(it.articleId) },
+                            onBookmarkClick = { onBookmarkClick(Intent.BookmarkClicked(it)) },
                         )
+                        if (index < uiState.articles.size - 1) {
+                            Box(
+                                Modifier
+                                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
+                                    .height(1.dp)
+                                    .fillParentMaxWidth()
+                            )
+                        }
                     }
                 }
+                KAdView(
+                    adUnitId = BuildConfig.AD_UNIT_ARTICLES,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
             }
         }
     }
@@ -197,6 +214,7 @@ private fun ErrorArticlesScreenPreview() {
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ArticlesScreenExample(
+    modifier: Modifier = Modifier,
     uiState: UiArticlesState = UiArticlesState(
         articles = listOf(
             UiArticle(
@@ -213,7 +231,6 @@ private fun ArticlesScreenExample(
             )
         )
     ),
-    modifier: Modifier = Modifier
 ) {
     KesiTheme {
         val imageColor = MaterialTheme.colorScheme.tertiaryContainer

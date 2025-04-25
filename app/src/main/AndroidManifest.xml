@@ -36,6 +36,11 @@
                 <action android:name="android.media.browse.MediaBrowserService"/>
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1171451751206640~9935514975"/>
+
     </application>
 
 </manifest>

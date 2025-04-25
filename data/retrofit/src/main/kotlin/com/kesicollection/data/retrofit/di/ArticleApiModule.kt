@@ -12,6 +12,8 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
@@ -41,6 +43,50 @@ abstract class ArticleApiModule {
 
     companion object {
 
+        /**
+         * Provides a Json setting preset
+         *
+         * ignoreUnknownKeys is set to true to protect front-end from crashes due to unknown keys
+         */
+        @Singleton
+        @Provides
+        fun providesJson(): Json = Json {
+            ignoreUnknownKeys = true
+        }
+
+        /**
+         * Provides an OkHttp [Call.Factory] instance.
+         *
+         * This factory is configured with a [HttpLoggingInterceptor] to log HTTP request and response bodies.
+         * The logging level is set to [HttpLoggingInterceptor.Level.BODY] for detailed logging.
+         * This allows for observing the data being sent and received by the network calls,
+         * which is very useful for debugging purposes.
+         *
+         * @return A configured [Call.Factory] instance.
+         */
+        @Singleton
+        @Provides
+        fun providesOkHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }).build()
+
+        /**
+         * Provides a singleton instance of [KesiAndroidService] for interacting with the Kesi Android API.
+         *
+         * This function configures and builds a Retrofit client specifically for the Kesi Android API,
+         * using the provided [Json] for serialization/deserialization and [Call.Factory] for network requests.
+         *
+         * The base URL for the Kesi Android API is hardcoded to:
+         * "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/"
+         *
+         * The function utilizes the `kotlinx-serialization` library to handle JSON data conversion,
+         * and specifies "application/json" as the media type.
+         *
+         * @param json The [Json] instance used for serializing and deserializing data.
+         * @param callFactory The [Call.Factory] used to create network call instances. Usually an OkHttp client.
+         * @return A singleton instance of [KesiAndroidService] ready to be used for API requests.
+         */
         @Provides
         @Singleton
         fun providesKesiAndroidService(

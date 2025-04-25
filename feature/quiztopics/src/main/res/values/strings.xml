@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="feature_quiztopics_top_bar_title">Topics</string>
-    <plurals name="feature_quiztopics_card_description">
-        <item quantity="one">%d question</item>
-        <item quantity="other">%d questions</item>
-    </plurals>
-</resources>

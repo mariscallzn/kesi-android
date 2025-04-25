@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.captionBar
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.safeGestures
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -66,6 +69,7 @@ import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
+import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -238,6 +242,7 @@ internal fun ArticleScreen(
                         }
                     })
                 LazyColumn(
+                    modifier = Modifier.weight(1f),
                     state = lazyColumState,
                     contentPadding = PaddingValues(
                         start = 16.dp,
@@ -299,6 +304,12 @@ internal fun ArticleScreen(
                         DisplayContent(it, modifier = Modifier.fillParentMaxWidth())
                     }
                 }
+                KAdView(
+                    adUnitId = BuildConfig.AD_UNIT_ARTICLE,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = safeContent.calculateBottomPadding())
+                )
             }
         }
     }
