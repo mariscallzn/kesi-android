@@ -17,6 +17,7 @@ dependencies {
     api(libs.androidx.compose.runtime)
     api(libs.androidx.compose.ui.util)
     api(libs.play.services.ads)
+    api(projects.core.analytics)
 
     debugImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.androidx.test.rules)

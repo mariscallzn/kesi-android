@@ -5,15 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.MobileAds
 import com.kesicollection.articles.ArticlesRoute
+import com.kesicollection.core.analytics.AnalyticsWrapper
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.core.uisystem.LocalAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * NOTES, Links and ideas:
@@ -25,6 +29,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @Inject
+    lateinit var analyticsWrapper: AnalyticsWrapper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -33,12 +40,14 @@ class MainActivity : ComponentActivity() {
             MobileAds.initialize(this@MainActivity)
         }
         setContent {
-            KesiTheme {
-                AppNavigation(
-                    navController = rememberNavController(),
-                    startDestination = ArticlesRoute,
-                    modifier = Modifier.fillMaxSize()
-                )
+            CompositionLocalProvider(LocalAnalytics provides analyticsWrapper) {
+                KesiTheme {
+                    AppNavigation(
+                        navController = rememberNavController(),
+                        startDestination = ArticlesRoute,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
         }
     }

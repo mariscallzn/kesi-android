@@ -18,10 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -40,6 +40,7 @@ import com.kesicollection.articles.components.LoadingArticles
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.uisystem.LocalAnalytics
 import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
@@ -85,12 +86,22 @@ fun ArticlesScreen(
     onArticleClick: (articleId: String) -> Unit,
     viewModel: ArticlesViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val analytics = LocalAnalytics.current
+
     val imageLoader = EntryPoints.get(
         LocalContext.current.applicationContext,
         ImageLoaderEntryPoint::class.java
     ).imageLoader()
 
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    SideEffect {
+        analytics.logEvent(
+            analytics.event.screenView, mapOf(
+                analytics.param.screenName to "Articles",
+                analytics.param.screenClass to "ArticlesScreen"
+            )
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.FetchArticles)
