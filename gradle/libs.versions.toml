@@ -17,6 +17,9 @@ androidxSplashScreen = "1.0.1"
 coil3 = "3.1.0"
 coreKtx = "1.15.0"
 espressoCore = "3.6.1"
+firebaseBom = "33.12.0"
+googleFirebaseCrashlytics = "3.0.3"
+googleServices = "4.4.2"
 hilt = "2.56.1"
 junit = "4.13.2"
 kotlin = "2.1.20"
@@ -71,6 +74,9 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil3" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil3" }
 coil-test = { group = "io.coil-kt.coil3", name = "coil-test", version.ref = "coil3" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics"}
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics"}
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
@@ -103,6 +109,8 @@ room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", vers
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

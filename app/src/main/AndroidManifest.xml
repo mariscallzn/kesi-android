@@ -29,17 +29,17 @@
         </activity>
         <service
             android:name="com.kesicollection.feature.audioplayer.AudioPlayerService"
-            android:foregroundServiceType="mediaPlayback"
-            android:exported="true">
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
             <intent-filter>
-                <action android:name="androidx.media3.session.MediaSessionService"/>
-                <action android:name="android.media.browse.MediaBrowserService"/>
+                <action android:name="androidx.media3.session.MediaSessionService" />
+                <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1171451751206640~9935514975"/>
+            android:value="ca-app-pub-1171451751206640~9935514975" />
 
     </application>
 

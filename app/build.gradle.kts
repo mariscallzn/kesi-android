@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.kesiandroid.android.application)
     alias(libs.plugins.kesiandroid.android.application.compose)
     alias(libs.plugins.kesiandroid.hilt)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.firebase.crashlytics)
 }
 
 android {
@@ -43,5 +45,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
     implementation(libs.androidx.core.splashscreen)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
 }
