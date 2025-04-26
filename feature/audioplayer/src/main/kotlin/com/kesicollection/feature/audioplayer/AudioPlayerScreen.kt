@@ -23,6 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.MoreExecutors
+import com.kesicollection.core.uisystem.LocalAnalytics
 import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -78,6 +80,16 @@ fun AudioPlayerScreen(
     var mediaController: MediaController? by remember { mutableStateOf(null) }
     var progress by remember { mutableFloatStateOf(0f) }
     var isPlaying by remember { mutableStateOf(false) }
+
+    val analytics = LocalAnalytics.current
+    SideEffect {
+        analytics.logEvent(
+            analytics.event.screenView, mapOf(
+                analytics.param.screenName to "AudioPlayer",
+                analytics.param.screenClass to "AudioPlayerScreen"
+            )
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.InitScreen(title))

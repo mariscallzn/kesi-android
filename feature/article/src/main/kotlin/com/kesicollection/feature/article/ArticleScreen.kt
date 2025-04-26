@@ -35,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -67,6 +68,7 @@ import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.uisystem.LocalAnalytics
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.component.KAdView
@@ -110,11 +112,11 @@ val LocalImageLoader = compositionLocalOf<ImageLoader> {
  */
 @Composable
 fun ArticleScreen(
+    modifier: Modifier = Modifier,
     articleId: String,
     onNavigateUp: () -> Unit,
     onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     viewModel: ArticleViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
 ) {
     val imageLoader = EntryPointAccessors.fromApplication(
         LocalContext.current,
@@ -122,6 +124,16 @@ fun ArticleScreen(
     ).getImageLoader()
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val analytics = LocalAnalytics.current
+    SideEffect {
+        analytics.logEvent(
+            analytics.event.screenView, mapOf(
+                analytics.param.screenName to "Article",
+                analytics.param.screenClass to "ArticleScreen"
+            )
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.FetchArticle(articleId))
