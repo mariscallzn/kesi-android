@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -132,6 +133,12 @@ fun AudioPlayerScreen(
             .collect { newValue ->
                 isPlaying = newValue
             }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            mediaController?.release()
+        }
     }
 
     AudioPlayerScreen(
