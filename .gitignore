@@ -15,3 +15,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+keystore.properties
+admob.properties
+app/upload-keystore.jks

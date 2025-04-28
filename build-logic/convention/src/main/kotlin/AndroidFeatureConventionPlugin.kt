@@ -8,6 +8,8 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import java.io.FileInputStream
+import java.util.Properties
 
 /**
  * A convention plugin that applies common configurations for Android Feature modules.
@@ -41,6 +43,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             apply(plugin = "kesiandroid.android.library")
             apply(plugin = "kesiandroid.hilt")
 
+            val admobPropertiesFile = rootProject.file("admob.properties")
+            val admobProperties = Properties()
+            admobProperties.load(FileInputStream(admobPropertiesFile))
+
             extensions.configure<LibraryExtension> {
                 buildFeatures {
                     buildConfig = true
@@ -63,12 +69,12 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                         buildConfigField(
                             "String",
                             "AD_UNIT_ARTICLES",
-                            "\"${System.getenv("AD_UNIT_ARTICLES_ID")}\""
+                            "\"${admobProperties["articlesBannerUintId"]}\""
                         )
                         buildConfigField(
                             "String",
                             "AD_UNIT_ARTICLE",
-                            "\"${System.getenv("AD_UNIT_ARTICLE_ID")}\""
+                            "\"${admobProperties["articleBannerUintId"]}\""
                         )
                     }
                 }
