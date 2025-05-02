@@ -1,4 +1,4 @@
-package com.kesicollection.core.analytics
+package com.kesicollection.core.app
 
 /**
  * Interface for wrapping analytics logging functionality.

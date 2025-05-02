@@ -44,7 +44,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.MoreExecutors
-import com.kesicollection.core.uisystem.LocalAnalytics
+import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -82,7 +82,7 @@ fun AudioPlayerScreen(
     var progress by remember { mutableFloatStateOf(0f) }
     var isPlaying by remember { mutableStateOf(false) }
 
-    val analytics = LocalAnalytics.current
+    val analytics = LocalApp.current.analytics
     SideEffect {
         analytics.logEvent(
             analytics.event.screenView, mapOf(

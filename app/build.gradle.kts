@@ -60,7 +60,7 @@ dependencies {
 
     implementation(projects.data.retrofit)
     implementation(projects.data.datastore)
-    implementation(projects.core.analytics)
+    implementation(projects.core.app)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)

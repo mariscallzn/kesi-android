@@ -1,8 +1,18 @@
 package com.kesicollection.kesiandroid.analytics
 
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.kesicollection.core.analytics.AnalyticsWrapper
+import com.kesicollection.core.app.AnalyticsWrapper
 
+/**
+ * `FirebaseParamProvider` provides a set of constants representing Firebase Analytics parameter keys.
+ *
+ * This object implements the `AnalyticsWrapper.Param` interface, making it compatible with systems
+ * that rely on a generic parameter key provider. It specifically exposes parameter names used by
+ * Firebase Analytics for tracking screen views and classes.
+ *
+ * Using this object helps maintain consistency and reduces the chance of typos when working with
+ * Firebase Analytics parameters across your application.
+ */
 object FirebaseParamProvider : AnalyticsWrapper.Param {
     override val screenName: String
         get() = FirebaseAnalytics.Param.SCREEN_NAME
