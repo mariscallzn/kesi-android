@@ -18,4 +18,10 @@ object FirebaseParamProvider : AnalyticsWrapper.Param {
         get() = FirebaseAnalytics.Param.SCREEN_NAME
     override val screenClass: String
         get() = FirebaseAnalytics.Param.SCREEN_CLASS
+    override val itemId: String
+        get() = FirebaseAnalytics.Param.ITEM_ID
+    override val itemName: String
+        get() = FirebaseAnalytics.Param.ITEM_NAME
+    override val contentType: String
+        get() = FirebaseAnalytics.Param.CONTENT_TYPE
 }

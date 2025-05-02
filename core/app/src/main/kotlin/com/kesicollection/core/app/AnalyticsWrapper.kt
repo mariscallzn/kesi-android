@@ -41,6 +41,10 @@ interface AnalyticsWrapper {
      */
     interface Event {
         val screenView: String
+        val selectItem: String
+        val tryAgain: String
+        val playAudioPlayer: String
+        val pauseAudioPlayer: String
     }
 
     /**
@@ -52,6 +56,9 @@ interface AnalyticsWrapper {
     interface Param {
         val screenName: String
         val screenClass: String
+        val itemId: String
+        val itemName: String
+        val contentType: String
     }
 
     /**

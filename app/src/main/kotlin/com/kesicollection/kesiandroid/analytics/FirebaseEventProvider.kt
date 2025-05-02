@@ -15,4 +15,12 @@ import com.kesicollection.core.app.AnalyticsWrapper
 object FirebaseEventProvider: AnalyticsWrapper.Event {
     override val screenView: String
         get() = FirebaseAnalytics.Event.SCREEN_VIEW
+    override val selectItem: String
+        get() = FirebaseAnalytics.Event.SELECT_ITEM
+    override val tryAgain: String
+        get() = "try_again"
+    override val playAudioPlayer: String
+        get() = "play_audio_player"
+    override val pauseAudioPlayer: String
+        get() = "pause_audio_player"
 }
