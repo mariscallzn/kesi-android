@@ -69,7 +69,14 @@ abstract class ArticleApiModule {
         fun providesOkHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
                 setLevel(HttpLoggingInterceptor.Level.BODY)
-            }).build()
+            })
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .header("Cache-Control", "no-cache")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
 
         /**
          * Provides a singleton instance of [KesiAndroidService] for interacting with the Kesi Android API.
