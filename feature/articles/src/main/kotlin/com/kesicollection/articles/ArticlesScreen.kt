@@ -211,6 +211,7 @@ internal fun ArticlesScreen(
                 }
                 KAdView(
                     adUnitId = BuildConfig.AD_UNIT_ARTICLES,
+                    screenName = "Articles",
                     modifier = Modifier
                         .fillMaxWidth()
                 )
