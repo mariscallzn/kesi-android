@@ -322,6 +322,7 @@ internal fun ArticleScreen(
                 }
                 KAdView(
                     adUnitId = BuildConfig.AD_UNIT_ARTICLE,
+                    screenName = "Article",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = safeContent.calculateBottomPadding())

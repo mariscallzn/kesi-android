@@ -23,4 +23,6 @@ object FirebaseEventProvider: AnalyticsWrapper.Event {
         get() = "play_audio_player"
     override val pauseAudioPlayer: String
         get() = "pause_audio_player"
+    override val adImpression: String
+        get() = FirebaseAnalytics.Event.AD_IMPRESSION
 }
