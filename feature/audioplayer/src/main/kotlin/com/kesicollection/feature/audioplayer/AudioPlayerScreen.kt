@@ -151,8 +151,20 @@ fun AudioPlayerScreen(
         isPlaying = { isPlaying },
         onPlayPauseClick = {
             if (isPlaying) {
+                analytics.logEvent(
+                    analytics.event.pauseAudioPlayer, mapOf(
+                        analytics.param.itemId to fileName,
+                        analytics.param.contentType to "podcast"
+                    )
+                )
                 mediaController?.pause()
             } else {
+                analytics.logEvent(
+                    analytics.event.playAudioPlayer, mapOf(
+                        analytics.param.itemId to fileName,
+                        analytics.param.contentType to "podcast"
+                    )
+                )
                 mediaController?.play()
             }
         }

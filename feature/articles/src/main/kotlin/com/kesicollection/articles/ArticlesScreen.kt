@@ -111,8 +111,23 @@ fun ArticlesScreen(
         ArticlesScreen(
             modifier = modifier,
             onArticleClick = onArticleClick,
-            onBookmarkClick = viewModel::sendIntent,
-            onTryAgain = viewModel::sendIntent,
+            onBookmarkClick = {
+                analytics.logEvent(
+                    analytics.event.selectItem, mapOf(
+                        analytics.param.itemId to it.articleId,
+                        analytics.param.contentType to "article"
+                    )
+                )
+                viewModel.sendIntent(it)
+            },
+            onTryAgain = {
+                analytics.logEvent(
+                    analytics.event.tryAgain, mapOf(
+                        analytics.param.screenName to "articles",
+                    )
+                )
+                viewModel.sendIntent(it)
+            },
             uiState = uiState,
         )
     }

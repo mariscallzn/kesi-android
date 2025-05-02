@@ -141,7 +141,14 @@ fun ArticleScreen(
             uiState = uiState,
             onNavigateUp = onNavigateUp,
             onPodcastClick = onPodcastClick,
-            onTryAgain = { viewModel.sendIntent(Intent.FetchArticle(articleId)) },
+            onTryAgain = {
+                analytics.logEvent(
+                    analytics.event.tryAgain, mapOf(
+                        analytics.param.itemId to articleId,
+                    )
+                )
+                viewModel.sendIntent(Intent.FetchArticle(articleId))
+            },
             modifier = modifier,
         )
     }
