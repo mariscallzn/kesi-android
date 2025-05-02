@@ -3,7 +3,7 @@ package com.kesicollection.kesiandroid.analytics
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.logEvent
-import com.kesicollection.core.analytics.AnalyticsWrapper
+import com.kesicollection.core.app.AnalyticsWrapper
 import com.kesicollection.feature.article.BuildConfig
 import javax.inject.Inject
 

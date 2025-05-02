@@ -40,7 +40,7 @@ import com.kesicollection.articles.components.LoadingArticles
 import com.kesicollection.articles.di.ImageLoaderEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
-import com.kesicollection.core.uisystem.LocalAnalytics
+import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
@@ -87,7 +87,7 @@ fun ArticlesScreen(
     viewModel: ArticlesViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val analytics = LocalAnalytics.current
+    val analytics = LocalApp.current.analytics
 
     val imageLoader = EntryPoints.get(
         LocalContext.current.applicationContext,
