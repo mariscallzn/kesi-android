@@ -1,5 +1,6 @@
 package com.kesicollection.feature.article.intent
 
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.model.ContentSection
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.IntentProcessor
@@ -39,6 +40,7 @@ import com.kesicollection.feature.article.uimodel.UiPodcast
 class FetchArticleIntentProcessor(
     private val articleId: String,
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessor<UiArticleState> {
     override suspend fun processIntent(reducer: (Reducer<UiArticleState>) -> Unit) {
         reducer { copy(isLoading = true, error = null) }
@@ -67,6 +69,11 @@ class FetchArticleIntentProcessor(
                 )
             }
         } catch (e: Exception) {
+            crashlyticsWrapper.recordException(e, mapOf(
+                crashlyticsWrapper.params.screenName to "Article",
+                crashlyticsWrapper.params.className to "FetchArticleIntentProcessor",
+                crashlyticsWrapper.params.action to "fetch",
+            ))
             reducer {
                 copy(
                     isLoading = false,

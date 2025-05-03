@@ -2,6 +2,7 @@ package com.kesicollection.articles.intentprocessor
 
 import com.kesicollection.articles.Intent
 import com.kesicollection.articles.UiArticlesState
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.uisystem.IntentProcessor
 import com.kesicollection.core.uisystem.IntentProcessorFactory
 import com.kesicollection.data.usecase.BookmarkArticleByIdUseCase
@@ -24,6 +25,7 @@ class DefaultIntentProcessorFactory @Inject constructor(
     private val getArticlesUseCase: GetArticlesUseCase,
     private val isArticleBookmarkedUseCase: IsArticleBookmarkedUseCase,
     private val bookmarkArticleByIdUseCase: BookmarkArticleByIdUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessorFactory<UiArticlesState, Intent> {
 
     // NOTE: Two options here: Either make some how lightweight intent processor instances
@@ -35,6 +37,7 @@ class DefaultIntentProcessorFactory @Inject constructor(
             Intent.FetchArticles -> FetchArticlesIntentProcessor(
                 getArticlesUseCase = getArticlesUseCase,
                 isArticleBookmarkedUseCase = isArticleBookmarkedUseCase,
+                crashlyticsWrapper = crashlyticsWrapper,
             )
 
             is Intent.BookmarkClicked -> BookmarkArticleIntentProcessor(
@@ -42,6 +45,7 @@ class DefaultIntentProcessorFactory @Inject constructor(
                 bookmarkArticleByIdUseCase = bookmarkArticleByIdUseCase,
                 getArticlesUseCase = getArticlesUseCase,
                 isArticleBookmarkedUseCase = isArticleBookmarkedUseCase,
+                crashlyticsWrapper = crashlyticsWrapper,
             )
         }
     }

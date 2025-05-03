@@ -3,6 +3,7 @@ package com.kesicollection.articles.intentprocessor
 import com.kesicollection.articles.ArticlesErrors
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.model.asUiArticle
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.IntentProcessor
 import com.kesicollection.core.uisystem.Reducer
@@ -47,6 +48,7 @@ import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
 class FetchArticlesIntentProcessor(
     private val getArticlesUseCase: GetArticlesUseCase,
     private val isArticleBookmarkedUseCase: IsArticleBookmarkedUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessor<UiArticlesState> {
     override suspend fun processIntent(reducer: (Reducer<UiArticlesState>) -> Unit) {
         reducer { copy(isLoading = true, error = null) }
@@ -61,6 +63,14 @@ class FetchArticlesIntentProcessor(
                 )
             }
         } catch (e: Exception) {
+            crashlyticsWrapper.recordException(
+                exception = e,
+                params = mapOf(
+                    crashlyticsWrapper.params.screenName to "Articles",
+                    crashlyticsWrapper.params.className to "FetchArticlesIntentProcessor",
+                    crashlyticsWrapper.params.action to "fetch",
+                )
+            )
             reducer {
                 copy(
                     isLoading = false,
