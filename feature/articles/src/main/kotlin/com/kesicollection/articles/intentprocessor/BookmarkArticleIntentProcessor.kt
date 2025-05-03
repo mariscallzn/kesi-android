@@ -3,6 +3,7 @@ package com.kesicollection.articles.intentprocessor
 import com.kesicollection.articles.ArticlesErrors
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.model.asUiArticle
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.IntentProcessor
 import com.kesicollection.core.uisystem.Reducer
@@ -26,6 +27,7 @@ class BookmarkArticleIntentProcessor(
     private val bookmarkArticleByIdUseCase: BookmarkArticleByIdUseCase,
     private val isArticleBookmarkedUseCase: IsArticleBookmarkedUseCase,
     private val getArticlesUseCase: GetArticlesUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessor<UiArticlesState> {
     override suspend fun processIntent(reducer: (Reducer<UiArticlesState>) -> Unit) {
         reducer {
@@ -42,6 +44,13 @@ class BookmarkArticleIntentProcessor(
                 copy(articles = articles)
             }
         } catch (e: Exception) {
+            crashlyticsWrapper.recordException(
+                e, mapOf(
+                    crashlyticsWrapper.params.screenName to "Articles",
+                    crashlyticsWrapper.params.className to "BookmarkArticleIntentProcessor",
+                    crashlyticsWrapper.params.action to "bookmark",
+                )
+            )
             reducer {
                 copy(
                     isLoading = false,

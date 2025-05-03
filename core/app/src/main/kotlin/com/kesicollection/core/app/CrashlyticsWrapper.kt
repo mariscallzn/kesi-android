@@ -9,5 +9,7 @@ interface CrashlyticsWrapper {
 
     interface Params {
         val screenName: String
+        val className: String
+        val action: String
     }
 }

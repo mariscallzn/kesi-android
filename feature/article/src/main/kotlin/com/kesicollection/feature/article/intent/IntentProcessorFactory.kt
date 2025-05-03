@@ -1,5 +1,6 @@
 package com.kesicollection.feature.article.intent
 
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.uisystem.IntentProcessor
 import com.kesicollection.core.uisystem.IntentProcessorFactory
 import com.kesicollection.data.usecase.GetArticleByIdUseCase
@@ -22,12 +23,14 @@ import javax.inject.Singleton
 @Singleton
 class DefaultIntentProcessorFactory @Inject constructor(
     private val getArticleByIdUseCase: GetArticleByIdUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessorFactory<UiArticleState, Intent> {
     override fun create(intent: Intent): IntentProcessor<UiArticleState> {
         return when (intent) {
             is Intent.FetchArticle -> FetchArticleIntentProcessor(
                 articleId = intent.id,
-                getArticleByIdUseCase = getArticleByIdUseCase
+                getArticleByIdUseCase = getArticleByIdUseCase,
+                crashlyticsWrapper = crashlyticsWrapper,
             )
         }
     }
