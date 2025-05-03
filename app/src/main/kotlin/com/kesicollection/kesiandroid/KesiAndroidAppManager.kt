@@ -2,6 +2,7 @@ package com.kesicollection.kesiandroid
 
 import com.kesicollection.core.app.AnalyticsWrapper
 import com.kesicollection.core.app.AppManager
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.app.Logger
 import javax.inject.Inject
 
@@ -14,13 +15,17 @@ import javax.inject.Inject
  *
  * @property appLogger The [Logger] instance used for application-wide logging.
  * @property analyticsWrapper The [AnalyticsWrapper] instance used for tracking events and user behavior.
+ * @property crashlyticsWrapper The [CrashlyticsWrapper] instance used for tracking errors.
  */
 class KesiAndroidAppManager @Inject constructor(
     private val appLogger: Logger,
     private val analyticsWrapper: AnalyticsWrapper,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : AppManager {
     override val logger: Logger
         get() = appLogger
     override val analytics: AnalyticsWrapper
         get() = analyticsWrapper
+    override val crashlytics: CrashlyticsWrapper
+        get() = crashlyticsWrapper
 }
