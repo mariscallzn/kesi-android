@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     api(projects.data.api)
+    implementation(projects.core.app)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)

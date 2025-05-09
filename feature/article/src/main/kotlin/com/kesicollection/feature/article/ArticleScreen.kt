@@ -78,7 +78,7 @@ import com.kesicollection.feature.article.components.LoadingArticle
 import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.PodcastCard
 import com.kesicollection.feature.article.components.SubHeader
-import com.kesicollection.feature.article.di.ArticleImageLoader
+import com.kesicollection.feature.article.di.ArticleEntryPoint
 import com.kesicollection.feature.article.uimodel.UiPodcast
 import dagger.hilt.android.EntryPointAccessors
 
@@ -115,10 +115,10 @@ fun ArticleScreen(
     onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     viewModel: ArticleViewModel = hiltViewModel(),
 ) {
-    val imageLoader = EntryPointAccessors.fromApplication(
+    val articleEntryPoint = EntryPointAccessors.fromApplication(
         LocalContext.current,
-        ArticleImageLoader::class.java
-    ).getImageLoader()
+        ArticleEntryPoint::class.java
+    )
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -136,9 +136,10 @@ fun ArticleScreen(
         viewModel.sendIntent(Intent.FetchArticle(articleId))
     }
 
-    CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+    CompositionLocalProvider(LocalImageLoader provides articleEntryPoint.getImageLoader()) {
         ArticleScreen(
             uiState = uiState,
+            adUnitId = articleEntryPoint.getArticleAdKey(),
             onNavigateUp = onNavigateUp,
             onPodcastClick = onPodcastClick,
             onTryAgain = {
@@ -175,6 +176,7 @@ fun ArticleScreen(
 @Composable
 internal fun ArticleScreen(
     uiState: UiArticleState,
+    adUnitId: String,
     onNavigateUp: () -> Unit,
     onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
     onTryAgain: () -> Unit,
@@ -321,7 +323,7 @@ internal fun ArticleScreen(
                     }
                 }
                 KAdView(
-                    adUnitId = BuildConfig.AD_UNIT_ARTICLE,
+                    adUnitId = adUnitId,
                     screenName = "Article",
                     modifier = Modifier
                         .fillMaxWidth()
@@ -364,12 +366,12 @@ private fun ArticleErrorPreview() {
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ArticleExample(
+    modifier: Modifier = Modifier,
     uiState: UiArticleState = UiArticleState(
         isLoading = false,
         title = "This text is just a placeholder",
         content = testData
     ),
-    modifier: Modifier = Modifier
 ) {
     KesiTheme {
         val imageColor = MaterialTheme.colorScheme.tertiaryContainer
@@ -382,6 +384,7 @@ private fun ArticleExample(
             CompositionLocalProvider(LocalImageLoader provides imageLoader) {
                 ArticleScreen(
                     uiState = uiState,
+                    adUnitId = "",
                     onNavigateUp = {},
                     onPodcastClick = { _, _ -> },
                     onTryAgain = {},
