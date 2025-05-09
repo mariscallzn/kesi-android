@@ -10,8 +10,18 @@ plugins {
 }
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
+val configDevPropertiesFile = rootProject.file("config.dev.properties")
+val configPropertiesFile = rootProject.file("config.properties")
+val admobPropertiesFile = rootProject.file("admob.properties")
+
 val keystoreProperties = Properties()
 keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+val configDevProperties = Properties()
+configDevProperties.load(FileInputStream(configDevPropertiesFile))
+val configProperties = Properties()
+configProperties.load(FileInputStream(configPropertiesFile))
+val admobProperties = Properties()
+admobProperties.load(FileInputStream(admobPropertiesFile))
 
 android {
     namespace = "com.kesicollection.kesiandroid"
@@ -34,7 +44,28 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "KESI_API_URL",
+                "\"${configDevProperties["kesiApiUrl"]}\""
+            )
+            buildConfigField(
+                "String",
+                "AD_UNIT_ARTICLES",
+                "\"ca-app-pub-3940256099942544/9214589741\""
+            )
+            buildConfigField(
+                "String",
+                "AD_UNIT_ARTICLE",
+                "\"ca-app-pub-3940256099942544/9214589741\""
+            )
+        }
         release {
             isDebuggable = false
             isMinifyEnabled = true
@@ -47,6 +78,21 @@ android {
             ndk {
                 debugSymbolLevel = "FULL"
             }
+            buildConfigField(
+                "String",
+                "KESI_API_URL",
+                "\"${configProperties["kesiApiUrl"]}\""
+            )
+            buildConfigField(
+                "String",
+                "AD_UNIT_ARTICLES",
+                "\"${admobProperties["articlesBannerUintId"]}\""
+            )
+            buildConfigField(
+                "String",
+                "AD_UNIT_ARTICLE",
+                "\"${admobProperties["articleBannerUintId"]}\""
+            )
         }
     }
 }

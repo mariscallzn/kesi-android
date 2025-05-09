@@ -37,7 +37,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
-import com.kesicollection.articles.di.ImageLoaderEntryPoint
+import com.kesicollection.articles.di.ArticlesEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
@@ -45,7 +45,6 @@ import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.articles.BuildConfig
 import com.kesicollection.feature.articles.R
 import dagger.hilt.EntryPoints
 
@@ -89,10 +88,10 @@ fun ArticlesScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val analytics = LocalApp.current.analytics
 
-    val imageLoader = EntryPoints.get(
+    val articlesEntryPoint = EntryPoints.get(
         LocalContext.current.applicationContext,
-        ImageLoaderEntryPoint::class.java
-    ).imageLoader()
+        ArticlesEntryPoint::class.java
+    )
 
     SideEffect {
         analytics.logEvent(
@@ -107,7 +106,7 @@ fun ArticlesScreen(
         viewModel.sendIntent(Intent.FetchArticles)
     }
 
-    CompositionLocalProvider(value = LocalImageLoader provides imageLoader) {
+    CompositionLocalProvider(value = LocalImageLoader provides articlesEntryPoint.imageLoader()) {
         ArticlesScreen(
             modifier = modifier,
             onArticleClick = onArticleClick,
@@ -129,6 +128,7 @@ fun ArticlesScreen(
                 viewModel.sendIntent(it)
             },
             uiState = uiState,
+            adUnitId = articlesEntryPoint.articlesAdKey()
         )
     }
 }
@@ -154,6 +154,7 @@ fun ArticlesScreen(
 @Composable
 internal fun ArticlesScreen(
     uiState: UiArticlesState,
+    adUnitId: String,
     onArticleClick: (articleId: String) -> Unit,
     onBookmarkClick: (Intent.BookmarkClicked) -> Unit,
     onTryAgain: (Intent.FetchArticles) -> Unit,
@@ -210,7 +211,7 @@ internal fun ArticlesScreen(
                     }
                 }
                 KAdView(
-                    adUnitId = BuildConfig.AD_UNIT_ARTICLES,
+                    adUnitId = adUnitId,
                     screenName = "Articles",
                     modifier = Modifier
                         .fillMaxWidth()
@@ -273,6 +274,7 @@ private fun ArticlesScreenExample(
                 ArticlesScreen(
                     modifier = modifier,
                     uiState = uiState,
+                    adUnitId = "",
                     onArticleClick = {},
                     onBookmarkClick = {},
                     onTryAgain = {}

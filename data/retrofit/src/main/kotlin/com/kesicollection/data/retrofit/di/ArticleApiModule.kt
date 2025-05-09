@@ -1,5 +1,6 @@
 package com.kesicollection.data.retrofit.di
 
+import com.kesicollection.core.app.qualifiers.KesiAndroidApiUrl
 import com.kesicollection.data.api.ArticleApi
 import com.kesicollection.data.api.RemoteArticleSource
 import com.kesicollection.data.retrofit.RetrofitArticleApi
@@ -84,9 +85,6 @@ abstract class ArticleApiModule {
          * This function configures and builds a Retrofit client specifically for the Kesi Android API,
          * using the provided [Json] for serialization/deserialization and [Call.Factory] for network requests.
          *
-         * The base URL for the Kesi Android API is hardcoded to:
-         * "https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/"
-         *
          * The function utilizes the `kotlinx-serialization` library to handle JSON data conversion,
          * and specifies "application/json" as the media type.
          *
@@ -98,9 +96,10 @@ abstract class ArticleApiModule {
         @Singleton
         fun providesKesiAndroidService(
             json: Json,
-            callFactory: Call.Factory
+            callFactory: Call.Factory,
+            @KesiAndroidApiUrl kesiAndroidUrl: String
         ): KesiAndroidService = Retrofit.Builder()
-            .baseUrl("https://raw.githubusercontent.com/kesicollection/kesi-android-api-data/refs/heads/v1/")
+            .baseUrl(kesiAndroidUrl)
             .callFactory { callFactory.newCall(it) }
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()

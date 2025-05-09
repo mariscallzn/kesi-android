@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.logEvent
 import com.kesicollection.core.app.AnalyticsWrapper
-import com.kesicollection.feature.article.BuildConfig
+import com.kesicollection.kesiandroid.BuildConfig
 import javax.inject.Inject
 
 /**
