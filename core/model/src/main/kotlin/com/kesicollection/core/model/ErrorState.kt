@@ -1,4 +1,4 @@
-package com.kesicollection.core.uisystem
+package com.kesicollection.core.model
 
 /**
  * Represents an error state with a specific [type] and an optional [message].

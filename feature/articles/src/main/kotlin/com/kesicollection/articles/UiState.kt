@@ -1,7 +1,7 @@
 package com.kesicollection.articles
 
 import com.kesicollection.articles.model.UiArticle
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 
 val initialState = UiArticlesState()
 

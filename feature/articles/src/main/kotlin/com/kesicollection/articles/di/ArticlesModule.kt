@@ -3,7 +3,7 @@ package com.kesicollection.articles.di
 import com.kesicollection.articles.Intent
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.intentprocessor.DefaultIntentProcessorFactory
-import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.core.app.IntentProcessorFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

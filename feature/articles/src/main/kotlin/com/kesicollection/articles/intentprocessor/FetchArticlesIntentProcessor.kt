@@ -4,9 +4,9 @@ import com.kesicollection.articles.ArticlesErrors
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.app.CrashlyticsWrapper
-import com.kesicollection.core.uisystem.ErrorState
-import com.kesicollection.core.uisystem.IntentProcessor
-import com.kesicollection.core.uisystem.Reducer
+import com.kesicollection.core.model.ErrorState
+import com.kesicollection.core.app.IntentProcessor
+import com.kesicollection.core.app.Reducer
 import com.kesicollection.data.usecase.GetArticlesUseCase
 import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
 

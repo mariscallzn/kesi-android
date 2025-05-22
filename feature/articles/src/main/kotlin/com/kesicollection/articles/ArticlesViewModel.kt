@@ -3,9 +3,9 @@ package com.kesicollection.articles
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kesicollection.articles.di.ArticlesDefaultDispatcher
-import com.kesicollection.core.uisystem.IntentProcessor
-import com.kesicollection.core.uisystem.IntentProcessorFactory
-import com.kesicollection.core.uisystem.Reducer
+import com.kesicollection.core.app.IntentProcessor
+import com.kesicollection.core.app.IntentProcessorFactory
+import com.kesicollection.core.app.Reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow

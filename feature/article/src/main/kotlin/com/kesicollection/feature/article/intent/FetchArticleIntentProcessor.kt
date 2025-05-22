@@ -2,9 +2,9 @@ package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.model.ContentSection
-import com.kesicollection.core.uisystem.ErrorState
-import com.kesicollection.core.uisystem.IntentProcessor
-import com.kesicollection.core.uisystem.Reducer
+import com.kesicollection.core.model.ErrorState
+import com.kesicollection.core.app.IntentProcessor
+import com.kesicollection.core.app.Reducer
 import com.kesicollection.data.usecase.GetArticleByIdUseCase
 import com.kesicollection.feature.article.ArticleErrors
 import com.kesicollection.feature.article.UiArticleState

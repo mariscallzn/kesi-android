@@ -1,6 +1,6 @@
 package com.kesicollection.feature.article
 
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.component.ContentType
 import com.kesicollection.feature.article.uimodel.UiPodcast
 

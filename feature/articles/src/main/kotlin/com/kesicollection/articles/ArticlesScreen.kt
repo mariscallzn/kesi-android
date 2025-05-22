@@ -38,7 +38,7 @@ import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
 import com.kesicollection.articles.di.ArticlesEntryPoint
 import com.kesicollection.articles.model.UiArticle
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.KAdView

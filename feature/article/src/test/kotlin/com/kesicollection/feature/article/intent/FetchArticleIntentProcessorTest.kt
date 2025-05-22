@@ -1,6 +1,6 @@
 package com.kesicollection.feature.article.intent
 
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 import com.kesicollection.data.usecase.GetArticleByIdUseCase
 import com.kesicollection.feature.article.ArticleErrors
 import com.kesicollection.feature.article.UiArticleState

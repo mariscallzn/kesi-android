@@ -1,4 +1,4 @@
-package com.kesicollection.core.uisystem
+package com.kesicollection.core.app
 
 typealias Reducer<State> = State.() -> State
 
