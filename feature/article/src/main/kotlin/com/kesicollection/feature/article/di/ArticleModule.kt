@@ -6,17 +6,9 @@ import com.kesicollection.feature.article.UiArticleState
 import com.kesicollection.feature.article.intent.DefaultIntentProcessorFactory
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
 import javax.inject.Singleton
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class ArticleDefaultDispatcher
 
 /**
  * Dagger module for providing dependencies related to the article feature.
@@ -37,10 +29,4 @@ abstract class ArticleModule {
     abstract fun bindInterProcessorFactory(
         impl: DefaultIntentProcessorFactory
     ): IntentProcessorFactory<UiArticleState, Intent>
-
-    companion object {
-        @Provides
-        @ArticleDefaultDispatcher
-        fun providesDispatcher(): CoroutineDispatcher = Dispatchers.Main
-    }
 }
