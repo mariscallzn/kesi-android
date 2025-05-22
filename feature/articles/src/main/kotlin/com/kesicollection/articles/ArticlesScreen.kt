@@ -19,7 +19,6 @@ import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
@@ -41,28 +40,13 @@ import com.kesicollection.articles.di.ArticlesEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
+import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.articles.R
 import dagger.hilt.EntryPoints
-
-/**
- * Provides a [CompositionLocal] for accessing an [ImageLoader] instance.
- *
- * This `CompositionLocal` allows components within a composition to easily access and
- * utilize an [ImageLoader] for image loading operations. It defaults to throwing an error
- * if no [ImageLoader] is provided.
- *
- * You should provide an [ImageLoader] instance higher up in the composition tree using
- * `CompositionLocalProvider(LocalImageLoader provides myImageLoader) { ... }`.
- *
- * @throws IllegalStateException if accessed without a provided [ImageLoader].
- */
-val LocalImageLoader = compositionLocalOf<ImageLoader> {
-    error("")
-}
 
 /**
  * Composable function that displays a screen for listing articles.
@@ -106,31 +90,29 @@ fun ArticlesScreen(
         viewModel.sendIntent(Intent.FetchArticles)
     }
 
-    CompositionLocalProvider(value = LocalImageLoader provides articlesEntryPoint.imageLoader()) {
-        ArticlesScreen(
-            modifier = modifier,
-            onArticleClick = onArticleClick,
-            onBookmarkClick = {
-                analytics.logEvent(
-                    analytics.event.selectItem, mapOf(
-                        analytics.param.itemId to it.articleId,
-                        analytics.param.contentType to "article"
-                    )
+    ArticlesScreen(
+        modifier = modifier,
+        onArticleClick = onArticleClick,
+        onBookmarkClick = {
+            analytics.logEvent(
+                analytics.event.selectItem, mapOf(
+                    analytics.param.itemId to it.articleId,
+                    analytics.param.contentType to "article"
                 )
-                viewModel.sendIntent(it)
-            },
-            onTryAgain = {
-                analytics.logEvent(
-                    analytics.event.tryAgain, mapOf(
-                        analytics.param.screenName to "articles",
-                    )
+            )
+            viewModel.sendIntent(it)
+        },
+        onTryAgain = {
+            analytics.logEvent(
+                analytics.event.tryAgain, mapOf(
+                    analytics.param.screenName to "articles",
                 )
-                viewModel.sendIntent(it)
-            },
-            uiState = uiState,
-            adUnitId = articlesEntryPoint.articlesAdKey()
-        )
-    }
+            )
+            viewModel.sendIntent(it)
+        },
+        uiState = uiState,
+        adUnitId = articlesEntryPoint.articlesAdKey()
+    )
 }
 
 /**
