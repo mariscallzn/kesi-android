@@ -104,6 +104,7 @@ dependencies {
     implementation(projects.feature.articles)
     implementation(projects.feature.article)
     implementation(projects.feature.audioplayer)
+    implementation(projects.feature.discover)
 
     implementation(projects.data.retrofit)
     implementation(projects.data.datastore)

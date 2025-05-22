@@ -21,6 +21,7 @@ firebaseBom = "33.12.0"
 googleFirebaseCrashlytics = "3.0.3"
 googleServices = "4.4.2"
 hilt = "2.56.1"
+immutableColection = "0.4.0"
 junit = "4.13.2"
 kotlin = "2.1.20"
 kotlinCoroutines = "1.10.1"
@@ -85,6 +86,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutableColection" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinCoroutines" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
