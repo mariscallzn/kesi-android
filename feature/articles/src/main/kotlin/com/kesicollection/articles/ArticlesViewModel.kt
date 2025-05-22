@@ -2,7 +2,6 @@ package com.kesicollection.articles
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kesicollection.articles.di.ArticlesDefaultDispatcher
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
 import com.kesicollection.core.app.Reducer
@@ -35,9 +34,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
-    private val intentProcessorFactory: IntentProcessorFactory<UiArticlesState, Intent>,
-    @ArticlesDefaultDispatcher
     private val dispatcher: CoroutineDispatcher,
+    private val intentProcessorFactory: IntentProcessorFactory<UiArticlesState, Intent>,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(initialState)
