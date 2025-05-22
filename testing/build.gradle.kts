@@ -12,6 +12,7 @@ dependencies {
     api(projects.core.model)
     api(projects.data.usecase)
     api(projects.data.repository)
+    api(projects.core.app)
 
     implementation(libs.hilt.android.testing)
     implementation(libs.androidx.test.rules)

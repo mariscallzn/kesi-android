@@ -9,6 +9,7 @@ import com.kesicollection.data.usecase.GetArticlesUseCase
 import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
 import com.kesicollection.testing.api.TestDoubleArticleRepository
 import com.kesicollection.testing.api.TestDoubleBookmarkRepository
+import com.kesicollection.testing.api.TestDoubleCrashlyticsWrapper
 import com.kesicollection.testing.api.getArticlesResult
 import com.kesicollection.testing.api.successGetArticleResult
 import com.kesicollection.testing.testdata.ArticlesTestData
@@ -52,7 +53,8 @@ class FetchArticlesIntentProcessorTest {
             ),
             isArticleBookmarkedUseCase = IsArticleBookmarkedUseCase(
                 bookmarkRepository = TestDoubleBookmarkRepository()
-            )
+            ),
+            crashlyticsWrapper = TestDoubleCrashlyticsWrapper()
         )
     }
 
