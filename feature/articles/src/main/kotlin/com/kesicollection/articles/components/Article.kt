@@ -34,8 +34,8 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
-import com.kesicollection.articles.LocalImageLoader
 import com.kesicollection.articles.model.UiArticle
+import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 

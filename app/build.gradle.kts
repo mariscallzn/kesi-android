@@ -116,5 +116,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.coil.core)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.okhttp.logging)
 
 }

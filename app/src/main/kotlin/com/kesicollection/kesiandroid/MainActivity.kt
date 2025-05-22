@@ -10,12 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import coil3.ImageLoader
 import com.google.android.gms.ads.MobileAds
 import com.kesicollection.articles.ArticlesRoute
-import com.kesicollection.core.app.AnalyticsWrapper
 import com.kesicollection.core.app.AppManager
-import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.core.uisystem.LocalApp
+import com.kesicollection.core.uisystem.LocalImageLoader
+import com.kesicollection.core.uisystem.theme.KesiTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,6 +34,9 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var appManager: AppManager
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -41,13 +45,15 @@ class MainActivity : ComponentActivity() {
             MobileAds.initialize(this@MainActivity)
         }
         setContent {
-            CompositionLocalProvider(LocalApp provides appManager) {
-                KesiTheme {
-                    AppNavigation(
-                        navController = rememberNavController(),
-                        startDestination = ArticlesRoute,
-                        modifier = Modifier.fillMaxSize()
-                    )
+            CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                CompositionLocalProvider(LocalApp provides appManager) {
+                    KesiTheme {
+                        AppNavigation(
+                            navController = rememberNavController(),
+                            startDestination = ArticlesRoute,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
             }
         }

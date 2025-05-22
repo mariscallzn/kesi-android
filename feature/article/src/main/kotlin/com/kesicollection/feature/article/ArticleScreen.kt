@@ -29,11 +29,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -66,6 +64,7 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.uisystem.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
+import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
 import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.component.KAdView
@@ -81,18 +80,6 @@ import com.kesicollection.feature.article.components.SubHeader
 import com.kesicollection.feature.article.di.ArticleEntryPoint
 import com.kesicollection.feature.article.uimodel.UiPodcast
 import dagger.hilt.android.EntryPointAccessors
-
-/**
- * Provides a [CompositionLocal] to access the [ImageLoader] instance.
- * This allows components further down the tree to access the same [ImageLoader]
- * instance without having to pass it through multiple levels of the hierarchy.
- *
- * By default, it throws an error if no [ImageLoader] has been provided.
- * You should use [CompositionLocalProvider] to provide an instance of [ImageLoader].
- */
-val LocalImageLoader = compositionLocalOf<ImageLoader> {
-    error("")
-}
 
 /**
  * Composable function that displays the Article screen.
@@ -135,24 +122,21 @@ fun ArticleScreen(
     LaunchedEffect(Unit) {
         viewModel.sendIntent(Intent.FetchArticle(articleId))
     }
-
-    CompositionLocalProvider(LocalImageLoader provides articleEntryPoint.getImageLoader()) {
-        ArticleScreen(
-            uiState = uiState,
-            adUnitId = articleEntryPoint.getArticleAdKey(),
-            onNavigateUp = onNavigateUp,
-            onPodcastClick = onPodcastClick,
-            onTryAgain = {
-                analytics.logEvent(
-                    analytics.event.tryAgain, mapOf(
-                        analytics.param.itemId to articleId,
-                    )
+    ArticleScreen(
+        uiState = uiState,
+        adUnitId = articleEntryPoint.getArticleAdKey(),
+        onNavigateUp = onNavigateUp,
+        onPodcastClick = onPodcastClick,
+        onTryAgain = {
+            analytics.logEvent(
+                analytics.event.tryAgain, mapOf(
+                    analytics.param.itemId to articleId,
                 )
-                viewModel.sendIntent(Intent.FetchArticle(articleId))
-            },
-            modifier = modifier,
-        )
-    }
+            )
+            viewModel.sendIntent(Intent.FetchArticle(articleId))
+        },
+        modifier = modifier,
+    )
 }
 
 /**
