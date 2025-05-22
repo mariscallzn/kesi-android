@@ -62,7 +62,7 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient

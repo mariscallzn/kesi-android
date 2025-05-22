@@ -1,6 +1,6 @@
 package com.kesicollection.feature.audioplayer
 
-import com.kesicollection.core.uisystem.ErrorState
+import com.kesicollection.core.model.ErrorState
 
 val initialState = UiAudioPlayerState()
 

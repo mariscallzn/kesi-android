@@ -3,8 +3,8 @@ package com.kesicollection.articles.intentprocessor
 import com.kesicollection.articles.Intent
 import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.core.app.CrashlyticsWrapper
-import com.kesicollection.core.uisystem.IntentProcessor
-import com.kesicollection.core.uisystem.IntentProcessorFactory
+import com.kesicollection.core.app.IntentProcessor
+import com.kesicollection.core.app.IntentProcessorFactory
 import com.kesicollection.data.usecase.BookmarkArticleByIdUseCase
 import com.kesicollection.data.usecase.GetArticlesUseCase
 import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
