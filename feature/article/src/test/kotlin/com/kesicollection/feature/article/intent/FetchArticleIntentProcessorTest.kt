@@ -8,6 +8,7 @@ import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.initialState
 import com.kesicollection.feature.article.uimodel.asUiPodcast
 import com.kesicollection.testing.api.TestDoubleArticleRepository
+import com.kesicollection.testing.api.TestDoubleCrashlyticsWrapper
 import com.kesicollection.testing.api.getArticleByIdResult
 import com.kesicollection.testing.api.successGetArticleById
 import com.kesicollection.testing.testdata.ArticlesTestData
@@ -53,7 +54,8 @@ class FetchArticleIntentProcessorTest {
             articleId = ArticlesTestData.items.first().id,
             getArticleByIdUseCase = GetArticleByIdUseCase(
                 articleRepository = TestDoubleArticleRepository()
-            )
+            ),
+            crashlyticsWrapper = TestDoubleCrashlyticsWrapper()
         )
     }
 
