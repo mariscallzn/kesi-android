@@ -12,11 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import coil3.ImageLoader
 import com.google.android.gms.ads.MobileAds
-import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.core.app.AppManager
 import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.discover.Discover
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     KesiTheme {
                         AppNavigation(
                             navController = rememberNavController(),
-                            startDestination = ArticlesRoute,
+                            startDestination = Discover,
                             modifier = Modifier.fillMaxSize()
                         )
                     }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_discover_featured">Featured</string>
+    <string name="feature_discover_see_all">See all</string>
+</resources>

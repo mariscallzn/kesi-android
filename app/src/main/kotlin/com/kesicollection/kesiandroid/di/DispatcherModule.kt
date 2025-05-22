@@ -1,6 +1,5 @@
 package com.kesicollection.kesiandroid.di
 
-import com.kesicollection.feature.discover.di.DiscoverDefaultDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

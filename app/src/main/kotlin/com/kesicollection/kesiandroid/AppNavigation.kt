@@ -16,6 +16,7 @@ import com.kesicollection.feature.article.navigateToArticle
 import com.kesicollection.feature.audioplayer.AudioPlayerRoute
 import com.kesicollection.feature.audioplayer.audioPlayer
 import com.kesicollection.feature.audioplayer.navigateToAudiPlayer
+import com.kesicollection.feature.discover.discover
 
 /**
  * Defines the main navigation structure of the application.
@@ -43,6 +44,8 @@ fun AppNavigation(
         navController = navController,
         startDestination = startDestination
     ) {
+        discover(modifier = modifier)
+
         articles(modifier = modifier, onArticleClick = {
             navController.navigateToArticle(ArticleRoute(it))
         })
