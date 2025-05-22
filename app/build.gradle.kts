@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kesiandroid.android.application)
     alias(libs.plugins.kesiandroid.android.application.compose)
     alias(libs.plugins.kesiandroid.hilt)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
 }
@@ -119,5 +120,8 @@ dependencies {
     implementation(libs.coil.core)
     implementation(libs.coil.network.okhttp)
     implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.retrofit.core)
+    implementation(libs.kotlinx.serialization.json)
 
 }
