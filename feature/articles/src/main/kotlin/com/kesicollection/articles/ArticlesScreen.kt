@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.CompositionLocalProvider
@@ -22,6 +25,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -44,6 +48,7 @@ import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.KAdView
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
+import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.articles.R
 import dagger.hilt.EntryPoints
@@ -67,6 +72,7 @@ import dagger.hilt.EntryPoints
 fun ArticlesScreen(
     modifier: Modifier = Modifier,
     onArticleClick: (articleId: String) -> Unit,
+    onNavigateUp: () -> Unit,
     viewModel: ArticlesViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -92,6 +98,7 @@ fun ArticlesScreen(
 
     ArticlesScreen(
         modifier = modifier,
+        onNavigateUp = onNavigateUp,
         onArticleClick = onArticleClick,
         onBookmarkClick = {
             analytics.logEvent(
@@ -140,14 +147,28 @@ internal fun ArticlesScreen(
     onArticleClick: (articleId: String) -> Unit,
     onBookmarkClick: (Intent.BookmarkClicked) -> Unit,
     onTryAgain: (Intent.FetchArticles) -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     KScaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(title = {
-                Text(stringResource(R.string.feature_articles_topbar_title))
-            })
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(),
+                title = {
+                    Text(
+                        stringResource(R.string.feature_articles_topbar_title),
+                        style = MaterialTheme.typography.headlineLarge
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onNavigateUp) {
+                        Icon(imageVector = KIcon.ArrowBack, null)
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
         }
     ) { innerPadding ->
         uiState.error?.let {
@@ -257,6 +278,7 @@ private fun ArticlesScreenExample(
                     modifier = modifier,
                     uiState = uiState,
                     adUnitId = "",
+                    onNavigateUp = {},
                     onArticleClick = {},
                     onBookmarkClick = {},
                     onTryAgain = {}
