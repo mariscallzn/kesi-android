@@ -1,192 +1,71 @@
 package com.kesicollection.feature.discover
 
+import com.kesicollection.core.model.Category
+import com.kesicollection.core.model.Content
 import com.kesicollection.core.model.ContentType
+import com.kesicollection.core.model.Discover
 import com.kesicollection.core.model.ErrorState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.collections.immutable.toImmutableMap
 
+/**
+ * The initial state of the Discover screen.
+ */
 val initialState = UiState.Loading
 
-val contentSample = UiState.DiscoverContent(
-    categories = persistentListOf(
-        UICategory(id = "fav", name = "Favorites"),
-        UICategory(id = "arch", name = "Architecture"),
-        UICategory(id = "ui", name = "UI"),
-        UICategory(id = "core", name = "Core"),
-        UICategory(id = "nav", name = "Navigation"),
-    ),
-    featuredContent = persistentListOf(
-        UIContent(
-            id = "feat1",
-            img = "debugging_jetpack_compose_img.jpg",
-            type = ContentType.Article,
-            title = "Featured Article 1",
-            description = "Description for featured article 1."
-        ),
-        UIContent(
-            id = "feat2",
-            img = "debugging_jetpack_compose_img.jpg",
-            type = ContentType.Video,
-            title = "Featured Video 2",
-            description = "Description for featured video 2."
-        ),
-        UIContent(
-            id = "feat3",
-            img = "debugging_jetpack_compose_img.jpg",
-            type = ContentType.Podcast,
-            title = "Featured Podcast 3",
-            description = "Description for featured podcast 3."
-        ),
-        UIContent(
-            id = "feat4",
-            img = "debugging_jetpack_compose_img.jpg",
-            type = ContentType.Article,
-            title = "Featured Article 4",
-            description = "Description for featured article 4."
-        ),
-        UIContent(
-            id = "feat5",
-            img = "debugging_jetpack_compose_img.jpg",
-            type = ContentType.Video,
-            title = "Featured Video 5",
-            description = "Description for featured video 5."
-        ),
-    ),
-    promotedContent = persistentMapOf(
-        UICategory(id = "arch", name = "Architecture") to persistentListOf(
-            UIContent(
-                id = "arch_promo1",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Article,
-                title = "Arch Promo 1",
-                description = "Desc Arch Promo 1"
-            ),
-            UIContent(
-                id = "arch_promo2",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Video,
-                title = "Arch Promo 2",
-                description = "Desc Arch Promo 2"
-            ),
-            UIContent(
-                id = "arch_promo3",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Podcast,
-                title = "Arch Promo 3",
-                description = "Desc Arch Promo 3"
-            ),
-            UIContent(
-                id = "arch_promo4",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Article,
-                title = "Arch Promo 4",
-                description = "Desc Arch Promo 4"
-            ),
-            UIContent(
-                id = "arch_promo5",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Video,
-                title = "Arch Promo 5",
-                description = "Desc Arch Promo 5"
-            ),
-        ),
-        UICategory(id = "ui", name = "UI") to persistentListOf(
-            UIContent(
-                id = "ui_promo1",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Video,
-                title = "UI Promo 1",
-                description = "Desc UI Promo 1"
-            ),
-            UIContent(
-                id = "ui_promo2",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Podcast,
-                title = "UI Promo 2",
-                description = "Desc UI Promo 2"
-            ),
-            UIContent(
-                id = "ui_promo3",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Article,
-                title = "UI Promo 3",
-                description = "Desc UI Promo 3"
-            ),
-            UIContent(
-                id = "ui_promo4",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Video,
-                title = "UI Promo 4",
-                description = "Desc UI Promo 4"
-            ),
-            UIContent(
-                id = "ui_promo5",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Podcast,
-                title = "UI Promo 5",
-                description = "Desc UI Promo 5"
-            ),
-        ),
-        UICategory(id = "core", name = "Core") to persistentListOf(
-            UIContent(
-                id = "core_promo1",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Podcast,
-                title = "Core Promo 1",
-                description = "Desc Core Promo 1"
-            ),
-            UIContent(
-                id = "core_promo2",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Article,
-                title = "Core Promo 2",
-                description = "Desc Core Promo 2"
-            ),
-            UIContent(
-                id = "core_promo3",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Video,
-                title = "Core Promo 3",
-                description = "Desc Core Promo 3"
-            ),
-            UIContent(
-                id = "core_promo4",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Podcast,
-                title = "Core Promo 4",
-                description = "Desc Core Promo 4"
-            ),
-            UIContent(
-                id = "core_promo5",
-                img = "debugging_jetpack_compose_img.jpg",
-                type = ContentType.Article,
-                title = "Core Promo 5",
-                description = "Desc Core Promo 5"
-            ),
-        )
-    )
-)
-
+/**
+ * Represents the different states of the Discover screen.
+ */
 sealed interface UiState {
-    data object Loading: UiState
+    /**
+     * Represents the loading state.
+     */
+    data object Loading : UiState
+
+    /**
+     * Represents the state where discover content is available.
+     *
+     * @property featuredContent The list of featured content.
+     * @property promotedContent A map of promoted content, where the key is the category and the value is a list of content.
+     */
     data class DiscoverContent(
-        val categories: ImmutableList<UICategory> = persistentListOf(),
         val featuredContent: ImmutableList<UIContent> = persistentListOf(),
         val promotedContent: ImmutableMap<UICategory, ImmutableList<UIContent>> = persistentMapOf(),
     ) : UiState
 
+    /**
+     * Represents the error state.
+     *
+     * @property error The error state, which includes a specific [DiscoverErrors] type.
+     */
     data class Error(
         val error: ErrorState<DiscoverErrors>
     ) : UiState
 }
 
+/**
+ * Represents a category in the UI.
+ *
+ * @property id The unique identifier of the category.
+ * @property name The name of the category.
+ */
 data class UICategory(
     val id: String,
     val name: String,
 )
 
+/**
+ * Represents content in the UI.
+ *
+ * @property id The unique identifier of the content.
+ * @property img The URL or resource identifier for the content's image.
+ * @property type The type of the content (e.g., article, video).
+ * @property title The title of the content.
+ * @property description A brief description of the content.
+ */
 data class UIContent(
     val id: String,
     val img: String,
@@ -195,11 +74,65 @@ data class UIContent(
     val description: String,
 )
 
+/**
+ * Converts a [Category] domain model to a [UICategory] UI model.
+ *
+ * @return The corresponding [UICategory].
+ */
+fun Category.asUiContent() = UICategory(
+    id = id,
+    name = name
+)
+
+/**
+ * Converts a [Content] domain model to a [UIContent] UI model.
+ *
+ * @return The corresponding [UIContent].
+ */
+fun Content.asUiContent() = UIContent(
+    id = id,
+    img = img,
+    type = type,
+    title = title,
+    description = description
+)
+
+/**
+ * Converts a [Discover] domain model to a [UiState.DiscoverContent] UI state.
+ *
+ * This function maps the featured and promoted content from the domain model
+ * to their respective UI model representations ([UIContent] and [UICategory]).
+ *
+ * @return A [UiState.DiscoverContent] instance populated with the converted content.
+ */
+fun Discover.asDiscoverContent() = UiState.DiscoverContent(
+    featuredContent = persistentListOf(*featured.map { it.asUiContent() }.toTypedArray()),
+    promotedContent = promotedContent.associate { (category, contentList) ->
+        category.asUiContent() to persistentListOf(
+            *contentList.map { it.asUiContent() }.toTypedArray()
+        )
+    }.toImmutableMap()
+)
+
+/**
+ * Enum representing the possible errors that can occur on the Discover screen.
+ */
 enum class DiscoverErrors {
+    /**
+     * A generic error that doesn't fit into other categories.
+     */
     GenericError,
+
+    /**
+     * An error related to network connectivity.
+     */
     NetworkError,
 }
 
+/**
+ * Represents the user intents or actions that can be performed on the Discover screen.
+ */
 sealed interface Intent {
+    /** An intent to fetch the featured items. */
     data object FetchFeatureItems : Intent
 }
