@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kesicollection.articles.ArticlesRoute
 import com.kesicollection.articles.articles
+import com.kesicollection.articles.navigateToArticles
 import com.kesicollection.core.app.AppRoute
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.ArticleRoute
@@ -19,17 +20,13 @@ import com.kesicollection.feature.audioplayer.navigateToAudiPlayer
 import com.kesicollection.feature.discover.discover
 
 /**
- * Defines the main navigation structure of the application.
+ * Defines the main navigation structure of the Kesi application.
  *
- * This composable sets up the navigation host using [NavHost] and
- * defines the available destinations. It uses a [NavHostController] to
- * manage the navigation state and transitions between different parts of
- * the app.
+ * This composable sets up the [NavHost] and defines the available destinations.
+ * It utilizes a [NavHostController] to manage navigation state and transitions.
  *
  * @sample com.kesicollection.kesiandroid.ExampleAppNavigation
- *
- * @param navController The [NavHostController] responsible for managing
- *                      the navigation graph and state.
+ * @param navController The [NavHostController] managing the navigation graph and state.
  * @param startDestination The [AppRoute] representing the initial
  *                         destination to navigate to when the app starts.
  * @param modifier Modifier to be applied to the navigation host.
@@ -44,11 +41,16 @@ fun AppNavigation(
         navController = navController,
         startDestination = startDestination
     ) {
-        discover(modifier = modifier)
-
-        articles(modifier = modifier, onArticleClick = {
-            navController.navigateToArticle(ArticleRoute(it))
-        })
+        discover(
+            modifier = modifier,
+            onArticleClick = navController::onArticleClick,
+            onSeeAllClick = navController::onSeeAllClick,
+        )
+        articles(
+            modifier = modifier,
+            onArticleClick = navController::onArticleClick,
+            onNavigateUp = navController::onNavigateUp,
+        )
         article(
             modifier = modifier,
             onNavigateUp = navController::onNavigateUp,
@@ -66,12 +68,10 @@ fun AppNavigation(
 }
 
 /**
- * Navigates up in the navigation hierarchy.
+ * Navigates up in the navigation stack.
  *
- * This function provides a concise way to perform a "navigate up" action
- * using the `NavController`. It essentially calls [NavController.popBackStack]
- * which attempts to pop the current destination from the back stack and
- * navigate to the previous destination.
+ * This extension function calls [NavController.popBackStack] to remove the
+ * current destination from the back stack and navigate to the previous one.
  *
  * If there's no previous destination on the back stack, this will effectively do nothing.
  *
@@ -81,6 +81,32 @@ private fun NavController.onNavigateUp() {
     popBackStack()
 }
 
+/**
+ * Navigates to the article detail screen for the given article ID.
+ *
+ * This extension function uses [navigateToArticle] with an [ArticleRoute]
+ * to transition to the specific article's content.
+ *
+ * @receiver [NavController] The navigation controller that manages the navigation graph.
+ * @param articleId The unique identifier of the article to display.
+ */
+private fun NavController.onArticleClick(articleId: String) {
+    navigateToArticle(ArticleRoute(articleId))
+}
+
+/**
+ * Navigates to the "See All" articles screen.
+ *
+ * This extension function utilizes [navigateToArticles] to display a comprehensive
+ * list of available articles.
+ *
+ * @receiver [NavController] The navigation controller that manages the navigation graph.
+ */
+private fun NavController.onSeeAllClick() {
+    navigateToArticles()
+}
+
+/** Example composable demonstrating the usage of [AppNavigation]. */
 @Composable
 private fun ExampleAppNavigation(modifier: Modifier) {
     KesiTheme {

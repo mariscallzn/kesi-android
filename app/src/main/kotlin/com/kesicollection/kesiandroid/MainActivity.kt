@@ -16,7 +16,7 @@ import com.kesicollection.core.app.AppManager
 import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.discover.Discover
+import com.kesicollection.feature.discover.DiscoverRoute
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     KesiTheme {
                         AppNavigation(
                             navController = rememberNavController(),
-                            startDestination = Discover,
+                            startDestination = DiscoverRoute,
                             modifier = Modifier.fillMaxSize()
                         )
                     }
