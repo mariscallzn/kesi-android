@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil3.annotation.ExperimentalCoilApi
@@ -61,6 +62,8 @@ fun LazyListScope.promotedContentSections(
                 ) {
                     Text(
                         text = "Promoted: ${category.name}",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(
                             horizontal = 16.dp,
@@ -115,6 +118,8 @@ fun PromotedCard(
         Spacer(Modifier.height(8.dp))
         Text(
             text = uiContent.title,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
         )
         Row(
@@ -134,6 +139,8 @@ fun PromotedCard(
             )
             Text(
                 text = uiContent.description,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodyMedium
             )
         }

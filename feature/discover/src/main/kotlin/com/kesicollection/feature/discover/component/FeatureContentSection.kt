@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.annotation.ExperimentalCoilApi
@@ -46,6 +47,8 @@ fun LazyListScope.featuredContentSection(
         Column(modifier = modifier.padding(bottom = 16.dp)) {
             Text(
                 text = stringResource(R.string.feature_discover_featured),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
@@ -113,6 +116,8 @@ fun FeaturedCard(
                 Text(
                     text = uiContent.title,
                     color = Color.White,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Row(
@@ -133,6 +138,8 @@ fun FeaturedCard(
                     Text(
                         text = uiContent.description,
                         color = Color.White,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
