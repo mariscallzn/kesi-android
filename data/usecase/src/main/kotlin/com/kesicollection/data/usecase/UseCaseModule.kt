@@ -4,6 +4,8 @@ import com.kesicollection.data.repository.ArticleRepository
 import com.kesicollection.data.repository.ArticleRepositoryImpl
 import com.kesicollection.data.repository.BookmarkRepository
 import com.kesicollection.data.repository.BookmarkRepositoryImpl
+import com.kesicollection.data.repository.DiscoverRepository
+import com.kesicollection.data.repository.DiscoverRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,4 +27,10 @@ abstract class UseCaseModule {
     abstract fun bindBookmarkRepository(
         bookmarkRepository: BookmarkRepositoryImpl
     ): BookmarkRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDiscoverRepository(
+        impl: DiscoverRepositoryImpl
+    ): DiscoverRepository
 }
