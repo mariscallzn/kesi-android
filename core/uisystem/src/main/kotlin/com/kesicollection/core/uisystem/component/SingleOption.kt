@@ -70,7 +70,6 @@ fun SingleOption(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
-    Log.d("Andres", "QuestionCard: QUEPEDO!!!")
     val shape = MaterialTheme.shapes.large
     val currentDensity = LocalDensity.current
 

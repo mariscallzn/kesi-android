@@ -27,7 +27,7 @@ data class ArticleRoute(val articleId: String) : AppRoute
  */
 fun NavGraphBuilder.article(
     onNavigateUp: () -> Unit,
-    onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
+    onPodcastClick: (audioId: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     composable<ArticleRoute> { backstackEntry ->

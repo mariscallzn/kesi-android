@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.kesicollection.feature.audioplayer.AudioPlayerService"
+            android:name="com.kesicollection.feature.audioplayer.player.AudioPlayerService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback">
             <intent-filter>

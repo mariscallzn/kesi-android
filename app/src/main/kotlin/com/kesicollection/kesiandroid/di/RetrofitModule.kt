@@ -3,9 +3,11 @@ package com.kesicollection.kesiandroid.di
 import com.kesicollection.core.app.qualifiers.KesiAndroidApiUrl
 import com.kesicollection.data.api.ArticleApi
 import com.kesicollection.data.api.DiscoverApi
+import com.kesicollection.data.api.PodcastApi
 import com.kesicollection.data.api.RemoteArticleSource
 import com.kesicollection.data.retrofit.RetrofitArticleApi
 import com.kesicollection.data.retrofit.RetrofitDiscoverApi
+import com.kesicollection.data.retrofit.RetrofitPodcastApi
 import com.kesicollection.data.retrofit.service.KesiAndroidService
 import dagger.Binds
 import dagger.Module
@@ -35,6 +37,12 @@ abstract class RetrofitModule {
     abstract fun bindDiscoverApi(
         impl: RetrofitDiscoverApi
     ): DiscoverApi
+
+    @Binds
+    @Singleton
+    abstract fun bindPodcastApi(
+        impl: RetrofitPodcastApi
+    ): PodcastApi
 
     companion object {
 

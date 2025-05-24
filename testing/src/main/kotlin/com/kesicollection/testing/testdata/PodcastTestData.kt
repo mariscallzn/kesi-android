@@ -15,8 +15,8 @@ object PodcastTestData {
         Podcast(
             id = "1",
             title = "Podcast 1",
-            url = "https://www.some.url",
-            image = "https://www.some.url",
+            audio = "https://www.some.url",
+            img = "https://www.some.url",
         )
     )
 }

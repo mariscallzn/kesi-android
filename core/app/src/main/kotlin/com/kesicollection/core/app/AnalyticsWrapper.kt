@@ -44,6 +44,8 @@ interface AnalyticsWrapper {
         val selectItem: String
         val tryAgain: String
         val playAudioPlayer: String
+        val reply10AudioPlayer: String
+        val forward10AudioPlayer: String
         val pauseAudioPlayer: String
         val adImpression: String
     }

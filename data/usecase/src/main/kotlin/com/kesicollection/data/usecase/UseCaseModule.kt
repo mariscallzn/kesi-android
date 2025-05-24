@@ -6,6 +6,8 @@ import com.kesicollection.data.repository.BookmarkRepository
 import com.kesicollection.data.repository.BookmarkRepositoryImpl
 import com.kesicollection.data.repository.DiscoverRepository
 import com.kesicollection.data.repository.DiscoverRepositoryImpl
+import com.kesicollection.data.repository.PodcastRepository
+import com.kesicollection.data.repository.PodcastRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,4 +35,10 @@ abstract class UseCaseModule {
     abstract fun bindDiscoverRepository(
         impl: DiscoverRepositoryImpl
     ): DiscoverRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPodcastRepository(
+        impl: PodcastRepositoryImpl
+    ): PodcastRepository
 }

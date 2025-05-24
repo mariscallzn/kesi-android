@@ -29,6 +29,7 @@ data object DiscoverRoute : AppRoute
 fun NavGraphBuilder.discover(
     modifier: Modifier = Modifier,
     onArticleClick: (articleId: String) -> Unit,
+    onPodcastClick: (articleId: String) -> Unit,
     onSeeAllClick: () -> Unit,
 ) {
     composable<DiscoverRoute> {
@@ -38,7 +39,7 @@ fun NavGraphBuilder.discover(
             {
                 when (it.type) {
                     ContentType.Article -> onArticleClick(it.id)
-                    ContentType.Podcast -> {}
+                    ContentType.Podcast -> onPodcastClick(it.id)
                     ContentType.Video -> {}
                     ContentType.Demo -> {}
                 }

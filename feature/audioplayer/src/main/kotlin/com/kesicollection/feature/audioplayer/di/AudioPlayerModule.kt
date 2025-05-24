@@ -1,7 +1,7 @@
 package com.kesicollection.feature.audioplayer.di
 
-import com.kesicollection.feature.audioplayer.AudioPlayerController
-import com.kesicollection.feature.audioplayer.Media3AudioPlayerController
+import com.kesicollection.feature.audioplayer.player.AudioPlayerController
+import com.kesicollection.feature.audioplayer.player.Media3AudioPlayerController
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
