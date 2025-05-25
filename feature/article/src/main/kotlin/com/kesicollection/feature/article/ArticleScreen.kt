@@ -99,7 +99,7 @@ fun ArticleScreen(
     modifier: Modifier = Modifier,
     articleId: String,
     onNavigateUp: () -> Unit,
-    onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
+    onPodcastClick: (audioId: String) -> Unit,
     viewModel: ArticleViewModel = hiltViewModel(),
 ) {
     val articleEntryPoint = EntryPointAccessors.fromApplication(
@@ -162,7 +162,7 @@ internal fun ArticleScreen(
     uiState: UiArticleState,
     adUnitId: String,
     onNavigateUp: () -> Unit,
-    onPodcastClick: (articleTitle: String, audioUrl: String) -> Unit,
+    onPodcastClick: (audioId: String) -> Unit,
     onTryAgain: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -175,6 +175,11 @@ internal fun ArticleScreen(
             lazyColumState.firstVisibleItemIndex <= 1
         }
     }
+
+    val rememberedOnPodcastClick = remember<(UiPodcast) -> Unit> {
+        { podcast -> onPodcastClick(podcast.id) }
+    }
+
     Box(
         modifier = modifier
             .nestedScroll(object : NestedScrollConnection {
@@ -292,7 +297,7 @@ internal fun ArticleScreen(
                                 PodcastCard(
                                     uiPodcast = podcast,
                                     modifier = Modifier.fillParentMaxWidth(),
-                                    onPodcastClick = { onPodcastClick(it.title, it.audioUrl) }
+                                    onPodcastClick = rememberedOnPodcastClick
                                 )
                                 Spacer(Modifier.height(16.dp))
                             }
@@ -329,7 +334,7 @@ private fun ArticleWithPodcastPreview() {
             podcast = UiPodcast(
                 title = "Building rock solid apps: The art of testing in jetpack compose",
                 id = "",
-                audioUrl = ""
+                audio = ""
             )
         )
     )
@@ -370,7 +375,7 @@ private fun ArticleExample(
                     uiState = uiState,
                     adUnitId = "",
                     onNavigateUp = {},
-                    onPodcastClick = { _, _ -> },
+                    onPodcastClick = { },
                     onTryAgain = {},
                     modifier = modifier,
                 )

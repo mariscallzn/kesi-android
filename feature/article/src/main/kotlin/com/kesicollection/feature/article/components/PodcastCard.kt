@@ -94,7 +94,7 @@ private fun PodcastCardExample(modifier: Modifier = Modifier) {
             uiPodcast = UiPodcast(
                 id = "1",
                 title = "Podcast Title: This will generate a long test to show case the overflow of text",
-                audioUrl = "test"
+                audio = "test"
             ),
             modifier = modifier,
             onPodcastClick = {}

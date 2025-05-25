@@ -45,6 +45,7 @@ fun AppNavigation(
             modifier = modifier,
             onArticleClick = navController::onArticleClick,
             onSeeAllClick = navController::onSeeAllClick,
+            onPodcastClick = navController::onPodcastClick
         )
         articles(
             modifier = modifier,
@@ -54,11 +55,7 @@ fun AppNavigation(
         article(
             modifier = modifier,
             onNavigateUp = navController::onNavigateUp,
-            onPodcastClick = { title, url ->
-                navController.navigateToAudiPlayer(
-                    AudioPlayerRoute(title = title, fileName = url)
-                )
-            }
+            onPodcastClick = navController::onPodcastClick
         )
         audioPlayer(
             modifier = modifier,
@@ -104,6 +101,18 @@ private fun NavController.onArticleClick(articleId: String) {
  */
 private fun NavController.onSeeAllClick() {
     navigateToArticles()
+}
+
+/**
+ * Navigates to the audio player screen for the given podcast ID.
+ *
+ * This extension function uses [navigateToAudiPlayer] with an [AudioPlayerRoute]
+ * to transition to the specific podcast's audio player.
+ *
+ * @receiver [NavController] The navigation controller that manages the navigation graph.
+ */
+private fun NavController.onPodcastClick(id: String) {
+    navigateToAudiPlayer(AudioPlayerRoute(id))
 }
 
 /** Example composable demonstrating the usage of [AppNavigation]. */

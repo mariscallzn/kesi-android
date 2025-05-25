@@ -1,4 +1,4 @@
-package com.kesicollection.feature.audioplayer
+package com.kesicollection.feature.audioplayer.player
 
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.Player
