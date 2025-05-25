@@ -66,7 +66,7 @@ fun PodcastCard(
         Box(
             modifier = Modifier
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.onBackground)
+                .background(MaterialTheme.colorScheme.primary)
                 .size(40.dp)
         ) {
             Icon(
@@ -75,7 +75,7 @@ fun PodcastCard(
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.Center),
-                tint = MaterialTheme.colorScheme.background
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
