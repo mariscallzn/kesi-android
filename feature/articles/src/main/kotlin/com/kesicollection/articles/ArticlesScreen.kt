@@ -93,7 +93,9 @@ fun ArticlesScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.sendIntent(Intent.FetchArticles)
+        if (uiState.isLoading && uiState.articles.isEmpty()) {
+            viewModel.sendIntent(Intent.FetchArticles)
+        }
     }
 
     ArticlesScreen(
