@@ -14,7 +14,7 @@ val initialState = UiArticlesState()
  */
 data class UiArticlesState(
     val articles: List<UiArticle> = emptyList(),
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val error: ErrorState<ArticlesErrors>? = null
 )
 

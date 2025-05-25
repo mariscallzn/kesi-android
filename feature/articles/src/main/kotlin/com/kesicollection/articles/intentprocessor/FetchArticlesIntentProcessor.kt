@@ -51,7 +51,7 @@ class FetchArticlesIntentProcessor(
     private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessor<UiArticlesState> {
     override suspend fun processIntent(reducer: (Reducer<UiArticlesState>) -> Unit) {
-        reducer { copy(isLoading = true, error = null) }
+        reducer { copy(isLoading = true, error = null, articles = emptyList()) }
         try {
             val articles = getArticlesUseCase().getOrThrow().map {
                 it.asUiArticle().copy(isBookmarked = isArticleBookmarkedUseCase(it.id))
