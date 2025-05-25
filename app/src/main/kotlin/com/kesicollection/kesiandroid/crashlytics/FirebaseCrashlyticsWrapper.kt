@@ -1,10 +1,10 @@
 package com.kesicollection.kesiandroid.crashlytics
 
 import android.util.Log
-import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.recordException
 import com.kesicollection.core.app.CrashlyticsWrapper
+import com.kesicollection.kesiandroid.BuildConfig
 import javax.inject.Inject
 
 class FirebaseCrashlyticsWrapper @Inject constructor(
