@@ -43,7 +43,7 @@ class FetchArticleIntentProcessor(
     private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessor<UiArticleState> {
     override suspend fun processIntent(reducer: (Reducer<UiArticleState>) -> Unit) {
-        reducer { copy(isLoading = true, error = null) }
+        reducer { copy(isLoading = true, error = null, content = emptyList()) }
         try {
             val result = getArticleByIdUseCase(articleId).getOrThrow()
             reducer {
@@ -69,11 +69,13 @@ class FetchArticleIntentProcessor(
                 )
             }
         } catch (e: Exception) {
-            crashlyticsWrapper.recordException(e, mapOf(
-                crashlyticsWrapper.params.screenName to "Article",
-                crashlyticsWrapper.params.className to "FetchArticleIntentProcessor",
-                crashlyticsWrapper.params.action to "fetch",
-            ))
+            crashlyticsWrapper.recordException(
+                e, mapOf(
+                    crashlyticsWrapper.params.screenName to "Article",
+                    crashlyticsWrapper.params.className to "FetchArticleIntentProcessor",
+                    crashlyticsWrapper.params.action to "fetch",
+                )
+            )
             reducer {
                 copy(
                     isLoading = false,
