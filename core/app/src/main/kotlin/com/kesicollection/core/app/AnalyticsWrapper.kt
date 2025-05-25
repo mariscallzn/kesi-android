@@ -48,6 +48,7 @@ interface AnalyticsWrapper {
         val forward10AudioPlayer: String
         val pauseAudioPlayer: String
         val adImpression: String
+        val onSeeAll: String
     }
 
     /**
@@ -62,6 +63,7 @@ interface AnalyticsWrapper {
         val itemId: String
         val itemName: String
         val contentType: String
+        val contentEmphasis: String
     }
 
     /**

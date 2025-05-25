@@ -1,5 +1,6 @@
 package com.kesicollection.feature.discover.intentprocessor
 
+import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
 import com.kesicollection.data.usecase.GetDiscoverContentUseCase
@@ -19,12 +20,14 @@ import javax.inject.Singleton
  */
 @Singleton
 class DefaultIntentProcessorFactory @Inject constructor(
-    private val getDiscoverContentUseCase: GetDiscoverContentUseCase
+    private val getDiscoverContentUseCase: GetDiscoverContentUseCase,
+    private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : IntentProcessorFactory<UiState, Intent> {
     override fun create(intent: Intent): IntentProcessor<UiState> =
         when (intent) {
             Intent.FetchFeatureItems -> FetchFeatureItemsIntentProcessor(
-                getDiscoverContentUseCase = getDiscoverContentUseCase
+                getDiscoverContentUseCase = getDiscoverContentUseCase,
+                crashlyticsWrapper = crashlyticsWrapper,
             )
         }
 }

@@ -9,17 +9,28 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil3.ColorImage
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.compose.AsyncImagePreviewHandler
+import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.model.ContentType
 import com.kesicollection.core.model.ErrorState
+import com.kesicollection.core.uisystem.LocalApp
+import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.component.KScaffold
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
@@ -38,6 +49,17 @@ fun DiscoverScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val analytics = LocalApp.current.analytics
+    // Log screen view event.
+    SideEffect {
+        analytics.logEvent(
+            analytics.event.screenView, mapOf(
+                analytics.param.screenName to "Discover",
+                analytics.param.screenClass to "DiscoverScreen"
+            )
+        )
+    }
+
     LaunchedEffect(uiState) {
         if (uiState is UiState.Loading) {
             viewModel.sendIntent(Intent.FetchFeatureItems)
@@ -45,7 +67,15 @@ fun DiscoverScreen(
     }
 
     val rememberedOnTryAgain = remember {
-        { viewModel.sendIntent(Intent.FetchFeatureItems) }
+        {
+            viewModel.sendIntent(Intent.FetchFeatureItems)
+            analytics.logEvent(
+                analytics.event.tryAgain, mapOf(
+                    analytics.param.screenName to "Discover",
+                    analytics.param.screenClass to "DiscoverScreen"
+                )
+            )
+        }
     }
 
     DiscoverScreen(
@@ -115,17 +145,48 @@ fun DiscoverContent(
     onSeeAllClick: (UICategory) -> Unit,
     onContentClick: (UIContent) -> Unit,
 ) {
+    val analytics = LocalApp.current.analytics
+    val rememberedOnContentClick = remember<(UIContent, String) -> Unit> {
+        { content, emphasis ->
+            onContentClick(content)
+            analytics.logEvent(
+                analytics.event.selectItem, mapOf(
+                    analytics.param.itemId to content.id,
+                    analytics.param.contentType to content.type.name.lowercase(),
+                    analytics.param.contentEmphasis to emphasis
+                )
+            )
+        }
+    }
+    val rememberedOnSeeAllClick = remember<(UICategory) -> Unit> {
+        {
+            onSeeAllClick(it)
+            analytics.logEvent(
+                analytics.event.onSeeAll, mapOf(
+                    analytics.param.itemId to it.id,
+                    analytics.param.itemName to it.name,
+                )
+            )
+        }
+    }
+    val onFeatureContentClick: (UIContent) -> Unit = remember {
+        { rememberedOnContentClick(it, "featured") }
+    }
+    val onPromotedContentClick: (UIContent) -> Unit = remember {
+        { rememberedOnContentClick(it, "promoted") }
+    }
+
     LazyColumn(
         modifier = modifier,
     ) {
         featuredContentSection(
             featuredContent = uiState.featuredContent,
-            onContentClick = onContentClick
+            onContentClick = onFeatureContentClick
         )
         promotedContentSections(
             promotedContent = uiState.promotedContent,
-            onSeeAllClick = onSeeAllClick,
-            onContentClick = onContentClick
+            onSeeAllClick = rememberedOnSeeAllClick,
+            onContentClick = onPromotedContentClick
         )
     }
 }
@@ -149,19 +210,36 @@ private fun PreviewDiscoverScreenError() {
 }
 
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ExampleDiscoverScreen(
     modifier: Modifier = Modifier,
     uiState: UiState = contentSample // You might want to use contentSample for previewing content
 ) {
     KesiTheme {
-        DiscoverScreen(
-            uiState = uiState,
-            onSeeAllClick = {},
-            onContentClick = {},
-            onTryAgain = {},
-            modifier = modifier
-        )
+        // Image color for preview.
+        val imageColor = MaterialTheme.colorScheme.tertiaryContainer
+        // Preview handler for async image.
+        val previewHandler = AsyncImagePreviewHandler {
+            ColorImage(imageColor.toArgb())
+        }
+
+        // Image loader for preview.
+        val imageLoader = ImageLoader.Builder(LocalContext.current)
+            .build()
+
+        // Provide local async image preview handler and image loader.
+        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+            CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                DiscoverScreen(
+                    uiState = uiState,
+                    onSeeAllClick = {},
+                    onContentClick = {},
+                    onTryAgain = {},
+                    modifier = modifier
+                )
+            }
+        }
     }
 }
 
