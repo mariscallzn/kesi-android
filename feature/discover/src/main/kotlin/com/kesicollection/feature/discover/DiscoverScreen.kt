@@ -1,5 +1,6 @@
 package com.kesicollection.feature.discover
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -10,6 +11,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -19,13 +21,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kesicollection.core.model.ContentType
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.component.KScaffold
+import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.discover.component.LoadingDiscover
 import com.kesicollection.feature.discover.component.featuredContentSection
 import com.kesicollection.feature.discover.component.promotedContentSections
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
-
 
 @Composable
 fun DiscoverScreen(
@@ -42,10 +44,15 @@ fun DiscoverScreen(
         }
     }
 
+    val rememberedOnTryAgain = remember {
+        { viewModel.sendIntent(Intent.FetchFeatureItems) }
+    }
+
     DiscoverScreen(
         uiState = uiState,
         onSeeAllClick = onSeeAllClick,
         onContentClick = onContentClick,
+        onTryAgain = rememberedOnTryAgain,
         modifier = modifier
     )
 
@@ -57,6 +64,7 @@ private fun DiscoverScreen(
     uiState: UiState,
     onSeeAllClick: (UICategory) -> Unit,
     onContentClick: (UIContent) -> Unit,
+    onTryAgain: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -88,12 +96,12 @@ private fun DiscoverScreen(
             )
 
             is UiState.Error -> {
-                // Handle error state, for example by showing a text message
-                Text(
-                    text = "Error: ${uiState.error}",
+                ShowError(
+                    onTryAgain = onTryAgain,
                     modifier = Modifier
+                        .fillMaxSize()
                         .padding(innerPadding)
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp)
                 )
             }
         }
@@ -151,6 +159,7 @@ private fun ExampleDiscoverScreen(
             uiState = uiState,
             onSeeAllClick = {},
             onContentClick = {},
+            onTryAgain = {},
             modifier = modifier
         )
     }
