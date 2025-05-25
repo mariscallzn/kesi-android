@@ -7,7 +7,7 @@ import com.kesicollection.feature.article.uimodel.UiPodcast
 val initialState = UiArticleState()
 
 data class UiArticleState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val title: String = "",
     val imageUrl: String = "",
     val podcast: UiPodcast? = null,
