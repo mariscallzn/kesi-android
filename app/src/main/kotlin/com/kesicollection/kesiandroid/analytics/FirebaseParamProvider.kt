@@ -24,4 +24,6 @@ object FirebaseParamProvider : AnalyticsWrapper.Param {
         get() = FirebaseAnalytics.Param.ITEM_NAME
     override val contentType: String
         get() = FirebaseAnalytics.Param.CONTENT_TYPE
+    override val contentEmphasis: String
+        get() = "content_emphasis"
 }
