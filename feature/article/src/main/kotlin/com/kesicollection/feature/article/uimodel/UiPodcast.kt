@@ -7,12 +7,12 @@ import com.kesicollection.core.model.Podcast
  *
  * @property id The unique identifier of the podcast.
  * @property title The title of the podcast.
- * @property audioUrl The URL to the audio file of the podcast.
+ * @property audio The URL to the audio file of the podcast.
  */
 data class UiPodcast(
     val id: String,
     val title: String,
-    val audioUrl: String
+    val audio: String
 )
 
 /**
@@ -24,5 +24,5 @@ data class UiPodcast(
 fun Podcast.asUiPodcast() = UiPodcast(
     id = id,
     title = title,
-    audioUrl = url
+    audio = audio
 )

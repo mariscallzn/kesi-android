@@ -21,6 +21,10 @@ object FirebaseEventProvider: AnalyticsWrapper.Event {
         get() = "try_again"
     override val playAudioPlayer: String
         get() = "play_audio_player"
+    override val reply10AudioPlayer: String
+        get() = "reply_10_audio_player"
+    override val forward10AudioPlayer: String
+        get() = "forward_10_audio_player"
     override val pauseAudioPlayer: String
         get() = "pause_audio_player"
     override val adImpression: String

@@ -11,8 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AudioPlayerRoute(
-    val title: String,
-    val fileName: String
+    val id: String,
 ) : AppRoute
 
 fun NavGraphBuilder.audioPlayer(
@@ -22,8 +21,7 @@ fun NavGraphBuilder.audioPlayer(
     composable<AudioPlayerRoute> { backstackEntry ->
         val data = backstackEntry.toRoute<AudioPlayerRoute>()
         AudioPlayerScreen(
-            title = data.title,
-            fileName = data.fileName,
+            id = data.id,
             onNavigateUp = onNavigateUp,
             modifier = modifier
         )

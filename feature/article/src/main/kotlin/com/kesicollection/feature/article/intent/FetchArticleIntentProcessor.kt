@@ -63,7 +63,7 @@ class FetchArticleIntentProcessor(
                         UiPodcast(
                             id = it.id,
                             title = it.title,
-                            audioUrl = it.url
+                            audio = it.audio
                         )
                     }
                 )

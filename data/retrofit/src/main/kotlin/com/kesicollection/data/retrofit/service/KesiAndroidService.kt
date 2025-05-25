@@ -3,6 +3,7 @@ package com.kesicollection.data.retrofit.service
 import com.kesicollection.data.retrofit.model.kesiandroid.NetworkArticle
 import com.kesicollection.data.retrofit.model.kesiandroid.NetworkDiscover
 import com.kesicollection.data.retrofit.model.kesiandroid.NetworkIndexArticle
+import com.kesicollection.data.retrofit.model.kesiandroid.NetworkPodcast
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -43,4 +44,13 @@ interface KesiAndroidService {
      */
     @GET("discover.json")
     suspend fun getDiscoverContent(): NetworkDiscover
+
+    @GET("podcasts/{id}.json")
+    suspend fun getPodcastById(
+        @Path("id")
+        id: String
+    ): NetworkPodcast
+
+    @GET("podcasts/index.json")
+    suspend fun getAllPodcasts(): List<NetworkPodcast>
 }

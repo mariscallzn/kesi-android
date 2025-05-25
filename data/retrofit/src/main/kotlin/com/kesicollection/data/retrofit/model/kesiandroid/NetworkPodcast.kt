@@ -8,15 +8,15 @@ import kotlinx.serialization.Serializable
  *
  * @property id The unique identifier of the podcast.
  * @property title The title of the podcast.
- * @property url The URL where the podcast's RSS feed can be found.
- * @property image The URL of the image representing the podcast.
+ * @property audio The URL where the podcast's RSS feed can be found.
+ * @property img The URL of the image representing the podcast.
  */
 @Serializable
 data class NetworkPodcast(
     val id: String,
     val title: String,
-    val url: String,
-    val image: String,
+    val audio: String,
+    val img: String,
 )
 
 /**
@@ -30,6 +30,6 @@ data class NetworkPodcast(
 fun NetworkPodcast.asPodcast() = Podcast(
     id = id,
     title = title,
-    url = url,
-    image = image
+    audio = audio,
+    img = img
 )
