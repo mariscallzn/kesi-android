@@ -58,6 +58,11 @@ android {
             )
             buildConfigField(
                 "String",
+                "KESI_MEDIA_URL",
+                "\"${configDevProperties["kesiMediaUrl"]}\""
+            )
+            buildConfigField(
+                "String",
                 "AD_UNIT_ARTICLES",
                 "\"ca-app-pub-3940256099942544/9214589741\""
             )
@@ -83,6 +88,11 @@ android {
                 "String",
                 "KESI_API_URL",
                 "\"${configProperties["kesiApiUrl"]}\""
+            )
+            buildConfigField(
+                "String",
+                "KESI_MEDIA_URL",
+                "\"${configProperties["kesiMediaUrl"]}\""
             )
             buildConfigField(
                 "String",

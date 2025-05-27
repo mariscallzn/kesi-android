@@ -6,7 +6,7 @@ import coil3.map.Mapper
 import coil3.network.NetworkFetcher
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import coil3.request.crossfade
-import com.kesicollection.core.app.qualifiers.KesiAndroidApiUrl
+import com.kesicollection.core.app.qualifiers.KesiAndroidMediaUrl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,8 +28,8 @@ object ImageLoaderModule {
     @Provides
     @Singleton
     fun providesMapper(
-        @KesiAndroidApiUrl kesiAndroidApiUrl: String
-    ): Mapper<String, String> = Mapper { data, _ -> "${kesiAndroidApiUrl}images/${data}" }
+        @KesiAndroidMediaUrl kesiAndroidMediaUrl: String
+    ): Mapper<String, String> = Mapper { data, _ -> "${kesiAndroidMediaUrl}images/${data}" }
 
     @Provides
     @Singleton

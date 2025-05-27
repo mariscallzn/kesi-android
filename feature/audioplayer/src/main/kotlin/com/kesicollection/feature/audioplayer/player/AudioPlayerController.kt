@@ -11,7 +11,7 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.ListenableFuture
 import com.kesicollection.core.app.CrashlyticsWrapper
-import com.kesicollection.core.app.qualifiers.KesiAndroidApiUrl
+import com.kesicollection.core.app.qualifiers.KesiAndroidMediaUrl
 import com.kesicollection.feature.audioplayer.di.AudioPlayerDefaultDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
@@ -128,13 +128,13 @@ interface AudioPlayerController {
  *
  * @property dispatcher The coroutine dispatcher used for background tasks and state updates.
  * @property context The application context, used for creating [SessionToken] and [MediaController].
- * @property kesiAndroidApiUrl The base URL for fetching audio files.
+ * @property kesiAndroidMediaUrl The base URL for fetching audio files.
  */
 @Singleton
 class Media3AudioPlayerController @Inject constructor(
     @AudioPlayerDefaultDispatcher dispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context,
-    @KesiAndroidApiUrl private val kesiAndroidApiUrl: String,
+    @KesiAndroidMediaUrl private val kesiAndroidMediaUrl: String,
     private val crashlyticsWrapper: CrashlyticsWrapper,
 ) : AudioPlayerController, Player.Listener {
 
@@ -289,13 +289,13 @@ class Media3AudioPlayerController @Inject constructor(
             mediaMetadataBuilder.setTitle(mediaItem.title)
             mediaItem.artworkUri?.let {
                 mediaMetadataBuilder.setArtworkUri(
-                    "${kesiAndroidApiUrl}images/${it}".toUri()
+                    "${kesiAndroidMediaUrl}images/${it}".toUri()
                 )
             }
             setMediaItem(
                 MediaItem.Builder()
                     .setMediaId(mediaItem.id)
-                    .setUri("${kesiAndroidApiUrl}audios/${mediaItem.fileName}")
+                    .setUri("${kesiAndroidMediaUrl}audios/${mediaItem.fileName}")
                     .setMediaMetadata(mediaMetadataBuilder.build())
                     .build()
             )
