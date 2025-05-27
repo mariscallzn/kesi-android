@@ -5,6 +5,7 @@ import com.kesicollection.core.app.Logger
 import com.kesicollection.core.app.qualifiers.ArticleAdKey
 import com.kesicollection.core.app.qualifiers.ArticlesAdKey
 import com.kesicollection.core.app.qualifiers.KesiAndroidApiUrl
+import com.kesicollection.core.app.qualifiers.KesiAndroidMediaUrl
 import com.kesicollection.kesiandroid.BuildConfig
 import com.kesicollection.kesiandroid.KesiAndroidAppManager
 import com.kesicollection.kesiandroid.logger.AndroidLogger
@@ -35,6 +36,11 @@ abstract class AppModule {
         @Singleton
         @KesiAndroidApiUrl
         fun providesKesiApiUrl(): String = BuildConfig.KESI_API_URL
+
+        @Provides
+        @Singleton
+        @KesiAndroidMediaUrl
+        fun providesKesiMediaUrl(): String = BuildConfig.KESI_MEDIA_URL
 
         @Provides
         @Singleton
