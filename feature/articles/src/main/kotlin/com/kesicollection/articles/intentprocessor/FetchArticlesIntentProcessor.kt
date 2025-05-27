@@ -7,14 +7,14 @@ import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.Reducer
-import com.kesicollection.data.usecase.GetArticlesUseCase
-import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
+import com.kesicollection.domain.GetArticlesUseCase
+import com.kesicollection.domain.IsArticleBookmarkedUseCase
 
 /**
  * [IntentProcessor] responsible for fetching and preparing articles for display in the UI.
  *
- * This processor orchestrates the retrieval of articles from the data layer via [GetArticlesUseCase],
- * determines the bookmarked status of each article using [IsArticleBookmarkedUseCase],
+ * This processor orchestrates the retrieval of articles from the data layer via [com.kesicollection.domain.GetArticlesUseCase],
+ * determines the bookmarked status of each article using [com.kesicollection.domain.IsArticleBookmarkedUseCase],
  * and updates the UI state (represented by [UiArticlesState]) accordingly.
  *
  * **Core Responsibilities:**

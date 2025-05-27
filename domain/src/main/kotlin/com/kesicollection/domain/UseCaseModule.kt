@@ -1,4 +1,4 @@
-package com.kesicollection.data.usecase
+package com.kesicollection.domain
 
 import com.kesicollection.data.repository.ArticleRepository
 import com.kesicollection.data.repository.ArticleRepositoryImpl

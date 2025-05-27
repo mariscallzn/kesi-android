@@ -5,8 +5,8 @@ import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.app.Reducer
-import com.kesicollection.data.usecase.GetArticlesUseCase
-import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
+import com.kesicollection.domain.GetArticlesUseCase
+import com.kesicollection.domain.IsArticleBookmarkedUseCase
 import com.kesicollection.testing.api.TestDoubleArticleRepository
 import com.kesicollection.testing.api.TestDoubleBookmarkRepository
 import com.kesicollection.testing.api.TestDoubleCrashlyticsWrapper
@@ -41,7 +41,7 @@ class FetchArticlesIntentProcessorTest {
     /**
      * Sets up the test environment before each test.
      *
-     * Initializes the [fetchArticlesIntentProcessor] with a [GetArticlesUseCase]
+     * Initializes the [fetchArticlesIntentProcessor] with a [com.kesicollection.domain.GetArticlesUseCase]
      * that uses a [TestDoubleArticleRepository]. This setup ensures that each test
      * starts with a clean state and a mocked repository for controlled behavior.
      */

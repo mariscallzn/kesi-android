@@ -7,9 +7,9 @@ import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.Reducer
-import com.kesicollection.data.usecase.BookmarkArticleByIdUseCase
-import com.kesicollection.data.usecase.GetArticlesUseCase
-import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
+import com.kesicollection.domain.BookmarkArticleByIdUseCase
+import com.kesicollection.domain.GetArticlesUseCase
+import com.kesicollection.domain.IsArticleBookmarkedUseCase
 
 /**
  * [BookmarkArticleIntentProcessor] is an [IntentProcessor] responsible for handling the

@@ -5,7 +5,7 @@ import com.kesicollection.core.model.ContentSection
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.Reducer
-import com.kesicollection.data.usecase.GetArticleByIdUseCase
+import com.kesicollection.domain.GetArticleByIdUseCase
 import com.kesicollection.feature.article.ArticleErrors
 import com.kesicollection.feature.article.UiArticleState
 import com.kesicollection.feature.article.components.BulletList

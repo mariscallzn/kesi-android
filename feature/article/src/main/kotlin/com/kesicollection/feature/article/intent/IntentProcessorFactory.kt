@@ -3,7 +3,7 @@ package com.kesicollection.feature.article.intent
 import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
-import com.kesicollection.data.usecase.GetArticleByIdUseCase
+import com.kesicollection.domain.GetArticleByIdUseCase
 import com.kesicollection.feature.article.Intent
 import com.kesicollection.feature.article.UiArticleState
 import javax.inject.Inject

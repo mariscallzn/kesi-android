@@ -1,4 +1,4 @@
-package com.kesicollection.data.usecase
+package com.kesicollection.domain
 
 import com.kesicollection.data.repository.BookmarkRepository
 import javax.inject.Inject

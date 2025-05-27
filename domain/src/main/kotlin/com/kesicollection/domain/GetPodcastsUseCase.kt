@@ -1,4 +1,4 @@
-package com.kesicollection.data.usecase
+package com.kesicollection.domain
 
 import com.kesicollection.core.model.Podcast
 import com.kesicollection.data.repository.PodcastRepository
