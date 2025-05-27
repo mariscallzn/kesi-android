@@ -1,0 +1,9 @@
+[
+  {
+    "id": "deep-dive-unveiling-kesi-android-podcast",
+    "title": "Deep Dive: Unveiling Kesi Android",
+    "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world.",
+    "img": "deep-dive-unveiling-kesi-android-podcast.jpg",
+    "audio": "deep-dive-unveiling-kesi-android-podcast.mp3"
+  }
+]
