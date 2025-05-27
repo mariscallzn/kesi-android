@@ -5,9 +5,9 @@ import com.kesicollection.articles.UiArticlesState
 import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
-import com.kesicollection.data.usecase.BookmarkArticleByIdUseCase
-import com.kesicollection.data.usecase.GetArticlesUseCase
-import com.kesicollection.data.usecase.IsArticleBookmarkedUseCase
+import com.kesicollection.domain.BookmarkArticleByIdUseCase
+import com.kesicollection.domain.GetArticlesUseCase
+import com.kesicollection.domain.IsArticleBookmarkedUseCase
 import javax.inject.Inject
 
 /**
@@ -19,7 +19,7 @@ import javax.inject.Inject
  * upon each request. However, it's designed with future flexibility in mind, allowing for the
  * potential integration of caching or other performance enhancement strategies if needed.
  *
- * @property getArticlesUseCase A [GetArticlesUseCase] instance used by [FetchArticlesIntentProcessor].
+ * @property getArticlesUseCase A [com.kesicollection.domain.GetArticlesUseCase] instance used by [FetchArticlesIntentProcessor].
  */
 class DefaultIntentProcessorFactory @Inject constructor(
     private val getArticlesUseCase: GetArticlesUseCase,

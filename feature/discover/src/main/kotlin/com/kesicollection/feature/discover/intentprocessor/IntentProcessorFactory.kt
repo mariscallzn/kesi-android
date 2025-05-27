@@ -3,7 +3,7 @@ package com.kesicollection.feature.discover.intentprocessor
 import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
-import com.kesicollection.data.usecase.GetDiscoverContentUseCase
+import com.kesicollection.domain.GetDiscoverContentUseCase
 import com.kesicollection.feature.discover.Intent
 import com.kesicollection.feature.discover.UiState
 import javax.inject.Inject

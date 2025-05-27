@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kesicollection.core.app.CrashlyticsWrapper
 import com.kesicollection.core.model.ErrorState
-import com.kesicollection.data.usecase.GetPodcastByIdUseCase
+import com.kesicollection.domain.GetPodcastByIdUseCase
 import com.kesicollection.feature.audioplayer.di.AudioPlayerDefaultDispatcher
 import com.kesicollection.feature.audioplayer.player.AudioPlayerController
 import com.kesicollection.feature.audioplayer.player.DomainMediaItem
