@@ -1,0 +1,43 @@
+{
+  "featured": [
+    {
+      "id": "deep-dive-unveiling-kesi-android",
+      "img": "deep-dive-unveiling-kesi-android.jpg",
+      "type": "Article",
+      "title": "Deep Dive: Unveiling Kesi Android",
+      "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world."
+    }
+  ],
+  "promotedContent": [
+    {
+      "category": {
+        "id": "category_A",
+        "name": "Category A Name"
+      },
+      "promotedContent": [
+        {
+          "id": "getting_started_with_hilt",
+          "img": "debugging_jetpack_compose_img.jpg",
+          "type": "Article",
+          "title": "Promoted Item A1 Title",
+          "description": "Description for promoted item A1."
+        }
+      ]
+    },
+    {
+      "category": {
+        "id": "category_B",
+        "name": "Category B Name"
+      },
+      "promotedContent": [
+        {
+          "id": "promo_B_2",
+          "img": "debugging_jetpack_compose_img.jpg",
+          "type": "Video",
+          "title": "Promoted Item B2 Title",
+          "description": "Description for promoted item B2."
+        }
+      ]
+    }
+  ]
+}
