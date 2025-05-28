@@ -4,5 +4,11 @@
     "title": "Deep Dive: Unveiling Kesi Android",
     "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application",
     "thumbnail": "deep-dive-unveiling-kesi-android_img.jpg"
+  },
+  {
+    "id": "kesi-android-multi-module",
+    "title": "Kesi Android Multi-Module Architecture",
+    "description": "In this post, I'll walk you through how Kesi Android divided its codebase into distinct modules to achieve a multi-module architecture. I'll explain the reasoning behind each module, and discuss how this approach helps us adhere to SOLID principles and significantly enhances project scalability.",
+    "thumbnail": "kesi-android-multi-module.jpg"
   }
 ]
