@@ -25,16 +25,16 @@
   "promotedContent": [
     {
       "category": {
-        "id": "category_A",
-        "name": "Category A"
+        "id": "architecture",
+        "name": "Architecture"
       },
       "promotedContent": [
         {
-          "id": "getting_started_with_hilt",
-          "img": "debugging_jetpack_compose_img.jpg",
+          "id": "hilt",
+          "img": "hilt.jpg",
           "type": "Article",
-          "title": "Promoted Item A1 Title",
-          "description": "Description for promoted item A1."
+          "title": "Unlock Simpler Android Development: A Deep Dive into Hilt",
+          "description": "Hey Android Devs! \uD83D\uDC4B Are you tired of wrestling with boilerplate code for dependency injection? Do you dream of a cleaner, more maintainable, and testable codebase? If you nodded yes (even a little!), then you're in the right place. Today, we're diving deep into **Hilt**, Google's recommended dependency injection framework for Android, and how it can revolutionize your development workflow."
         }
       ]
     },

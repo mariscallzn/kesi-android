@@ -1,0 +1,7 @@
+{
+  "id": "hilt-podcast",
+  "title": "Podcast: Hilt for modern Android development",
+  "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries.",
+  "img": "hilt-podcast.jpg",
+  "audio": "hilt-podcast.wav"
+}

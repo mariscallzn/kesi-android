@@ -1,0 +1,13 @@
+{
+  "id": "hilt",
+  "title": "Unlock Simpler Android Development: A Deep Dive into Hilt",
+  "description": "Hey Android Devs! \uD83D\uDC4B Are you tired of wrestling with boilerplate code for dependency injection? Do you dream of a cleaner, more maintainable, and testable codebase? If you nodded yes (even a little!), then you're in the right place. Today, we're diving deep into **Hilt**, Google's recommended dependency injection framework for Android, and how it can revolutionize your development workflow.",
+  "img": "hilt.jpg",
+  "markdown": "hilt.md",
+  "podcast": {
+    "id": "hilt-podcast",
+    "title": "Podcast: Hilt for modern Android development",
+    "audio": "hilt-podcast.wav",
+    "img": "hilt-podcast.jpg"
+  }
+}

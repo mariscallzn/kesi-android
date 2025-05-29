@@ -16,5 +16,11 @@
     "title": "Gradle convention plugins in Kesi Android",
     "description": "Ah, Gradle. The powerful, flexible, and sometimes overwhelmingly complex build system that powers our Android projects. If you've ever found yourself endlessly copying and pasting configurations across `build.gradle.kts` files, battling inconsistencies between modules, or dreading the thought of updating a common dependency everywhere, then this post is for you. This was certainly our reality at Kesi Android before we embraced a more structured approach.",
     "img": "gradle-convention-plugins.jpg"
+  },
+  {
+    "id": "hilt",
+    "title": "Unlock Simpler Android Development: A Deep Dive into Hilt",
+    "description": "Hey Android Devs! \uD83D\uDC4B Are you tired of wrestling with boilerplate code for dependency injection? Do you dream of a cleaner, more maintainable, and testable codebase? If you nodded yes (even a little!), then you're in the right place. Today, we're diving deep into **Hilt**, Google's recommended dependency injection framework for Android, and how it can revolutionize your development workflow.",
+    "img": "hilt.jpg"
   }
 ]

@@ -19,5 +19,12 @@
     "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
     "img": "gradle-convention-plugins-podcast.jpg",
     "audio": "gradle-convention-plugins-podcast.wav"
+  },
+  {
+    "id": "hilt-podcast",
+    "title": "Podcast: Hilt for modern Android development",
+    "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries.",
+    "img": "hilt-podcast.jpg",
+    "audio": "hilt-podcast.wav"
   }
 ]
