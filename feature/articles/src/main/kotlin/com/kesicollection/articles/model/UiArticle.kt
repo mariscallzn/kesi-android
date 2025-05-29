@@ -28,5 +28,5 @@ fun Article.asUiArticle() = UiArticle(
     articleId = id,
     title = title,
     description = description,
-    thumbnail = thumbnail
+    thumbnail = img
 )

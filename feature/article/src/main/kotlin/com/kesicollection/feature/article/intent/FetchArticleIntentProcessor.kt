@@ -1,17 +1,12 @@
 package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.app.CrashlyticsWrapper
-import com.kesicollection.core.model.ContentSection
-import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.Reducer
+import com.kesicollection.core.model.ErrorState
 import com.kesicollection.domain.GetArticleByIdUseCase
 import com.kesicollection.feature.article.ArticleErrors
 import com.kesicollection.feature.article.UiArticleState
-import com.kesicollection.feature.article.components.BulletList
-import com.kesicollection.feature.article.components.Code
-import com.kesicollection.feature.article.components.Paragraph
-import com.kesicollection.feature.article.components.SubHeader
 import com.kesicollection.feature.article.uimodel.UiPodcast
 
 /**
@@ -50,15 +45,8 @@ class FetchArticleIntentProcessor(
                 copy(
                     isLoading = false,
                     title = result.title,
-                    imageUrl = result.thumbnail,
-                    content = result.content.map {
-                        when (it) {
-                            is ContentSection.BulletList -> BulletList(it.content, it.bulletPoints)
-                            is ContentSection.Code -> Code(it.content)
-                            is ContentSection.Paragraph -> Paragraph(it.content)
-                            is ContentSection.SubHeader -> SubHeader(it.content)
-                        }
-                    },
+                    imageUrl = result.img,
+                    content = emptyList(),
                     podcast = result.podcast?.let {
                         UiPodcast(
                             id = it.id,
