@@ -1,0 +1,13 @@
+{
+  "id": "gradle-convention-plugins",
+  "title": "Gradle convention plugins in Kesi Android",
+  "description": "Ah, Gradle. The powerful, flexible, and sometimes overwhelmingly complex build system that powers our Android projects. If you've ever found yourself endlessly copying and pasting configurations across `build.gradle.kts` files, battling inconsistencies between modules, or dreading the thought of updating a common dependency everywhere, then this post is for you. This was certainly our reality at Kesi Android before we embraced a more structured approach.",
+  "img": "gradle-convention-plugins.jpg",
+  "markdown": "gradle-convention-plugins.md",
+  "podcast": {
+    "id": "gradle-convention-plugins-podcast",
+    "title": "Convention plugins explained",
+    "audio": "gradle-convention-plugins-podcast.wav",
+    "img": "gradle-convention-plugins-podcast.jpg"
+  }
+}

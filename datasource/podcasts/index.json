@@ -12,5 +12,12 @@
     "description": "In this podcast, you will hear how to modularized an app and the different strategies.",
     "img": "kesi-android-multi-module-podcast.jpg",
     "audio": "kesi-android-multi-module-podcast.wav"
+  },
+  {
+    "id": "gradle-convention-plugins-podcast",
+    "title": "Convention plugins explained",
+    "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
+    "img": "gradle-convention-plugins-podcast.jpg",
+    "audio": "gradle-convention-plugins-podcast.wav"
   }
 ]

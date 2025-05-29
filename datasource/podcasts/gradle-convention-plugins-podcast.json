@@ -1,0 +1,7 @@
+{
+  "id": "gradle-convention-plugins-podcast",
+  "title": "Convention plugins explained",
+  "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
+  "img": "gradle-convention-plugins-podcast.jpg",
+  "audio": "gradle-convention-plugins-podcast.wav"
+}

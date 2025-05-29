@@ -13,6 +13,13 @@
       "type": "Article",
       "title": "Kesi Android Multi-Module Architecture",
       "description": "In this post, I'll walk you through how Kesi Android divided its codebase into distinct modules to achieve a multi-module architecture. I'll explain the reasoning behind each module, and discuss how this approach helps us adhere to SOLID principles and significantly enhances project scalability."
+    },
+    {
+      "id": "gradle-convention-plugins",
+      "img": "gradle-convention-plugins.jpg",
+      "type": "Article",
+      "title": "Gradle convention plugins in Kesi Android",
+      "description": "Ah, Gradle. The powerful, flexible, and sometimes overwhelmingly complex build system that powers our Android projects. If you've ever found yourself endlessly copying and pasting configurations across `build.gradle.kts` files, battling inconsistencies between modules, or dreading the thought of updating a common dependency everywhere, then this post is for you. This was certainly our reality at Kesi Android before we embraced a more structured approach."
     }
   ],
   "promotedContent": [
