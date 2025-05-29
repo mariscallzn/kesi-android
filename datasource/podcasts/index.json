@@ -26,5 +26,12 @@
     "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries.",
     "img": "hilt-podcast.jpg",
     "audio": "hilt-podcast.wav"
+  },
+  {
+    "id": "solid-podcast",
+    "title": "Podcast: SOLID Explained in the Jetpack compose world",
+    "description": "Let's dive in and see how each SOLID principle shines in a Compose-centric world, turning your UIs from just \"working\" to \"wow-king\"!",
+    "img": "solid-podcast.jpg",
+    "audio": "solid-podcast.mp3"
   }
 ]

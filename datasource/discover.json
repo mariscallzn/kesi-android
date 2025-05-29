@@ -35,6 +35,20 @@
           "type": "Article",
           "title": "Unlock Simpler Android Development: A Deep Dive into Hilt",
           "description": "Hey Android Devs! \uD83D\uDC4B Are you tired of wrestling with boilerplate code for dependency injection? Do you dream of a cleaner, more maintainable, and testable codebase? If you nodded yes (even a little!), then you're in the right place. Today, we're diving deep into **Hilt**, Google's recommended dependency injection framework for Android, and how it can revolutionize your development workflow."
+        },
+        {
+          "id": "solid",
+          "img": "solid.jpg",
+          "type": "Article",
+          "title": "SOLID in Jetpack Compose: Building Bulletproof Android UIs That Spark Joy",
+          "description": "Hey Android devs! We're all riding the Jetpack Compose wave, and loving it, right? Declarative UIs, less boilerplate, and a more intuitive way to build beautiful apps."
+        },
+        {
+          "id": "mvi",
+          "img": "mvi.jpg",
+          "type": "Article",
+          "title": "MVI with Compose & SharedFlow: The Secret Sauce for Modern Android UIs",
+          "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount."
         }
       ]
     },

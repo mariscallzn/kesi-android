@@ -1,0 +1,7 @@
+{
+  "id": "mvi-podcast",
+  "title": "Podcast: MVI by hearing not reading",
+  "description": "MVI is a unidirectional data flow architecture that emphasizes a clear separation of concerns and a predictable state management cycle. Think of it as a well-organized assembly line for your UI.",
+  "img": "mvi-podcast.jpg",
+  "audio": "mvi-podcast.mp3"
+}

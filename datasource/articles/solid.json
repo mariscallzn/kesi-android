@@ -1,0 +1,13 @@
+{
+  "id": "solid",
+  "title": "SOLID in Jetpack Compose: Building Bulletproof Android UIs That Spark Joy",
+  "description": "Hey Android devs! We're all riding the Jetpack Compose wave, and loving it, right? Declarative UIs, less boilerplate, and a more intuitive way to build beautiful apps.",
+  "img": "solid.jpg",
+  "markdown": "solid.md",
+  "podcast": {
+    "id": "solid-podcast",
+    "title": "Podcast: SOLID Explained in the Jetpack compose world",
+    "audio": "solid-podcast.mp3",
+    "img": "solid-podcast.jpg"
+  }
+}

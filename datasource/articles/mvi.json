@@ -1,0 +1,13 @@
+{
+  "id": "mvi",
+  "title": "MVI with Compose & SharedFlow: The Secret Sauce for Modern Android UIs",
+  "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount.",
+  "img": "mvi.jpg",
+  "markdown": "mvi.md",
+  "podcast": {
+    "id": "mvi-podcast",
+    "title": "Podcast: MVI by hearing not reading",
+    "audio": "mvi-podcast.mp3",
+    "img": "mvi-podcast.jpg"
+  }
+}
