@@ -435,6 +435,6 @@ This makes your tests more reliable and focused. (A full dive into Hilt testing 
 
 Hilt is a game-changer for Android development. By simplifying dependency injection, it allows you to write cleaner, more modular, and highly testable code with less effort. If you haven't already, it's time to give Hilt a try in your next Android project. You'll wonder how you ever lived without it!
 
-**What are your experiences with Hilt? Do you have any favorite tips or tricks? Share them in the comments below!** 👇
+**What are your experiences with Hilt? Do you have any favorite tips or tricks?**
 
 Happy Hilt-ing! 🎉
