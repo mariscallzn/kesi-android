@@ -3,6 +3,11 @@ package com.kesicollection.core.uisystem
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.kesicollection.core.app.AnalyticsWrapper
 import com.kesicollection.core.app.AppManager
+import com.kesicollection.core.app.CrashlyticsWrapper
+import com.kesicollection.core.app.Logger
+import com.kesicollection.core.app.PreviewAnalyticsWrapper
+import com.kesicollection.core.app.PreviewCrashlyticsWrapper
+import com.kesicollection.core.app.PreviewLogger
 
 /**
  * Provides access to the [AppManager] instance within the Composition.
@@ -50,4 +55,39 @@ import com.kesicollection.core.app.AppManager
  */
 val LocalApp = staticCompositionLocalOf<AppManager> {
     error("No AppManager provided")
+}
+
+/**
+ * A preview implementation of [AppManager] used for Composable previews.
+ *
+ * This object provides stubbed or no-op implementations for the core app services
+ * ([Logger], [AnalyticsWrapper], [CrashlyticsWrapper]). This is useful for ensuring
+ * that Composable previews can render without relying on fully initialized or functional
+ * app services, which might not be available or desirable in a preview environment.
+ *
+ * When using `LocalApp` in your Composables, you can provide this `PreviewAppManager`
+ * during preview generation to ensure your previews work correctly:
+ *
+ * ```kotlin
+ * @Preview
+ * @Composable
+ * fun MyScreenPreview() {
+ *     CompositionLocalProvider(LocalApp provides PreviewAppManager) {
+ *         MyScreen()
+ *     }
+ * }
+ * ```
+ *
+ * This allows `MyScreen` to access `LocalApp.current` (which will be `PreviewAppManager`)
+ * and use its `logger`, `analytics`, and `crashlytics` properties without causing issues
+ * in the preview environment.
+ */
+object PreviewAppManager : AppManager {
+    override val logger: Logger
+        get() = PreviewLogger
+    override val analytics: AnalyticsWrapper
+        get() = PreviewAnalyticsWrapper
+    override val crashlytics: CrashlyticsWrapper
+        get() = PreviewCrashlyticsWrapper
+
 }
