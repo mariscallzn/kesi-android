@@ -91,10 +91,10 @@ class FetchArticleIntentProcessorTest {
             UiArticleState(
                 isLoading = false,
                 title = article.title,
-                imageUrl = article.thumbnail,
+                imageUrl = article.img,
                 podcast = article.podcast?.asUiPodcast(),
                 //For simplicity all is treat it as Code since don't care about the type in this test case
-                content = article.content.map { Code(it.content) },
+                content = emptyList(),
                 error = null
             )
         )
