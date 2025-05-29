@@ -20,8 +20,12 @@ dependencies {
     api(projects.core.app)
 
     implementation(libs.coil.core)
-    implementation(libs.markdown)
-    implementation(libs.syntax.highlight)
+    implementation(libs.markdown) {
+        exclude(group = "org.jetbrains", module = "annotations-java5")
+    }
+    implementation(libs.syntax.highlight) {
+        exclude(group = "org.jetbrains", module = "annotations-java5")
+    }
 
     debugImplementation(libs.bundles.androidx.compose.ui.test)
     androidTestImplementation(libs.androidx.test.rules)

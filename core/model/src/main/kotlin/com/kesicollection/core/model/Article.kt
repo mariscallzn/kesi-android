@@ -6,8 +6,8 @@ package com.kesicollection.core.model
  * @property id The unique identifier of the article.
  * @property title The title of the article.
  * @property description A brief description or summary of the article's content.
+ * @property markdown The full content of the article in Markdown format.
  * @property img The URL or path to the article's thumbnail image.
- * @property markdown The markdown content of the article.
  * @property podcast The associated [Podcast] if any.
  */
 data class Article(

@@ -52,7 +52,7 @@ class FetchArticleIntentProcessorTest {
     fun setup() {
         fetchArticleIntentProcessor = FetchArticleIntentProcessor(
             articleId = ArticlesTestData.items.first().id,
-            getArticleByIdUseCase = GetArticleByIdUseCase(
+            getMarkdownAsString = GetArticleByIdUseCase(
                 articleRepository = TestDoubleArticleRepository()
             ),
             crashlyticsWrapper = TestDoubleCrashlyticsWrapper()

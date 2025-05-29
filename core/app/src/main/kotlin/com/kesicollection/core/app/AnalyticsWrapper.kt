@@ -83,3 +83,51 @@ interface AnalyticsWrapper {
      */
     fun logEvent(eventName: String, params: Map<String, Any>? = null)
 }
+
+object PreviewAnalyticsWrapper : AnalyticsWrapper {
+    override val event: AnalyticsWrapper.Event
+        get() = object : AnalyticsWrapper.Event {
+            override val screenView: String
+                get() = ""
+            override val selectItem: String
+                get() = ""
+            override val tryAgain: String
+                get() = ""
+            override val playAudioPlayer: String
+                get() = ""
+            override val reply10AudioPlayer: String
+                get() = ""
+            override val forward10AudioPlayer: String
+                get() = ""
+            override val pauseAudioPlayer: String
+                get() = ""
+            override val adImpression: String
+                get() = ""
+            override val onSeeAll: String
+                get() = ""
+
+        }
+    override val param: AnalyticsWrapper.Param
+        get() = object : AnalyticsWrapper.Param {
+            override val screenName: String
+                get() = ""
+            override val screenClass: String
+                get() = ""
+            override val itemId: String
+                get() = ""
+            override val itemName: String
+                get() = ""
+            override val contentType: String
+                get() = ""
+            override val contentEmphasis: String
+                get() = ""
+
+        }
+
+    override fun logEvent(
+        eventName: String,
+        params: Map<String, Any>?
+    ) {
+
+    }
+}

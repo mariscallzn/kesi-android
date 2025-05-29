@@ -1,12 +1,8 @@
 package com.kesicollection.feature.article
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,14 +13,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -49,7 +43,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -65,18 +58,15 @@ import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
+import com.kesicollection.core.uisystem.PreviewAppManager
 import com.kesicollection.core.uisystem.component.BottomTopVerticalGradient
-import com.kesicollection.core.uisystem.component.DisplayContent
 import com.kesicollection.core.uisystem.component.KAdView
+import com.kesicollection.core.uisystem.component.KMarkdown
 import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.feature.article.components.BulletList
-import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.components.LoadingArticle
-import com.kesicollection.feature.article.components.Paragraph
 import com.kesicollection.feature.article.components.PodcastCard
-import com.kesicollection.feature.article.components.SubHeader
 import com.kesicollection.feature.article.di.ArticleEntryPoint
 import com.kesicollection.feature.article.uimodel.UiPodcast
 import dagger.hilt.android.EntryPointAccessors
@@ -171,10 +161,10 @@ internal fun ArticleScreen(
     val maxSize = 320.dp
     val safeContent = WindowInsets.Companion.safeContent.asPaddingValues()
     var scrollOffset by rememberSaveable { mutableIntStateOf(0) }
-    val lazyColumState = rememberLazyListState()
+    val contentScrollState = rememberScrollState()
     val shouldComeDown by remember {
         derivedStateOf {
-            lazyColumState.firstVisibleItemIndex <= 1
+            contentScrollState.value < maxSize.value + 56.dp.value
         }
     }
 
@@ -240,6 +230,7 @@ internal fun ArticleScreen(
             }
             Column(
                 modifier = Modifier
+                    .padding(bottom = safeContent.calculateBottomPadding())
                     .fillMaxSize()
             ) {
                 val windowSize = currentWindowAdaptiveInfo().windowSizeClass
@@ -250,68 +241,40 @@ internal fun ArticleScreen(
                             Icon(KIcon.ArrowBack, "")
                         }
                     })
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    state = lazyColumState,
-                    contentPadding = PaddingValues(
-                        start = 16.dp,
-                        end = 16.dp,
-                        bottom = safeContent.calculateBottomPadding()
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(contentScrollState)
+                        .padding(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    item(key = "${uiState.imageUrl}+", contentType = "Image") {
-                        AsyncImage(
-                            model = uiState.imageUrl,
-                            contentDescription = null,
-                            imageLoader = LocalImageLoader.current,
-                            modifier = Modifier
-                                .heightIn(
-                                    max = when (windowSize.windowWidthSizeClass) {
-                                        WindowWidthSizeClass.EXPANDED -> 550.dp
-                                        else -> 210.dp
-                                    }
-                                )
-                                .fillParentMaxWidth()
-                                .wrapContentSize()
-                                .align(Alignment.CenterHorizontally)
-
-                        )
-                    }
-                    item(key = uiState.title, contentType = "Title") {
-                        Text(
-                            uiState.title,
-                            style = MaterialTheme.typography.headlineMedium.copy(
-                                fontWeight = FontWeight.Medium,
-                            ),
-                            modifier = Modifier.fillParentMaxWidth()
-                        )
-                    }
-                    uiState.podcast?.let { podcast ->
-                        stickyHeader {
-                            Column(
-                                Modifier
-                                    .background(MaterialTheme.colorScheme.surface)
-                            ) {
-                                AnimatedVisibility(shouldComeDown) {
-                                    Spacer(Modifier.height(16.dp))
+                    AsyncImage(
+                        model = uiState.imageUrl,
+                        contentDescription = null,
+                        imageLoader = LocalImageLoader.current,
+                        modifier = Modifier
+                            .heightIn(
+                                max = when (windowSize.windowWidthSizeClass) {
+                                    WindowWidthSizeClass.EXPANDED -> 550.dp
+                                    else -> 210.dp
                                 }
-                                PodcastCard(
-                                    uiPodcast = podcast,
-                                    modifier = Modifier.fillParentMaxWidth(),
-                                    onPodcastClick = rememberedOnPodcastClick
-                                )
-                                Spacer(Modifier.height(16.dp))
-                            }
-                        }
+                            )
+                            .fillMaxWidth()
+                            .wrapContentSize()
+                            .align(Alignment.CenterHorizontally)
+
+                    )
+                    uiState.podcast?.let {
+                        PodcastCard(
+                            uiPodcast = it,
+                            modifier = Modifier.fillMaxWidth(),
+                            onPodcastClick = rememberedOnPodcastClick
+                        )
                     }
-                    items(
-                        items = uiState.content,
-                        key = { it.uiId },
-                        contentType = { it.type }
-                    ) {
-                        DisplayContent(it, modifier = Modifier.fillParentMaxWidth())
-                    }
+                    KMarkdown(
+                        text = uiState.content,
+                        Modifier
+                            .padding()
+                    )
                 }
                 KAdView(
                     adUnitId = adUnitId,
@@ -332,7 +295,7 @@ private fun ArticleWithPodcastPreview() {
         uiState = UiArticleState(
             isLoading = false,
             title = "This Articles comes with a podcast an a long header to see how it looks",
-            content = testData,
+            content = markdown,
             podcast = UiPodcast(
                 title = "Building rock solid apps: The art of testing in jetpack compose",
                 id = "",
@@ -361,7 +324,7 @@ private fun ArticleExample(
     uiState: UiArticleState = UiArticleState(
         isLoading = false,
         title = "This text is just a placeholder",
-        content = testData
+        content = markdown
     ),
 ) {
     KesiTheme {
@@ -373,119 +336,35 @@ private fun ArticleExample(
             .build()
         CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
             CompositionLocalProvider(LocalImageLoader provides imageLoader) {
-                ArticleScreen(
-                    uiState = uiState,
-                    adUnitId = "",
-                    onNavigateUp = {},
-                    onPodcastClick = { },
-                    onTryAgain = {},
-                    modifier = modifier,
-                )
+                CompositionLocalProvider(LocalApp provides PreviewAppManager) {
+                    ArticleScreen(
+                        uiState = uiState,
+                        adUnitId = "",
+                        onNavigateUp = {},
+                        onPodcastClick = { },
+                        onTryAgain = {},
+                        modifier = modifier,
+                    )
+                }
             }
         }
     }
 }
 
-private const val lorem =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+const val markdown = """
+## Unveiling Kesi Android
 
-val testData = listOf(
-    Paragraph(lorem.take(100)),
-    SubHeader("Subheader example with more data to test"),
-    BulletList(
-        "Bullet list example with more data to test",
-        listOf(lorem.take(150))
-    ),
-    Code(
-        """
-```
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.compose.foundation.border
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
-import com.kesicollection.core.uisystem.component.ContentType
-import com.kesicollection.core.uisystem.component.DisplayContent
-import com.kesicollection.core.uisystem.theme.KesiTheme
-import io.noties.markwon.AbstractMarkwonPlugin
-import io.noties.markwon.Markwon
-import io.noties.markwon.core.MarkwonTheme
+Kesi Android itself leverages a wide range of modern Android libraries and technologies to bring its features to life. Here's a snapshot of what's under the hood:
 
-class Code(val content: String) : ContentType {
-    @Composable
-    override fun Content(modifier: Modifier) {
-        Code(
-            modifier = modifier,
-            content = content
-        )
-    }
+- **Hilt:** Used for dependency injection throughout the application, integrating with ViewModels and Navigation Compose.
+- **Kotlin Coroutines:** For managing background threads and asynchronous operations efficiently.
+
+```kotlin
+val imageColor = MaterialTheme.colorScheme.tertiaryContainer
+val previewHandler = AsyncImagePreviewHandler {
+    ColorImage(imageColor.toArgb())
 }
-
-@Composable
-fun Code(
-    content: String,
-    modifier: Modifier = Modifier
-) {
-    val codeColor = MaterialTheme.colorScheme.onBackground.toArgb()
-    val codeBlockBackground = if (isSystemInDarkTheme())
-        MaterialTheme.colorScheme.background.copy(0.4f)
-            .toArgb() else MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f).toArgb()
-    AndroidView(
-        modifier = modifier
-            .clip(RoundedCornerShape(5))
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(5)
-            )
-            .horizontalScroll(
-                rememberScrollState()
-            ),
-        factory = { context ->
-            val markwon = Markwon.builder(context)
-                .usePlugin(object : AbstractMarkwonPlugin() {
-                    override fun configureTheme(builder: MarkwonTheme.Builder) {
-                        builder
-                            .codeTextColor(codeColor)
-                            .codeBackgroundColor(codeBlockBackground)
-                    }
-                })
-                .build()
-            TextView(context).apply {
-                layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-
-                setTextColor(codeColor)
-                markwon.setMarkdown(this, content)
-            }
-        })
-}
-
-@PreviewLightDark
-@Composable
-private fun CodePreview() {
-    CodeExample(
-        modifier = Modifier
-            .padding(8.dp)
-            .height(110.dp)
-    )
-}                      
+val imageLoader = ImageLoader.Builder(LocalContext.current)
+    .build()
 ```
-        """.trimIndent()
-    ),
-    Paragraph(lorem),
-)
+"""

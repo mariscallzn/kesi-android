@@ -11,7 +11,7 @@ data class UiArticleState(
     val title: String = "",
     val imageUrl: String = "",
     val podcast: UiPodcast? = null,
-    val content: List<ContentType> = emptyList(),
+    val content: String = "",
     val error: ErrorState<ArticleErrors>? = null,
 )
 
