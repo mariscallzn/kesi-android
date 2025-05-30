@@ -99,6 +99,13 @@
           "type": "Article",
           "title": "MVI with Compose & SharedFlow: The Secret Sauce for Modern Android UIs",
           "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount."
+        },
+        {
+          "id": "clean-architecture",
+          "title": "Clean Architecture in Modern Android",
+          "description": "Ever found yourself tangled in a web of Activity code that does everything from UI updates to network calls and database queries? Or maybe you've dreaded making a",
+          "img": "clean-architecture.jpg",
+          "type": "Article"
         }
       ]
     },

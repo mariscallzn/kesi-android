@@ -1,0 +1,8 @@
+{
+  "id": "clean-architecture",
+  "title": "Clean Architecture in Modern Android",
+  "description": "Ever found yourself tangled in a web of Activity code that does everything from UI updates to network calls and database queries? Or maybe you've dreaded making a",
+  "img": "clean-architecture.jpg",
+  "markdown": "clean-architecture.md",
+  "podcast": null
+}

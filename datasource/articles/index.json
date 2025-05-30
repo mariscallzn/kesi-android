@@ -64,5 +64,11 @@
     "title": "Kotlin Delegated Properties: Your Secret Weapon for Cleaner, More Magical Code!",
     "description": "Ever found yourself writing the same boilerplate code over and over for property getters and setters? Maybe you need to trigger an action when a property changes, or perhaps you want a",
     "img": "kotlin-delegated-properties.jpg"
+  },
+  {
+    "id": "clean-architecture",
+    "title": "Clean Architecture in Modern Android",
+    "description": "Ever found yourself tangled in a web of Activity code that does everything from UI updates to network calls and database queries? Or maybe you've dreaded making a",
+    "img": "clean-architecture.jpg"
   }
 ]
