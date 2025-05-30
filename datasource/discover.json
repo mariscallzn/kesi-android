@@ -1,17 +1,10 @@
 {
   "featured": [
     {
-      "id": "hilt-podcast",
-      "img": "hilt-podcast.jpg",
-      "title": "Podcast: Hilt for modern Android development",
-      "type": "Podcast",
-      "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries."
-    },
-    {
-      "id": "gradle-convention-plugins-podcast",
-      "title": "Convention plugins explained",
-      "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
-      "img": "gradle-convention-plugins-podcast.jpg",
+      "id": "kesi-android-multi-module-podcast",
+      "title": "Multi-Module Architecture Overview",
+      "description": "In this podcast, you will hear how to modularized an app and the different strategies.",
+      "img": "kesi-android-multi-module-podcast.jpg",
       "type": "Podcast"
     },
     {
@@ -19,13 +12,6 @@
       "title": "Deep Dive: Unveiling Kesi Android",
       "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world.",
       "img": "deep-dive-unveiling-kesi-android-podcast.jpg",
-      "type": "Podcast"
-    },
-    {
-      "id": "kesi-android-multi-module-podcast",
-      "title": "Multi-Module Architecture Overview",
-      "description": "In this podcast, you will hear how to modularized an app and the different strategies.",
-      "img": "kesi-android-multi-module-podcast.jpg",
       "type": "Podcast"
     },
     {
