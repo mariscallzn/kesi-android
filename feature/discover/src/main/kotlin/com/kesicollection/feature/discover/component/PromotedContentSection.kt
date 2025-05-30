@@ -20,20 +20,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import coil3.ColorImage
+import coil3.ImageLoader
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePreviewHandler
+import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.core.model.ContentType
+import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
+import com.kesicollection.core.uisystem.PreviewAppManager
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.discover.R
@@ -61,7 +70,7 @@ fun LazyListScope.promotedContentSections(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Promoted: ${category.name}",
+                        text = category.name,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.titleMedium,
@@ -160,11 +169,23 @@ fun ExamplePromotedCard(
     )
 ) {
     KesiTheme {
-        PromotedCard(
-            modifier = modifier,
-            uiContent = uiContent,
-            onContentClick = {}
-        )
+        val imageColor = MaterialTheme.colorScheme.tertiaryContainer
+        val previewHandler = AsyncImagePreviewHandler {
+            ColorImage(imageColor.toArgb())
+        }
+        val imageLoader = ImageLoader.Builder(LocalContext.current)
+            .build()
+        CompositionLocalProvider(LocalAsyncImagePreviewHandler provides previewHandler) {
+            CompositionLocalProvider(LocalImageLoader provides imageLoader) {
+                CompositionLocalProvider(LocalApp provides PreviewAppManager) {
+                    PromotedCard(
+                        modifier = modifier,
+                        uiContent = uiContent,
+                        onContentClick = {}
+                    )
+                }
+            }
+        }
     }
 }
 
