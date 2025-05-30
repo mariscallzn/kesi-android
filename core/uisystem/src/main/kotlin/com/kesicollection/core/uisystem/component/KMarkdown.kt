@@ -1,6 +1,7 @@
 package com.kesicollection.core.uisystem.component
 
 import android.graphics.Typeface
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -58,6 +59,10 @@ fun KMarkdown(
         // Factory function to create the TextView.
         factory = { ctx ->
             TextView(ctx).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
                 // Set the text color from the MaterialTheme.
                 setTextColor(m3PrimaryColor.toArgb())
                 // Set the text size from the MaterialTheme.

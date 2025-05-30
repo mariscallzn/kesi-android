@@ -244,7 +244,9 @@ internal fun ArticleScreen(
                 Column(
                     modifier = Modifier
                         .verticalScroll(contentScrollState)
-                        .padding(horizontal = 16.dp),
+                        .weight(1f)
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     AsyncImage(
@@ -272,8 +274,6 @@ internal fun ArticleScreen(
                     }
                     KMarkdown(
                         text = uiState.content,
-                        Modifier
-                            .padding()
                     )
                 }
                 KAdView(
@@ -281,7 +281,6 @@ internal fun ArticleScreen(
                     screenName = "Article",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = safeContent.calculateBottomPadding())
                 )
             }
         }
