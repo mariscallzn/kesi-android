@@ -114,6 +114,13 @@
           "description": "Ever feel like your Kotlin code could be just a little bit tighter, a tad more readable? You're not alone! While Kotlin is already a beautifully concise language, there's a set of tools in its standard library that can elevate your code from good to great:",
           "img": "kotlin-scoped-functions.jpg",
           "type": "Article"
+        },
+        {
+          "id": "kotlin-inline",
+          "title": "Kotlin's Inline Secrets",
+          "description": "By the end of this post, you'll not only understand what each of these keywords does but also how they beautifully interrelate. Let's demystify them!",
+          "img": "kotlin-inline.jpg",
+          "type": "Article"
         }
       ]
     }
