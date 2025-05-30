@@ -1,0 +1,8 @@
+{
+  "id": "kotlin-delegated-properties",
+  "title": "Kotlin Delegated Properties: Your Secret Weapon for Cleaner, More Magical Code!",
+  "description": "Ever found yourself writing the same boilerplate code over and over for property getters and setters? Maybe you need to trigger an action when a property changes, or perhaps you want a",
+  "img": "kotlin-delegated-properties.jpg",
+  "markdown": "kotlin-delegated-properties.md",
+  "podcast": null
+}

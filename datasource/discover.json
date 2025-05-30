@@ -135,6 +135,13 @@
           "description": "Generics. The word alone can evoke a mix of appreciation for type safety and a slight dread of complex angle-bracket syntax. But if you're a Kotlin developer, you're in luck! Kotlin's approach to generics is designed to be more intuitive and powerful",
           "img": "kotlin-generics.jpg",
           "type": "Article"
+        },
+        {
+          "id": "kotlin-delegated-properties",
+          "title": "Kotlin Delegated Properties: Your Secret Weapon for Cleaner, More Magical Code!",
+          "description": "Ever found yourself writing the same boilerplate code over and over for property getters and setters? Maybe you need to trigger an action when a property changes, or perhaps you want a",
+          "img": "kotlin-delegated-properties.jpg",
+          "type": "Article"
         }
       ]
     }
