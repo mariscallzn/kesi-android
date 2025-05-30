@@ -1,7 +1,7 @@
 {
   "id": "mvi-podcast",
-  "title": "Multi-Module Architecture Overview",
-  "description": "In this podcast, you will hear how to modularized an app and the different strategies.",
+  "title": "Android UI Sanity: Decoding MVI with Compose and Kotlin Flows",
+  "description": "MVI, when combined with the declarative power of Jetpack Compose and the reactive capabilities of Kotlin's",
   "img": "mvi-podcast.jpg",
   "audio": "mvi-podcast.mp3"
 }

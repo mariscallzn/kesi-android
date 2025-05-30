@@ -5,9 +5,9 @@
   "img": "mvi.jpg",
   "markdown": "mvi.md",
   "podcast": {
-    "id": "mvi",
+    "id": "mvi-podcast",
     "title": "Android UI Sanity: Decoding MVI with Compose and Kotlin Flows",
-    "audio": "mvi.mp3",
-    "img": "mvi.jpg"
+    "audio": "mvi-podcast.mp3",
+    "img": "mvi-podcast.jpg"
   }
 }
