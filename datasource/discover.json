@@ -94,6 +94,21 @@
           "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount."
         }
       ]
+    },
+    {
+      "category": {
+        "id": "kotlin",
+        "name": "Kotlin"
+      },
+      "promotedContent": [
+        {
+          "id": "kotlin-coroutines-compose",
+          "title": "Mastering Kotlin Coroutines in Jetpack Compose",
+          "description": "In the fast-paced world of Android development, building slick, responsive user interfaces is paramount. Users expect apps to be fluid, without janky animations or frozen screens, especially when data is being fetched or processed in the background.",
+          "img": "kotlin-coroutines-compose.jpg",
+          "type": "Article"
+        }
+      ]
     }
   ]
 }

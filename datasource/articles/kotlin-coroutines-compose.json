@@ -1,0 +1,8 @@
+{
+  "id": "kotlin-coroutines-compose",
+  "title": "Mastering Kotlin Coroutines in Jetpack Compose",
+  "description": "In the fast-paced world of Android development, building slick, responsive user interfaces is paramount. Users expect apps to be fluid, without janky animations or frozen screens, especially when data is being fetched or processed in the background.",
+  "img": "kotlin-coroutines-compose.jpg",
+  "markdown": "kotlin-coroutines-compose.md",
+  "podcast": null
+}
