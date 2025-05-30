@@ -10,7 +10,7 @@ android {
 dependencies {
     api(libs.kotlinx.coroutines.test)
     api(projects.core.model)
-    api(projects.data.usecase)
+    api(projects.domain)
     api(projects.data.repository)
     api(projects.core.app)
 

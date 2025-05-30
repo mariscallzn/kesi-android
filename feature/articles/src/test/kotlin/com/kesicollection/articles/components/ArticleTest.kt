@@ -12,8 +12,8 @@ import coil3.ImageLoader
 import coil3.annotation.DelicateCoilApi
 import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
-import com.kesicollection.articles.LocalImageLoader
 import com.kesicollection.articles.model.asUiArticle
+import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.testing.testdata.ArticlesTestData
 import org.junit.Before
 import org.junit.Rule

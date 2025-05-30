@@ -2,13 +2,14 @@ package com.kesicollection.feature.article.intent
 
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.domain.GetArticleByIdUseCase
+import com.kesicollection.domain.GetMarkdownAsString
 import com.kesicollection.feature.article.ArticleErrors
 import com.kesicollection.feature.article.UiArticleState
-import com.kesicollection.feature.article.components.Code
 import com.kesicollection.feature.article.initialState
 import com.kesicollection.feature.article.uimodel.asUiPodcast
 import com.kesicollection.testing.api.TestDoubleArticleRepository
 import com.kesicollection.testing.api.TestDoubleCrashlyticsWrapper
+import com.kesicollection.testing.api.TestDoubleMarkdownRepository
 import com.kesicollection.testing.api.getArticleByIdResult
 import com.kesicollection.testing.api.successGetArticleById
 import com.kesicollection.testing.testdata.ArticlesTestData
@@ -18,44 +19,21 @@ import org.junit.Before
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-/**
- * Test class for [FetchArticleIntentProcessor].
- *
- * This class contains unit tests to verify the behavior of [FetchArticleIntentProcessor]
- * in various scenarios, including successful article fetching and error handling.
- *
- * It uses a test double [TestDoubleArticleRepository] to simulate interactions with a
- * real article repository and [ArticlesTestData] to provide test article data.
- *
- * The tests validate the correct emission of loading states (`isLoading`) and the
- * accurate representation of fetched article data or errors in the [UiArticleState].
- *
- * The test class uses the following lists:
- * - `expectedStates`: To define the expected states that the [FetchArticleIntentProcessor] should emit.
- * - `actualStates`: To capture the states emitted by the [FetchArticleIntentProcessor] during the test execution.
- * - `@Test`:
- *     - `validate is loading before success response`: Verifies that the `FetchArticleIntentProcessor` correctly emits a loading state before successfully fetching and emitting the article details.
- *     - `validate is loading before a failure`: Validates that the `isLoading` state is set to `true` before a failure occurs when fetching an article.
- */
 class FetchArticleIntentProcessorTest {
 
     private lateinit var fetchArticleIntentProcessor: FetchArticleIntentProcessor
 
-    /**
-     * Sets up the test environment before each test.
-     *
-     * This function initializes the [FetchArticleIntentProcessor] with a test double
-     * [TestDoubleArticleRepository] and uses the first article ID from [ArticlesTestData]
-     * to be fetched.
-     */
     @Before
     fun setup() {
         fetchArticleIntentProcessor = FetchArticleIntentProcessor(
             articleId = ArticlesTestData.items.first().id,
-            getMarkdownAsString = GetArticleByIdUseCase(
+            crashlyticsWrapper = TestDoubleCrashlyticsWrapper(),
+            getMarkdownAsString = GetMarkdownAsString(
+                markdownRepository = TestDoubleMarkdownRepository()
+            ),
+            getArticleByIdUseCase = GetArticleByIdUseCase(
                 articleRepository = TestDoubleArticleRepository()
             ),
-            crashlyticsWrapper = TestDoubleCrashlyticsWrapper()
         )
     }
 
@@ -93,8 +71,7 @@ class FetchArticleIntentProcessorTest {
                 title = article.title,
                 imageUrl = article.img,
                 podcast = article.podcast?.asUiPodcast(),
-                //For simplicity all is treat it as Code since don't care about the type in this test case
-                content = emptyList(),
+                content = article.markdown,
                 error = null
             )
         )
@@ -108,7 +85,7 @@ class FetchArticleIntentProcessorTest {
         assertEquals(expectedStates[1].title, actualStates[1].title)
         assertEquals(expectedStates[1].imageUrl, actualStates[1].imageUrl)
         assertEquals(expectedStates[1].podcast, actualStates[1].podcast)
-        assertEquals(expectedStates[1].content.size, actualStates[1].content.size)
+        assertEquals(expectedStates[1].content, actualStates[1].content)
         assertEquals(expectedStates[1].error, actualStates[1].error)
     }
 
