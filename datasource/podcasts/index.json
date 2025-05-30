@@ -33,5 +33,12 @@
     "description": "Let's dive in and see how each SOLID principle shines in a Compose-centric world, turning your UIs from just \"working\" to \"wow-king\"!",
     "img": "solid-podcast.jpg",
     "audio": "solid-podcast.mp3"
+  },
+  {
+    "id": "mvi-podcast",
+    "title": "Android UI Sanity: Decoding MVI with Compose and Kotlin Flows",
+    "description": "MVI, when combined with the declarative power of Jetpack Compose and the reactive capabilities of Kotlin's",
+    "img": "mvi-podcast.jpg",
+    "audio": "mvi-podcast.mp3"
   }
 ]

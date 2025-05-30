@@ -4,5 +4,10 @@
   "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount.",
   "img": "mvi.jpg",
   "markdown": "mvi.md",
-  "podcast": null
+  "podcast": {
+    "id": "mvi",
+    "title": "Android UI Sanity: Decoding MVI with Compose and Kotlin Flows",
+    "audio": "mvi.mp3",
+    "img": "mvi.jpg"
+  }
 }
