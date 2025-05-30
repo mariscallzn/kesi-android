@@ -1,0 +1,8 @@
+{
+  "id": "kotlin-generics",
+  "title": "Kotlin Generics Demystified",
+  "description": "Generics. The word alone can evoke a mix of appreciation for type safety and a slight dread of complex angle-bracket syntax. But if you're a Kotlin developer, you're in luck! Kotlin's approach to generics is designed to be more intuitive and powerful",
+  "img": "kotlin-generics.jpg",
+  "markdown": "kotlin-generics.md",
+  "podcast": null
+}
