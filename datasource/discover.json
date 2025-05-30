@@ -107,6 +107,13 @@
           "description": "In the fast-paced world of Android development, building slick, responsive user interfaces is paramount. Users expect apps to be fluid, without janky animations or frozen screens, especially when data is being fetched or processed in the background.",
           "img": "kotlin-coroutines-compose.jpg",
           "type": "Article"
+        },
+        {
+          "id": "kotlin-scoped-functions",
+          "title": "Kotlin Scoped Functions: Unlock Cleaner, More Expressive Code!",
+          "description": "Ever feel like your Kotlin code could be just a little bit tighter, a tad more readable? You're not alone! While Kotlin is already a beautifully concise language, there's a set of tools in its standard library that can elevate your code from good to great:",
+          "img": "kotlin-scoped-functions.jpg",
+          "type": "Article"
         }
       ]
     }
