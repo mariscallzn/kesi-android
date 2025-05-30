@@ -1,28 +1,85 @@
 {
   "featured": [
     {
-      "id": "deep-dive-unveiling-kesi-android",
-      "img": "deep-dive-unveiling-kesi-android.jpg",
-      "type": "Article",
+      "id": "hilt-podcast",
+      "img": "hilt-podcast.jpg",
+      "title": "Podcast: Hilt for modern Android development",
+      "type": "Podcast",
+      "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries."
+    },
+    {
+      "id": "gradle-convention-plugins-podcast",
+      "title": "Convention plugins explained",
+      "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
+      "img": "gradle-convention-plugins-podcast.jpg",
+      "type": "Podcast"
+    },
+    {
+      "id": "deep-dive-unveiling-kesi-android-podcast",
       "title": "Deep Dive: Unveiling Kesi Android",
-      "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world."
+      "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world.",
+      "img": "deep-dive-unveiling-kesi-android-podcast.jpg",
+      "type": "Podcast"
     },
     {
-      "id": "kesi-android-multi-module",
-      "img": "kesi-android-multi-module.jpg",
-      "type": "Article",
-      "title": "Kesi Android Multi-Module Architecture",
-      "description": "In this post, I'll walk you through how Kesi Android divided its codebase into distinct modules to achieve a multi-module architecture. I'll explain the reasoning behind each module, and discuss how this approach helps us adhere to SOLID principles and significantly enhances project scalability."
+      "id": "kesi-android-multi-module-podcast",
+      "title": "Multi-Module Architecture Overview",
+      "description": "In this podcast, you will hear how to modularized an app and the different strategies.",
+      "img": "kesi-android-multi-module-podcast.jpg",
+      "type": "Podcast"
     },
     {
-      "id": "gradle-convention-plugins",
-      "img": "gradle-convention-plugins.jpg",
-      "type": "Article",
-      "title": "Gradle convention plugins in Kesi Android",
-      "description": "Ah, Gradle. The powerful, flexible, and sometimes overwhelmingly complex build system that powers our Android projects. If you've ever found yourself endlessly copying and pasting configurations across `build.gradle.kts` files, battling inconsistencies between modules, or dreading the thought of updating a common dependency everywhere, then this post is for you. This was certainly our reality at Kesi Android before we embraced a more structured approach."
+      "id": "gradle-convention-plugins-podcast",
+      "title": "Convention plugins explained",
+      "description": "Think of convention plugins as reusable, opinionated blueprints for your Gradle build configurations. Instead of scattering compileSdk, minSdk, Kotlin options, Hilt setup, and common dependencies across every module's.",
+      "img": "gradle-convention-plugins-podcast.jpg",
+      "type": "Podcast"
+    },
+    {
+      "id": "hilt-podcast",
+      "title": "Podcast: Hilt for modern Android development",
+      "description": "Hilt is built on top of Dagger and simplifies DI by providing a standard way to use Dagger in your Android applications. It's specifically designed for Android, reducing boilerplate, and integrating seamlessly with Jetpack libraries.",
+      "img": "hilt-podcast.jpg",
+      "type": "Podcast"
+    },
+    {
+      "id": "solid-podcast",
+      "title": "Podcast: SOLID Explained in the Jetpack compose world",
+      "description": "Let's dive in and see how each SOLID principle shines in a Compose-centric world, turning your UIs from just \"working\" to \"wow-king\"!",
+      "img": "solid-podcast.jpg",
+      "type": "Podcast"
     }
   ],
   "promotedContent": [
+    {
+      "category": {
+        "id": "kesi-android",
+        "name": "Kesi Android"
+      },
+      "promotedContent": [
+        {
+          "id": "deep-dive-unveiling-kesi-android",
+          "img": "deep-dive-unveiling-kesi-android.jpg",
+          "type": "Article",
+          "title": "Deep Dive: Unveiling Kesi Android",
+          "description": "Welcome to the very first deep dive on this blog! Today, we're not just skimming the surface. We're jumping headfirst into the intricate world of Android development by dissecting a complete application: **Kesi Android**. Ever wondered what truly goes into building a robust, maintainable, and well-structured Android application? Beyond the UI and features, there's a hidden world of architectural decisions, best practices, and foundational setup that can make or break a project. This series is all about uncovering that world."
+        },
+        {
+          "id": "kesi-android-multi-module",
+          "img": "kesi-android-multi-module.jpg",
+          "type": "Article",
+          "title": "Kesi Android Multi-Module Architecture",
+          "description": "In this post, I'll walk you through how Kesi Android divided its codebase into distinct modules to achieve a multi-module architecture. I'll explain the reasoning behind each module, and discuss how this approach helps us adhere to SOLID principles and significantly enhances project scalability."
+        },
+        {
+          "id": "gradle-convention-plugins",
+          "img": "gradle-convention-plugins.jpg",
+          "type": "Article",
+          "title": "Gradle convention plugins in Kesi Android",
+          "description": "Ah, Gradle. The powerful, flexible, and sometimes overwhelmingly complex build system that powers our Android projects. If you've ever found yourself endlessly copying and pasting configurations across `build.gradle.kts` files, battling inconsistencies between modules, or dreading the thought of updating a common dependency everywhere, then this post is for you. This was certainly our reality at Kesi Android before we embraced a more structured approach."
+        }
+      ]
+    },
     {
       "category": {
         "id": "architecture",
@@ -49,21 +106,6 @@
           "type": "Article",
           "title": "MVI with Compose & SharedFlow: The Secret Sauce for Modern Android UIs",
           "description": "Are you tired of wrestling with unpredictable UI states, complex ViewModel logic, and testing nightmares? In the ever-evolving landscape of Android development, building robust, scalable, and maintainable UIs is paramount."
-        }
-      ]
-    },
-    {
-      "category": {
-        "id": "category_B",
-        "name": "Category B"
-      },
-      "promotedContent": [
-        {
-          "id": "promo_B_2",
-          "img": "debugging_jetpack_compose_img.jpg",
-          "type": "Video",
-          "title": "Promoted Item B2 Title",
-          "description": "Description for promoted item B2."
         }
       ]
     }
