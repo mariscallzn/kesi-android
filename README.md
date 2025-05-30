@@ -18,13 +18,18 @@ The app also features **podcasts** accompanying some posts, offering explanation
 
 KesiAndroid is primarily composed of three main screens:
 
-1.  **Articles Screen:** Displays a list of available posts and articles.
-2.  **Article Screen:** Shows the detailed content of a selected post, potentially including embedded media.
-3.  **Audio Player Screen:** Provides controls for listening to associated podcasts.
+1.  **Discover Screen:** Displays a list feature and promoted content.
+2.  **Articles Screen:** Displays a list of available posts and articles.
+3.  **Article Screen:** Shows the detailed content of a selected post, potentially including embedded media.
+4.  **Audio Player Screen:** Provides controls for listening to associated podcasts.
 
-![](screenshots/Screenshot_20250430_161043.png)
-![](screenshots/Screenshot_20250430_161108.png)
-![](screenshots/Screenshot_20250430_161126.png)
+<p>
+  <img src="screenshots/Screenshot_20250530_120342.png" alt="Discover" width="128" height="258">
+  <img src="screenshots/Screenshot_20250530_120700.png" alt="Articles" width="128" height="258">
+  <img src="screenshots/Screenshot_20250530_120627.png" alt="Article" width="128" height="258">
+  <img src="screenshots/Screenshot_20250530_121441.png" alt="Article Code" width="128" height="258">
+  <img src="screenshots/Screenshot_20250530_120723.png" alt="Audio Player" width="128" height="258">
+</p>
 
 ## Features
 
