@@ -158,6 +158,49 @@
           "type": "Article"
         }
       ]
+    },
+    {
+      "category": {
+        "id": "android",
+        "name": "Modern Android Development"
+      },
+      "promotedContent": [
+        {
+          "id": "viewmodel",
+          "title": "ViewModel & Jetpack Compose",
+          "description": "We've all been there. You've crafted a beautiful UI, your app is running smoothly, and then... BAM!",
+          "img": "viewmodel.jpg",
+          "type": "Article"
+        },
+        {
+          "id": "config-changes-compose",
+          "title": "Configuration Changes in Jetpack Compose",
+          "description": "Enter Jetpack Compose, the modern UI toolkit that's revolutionizing how we build Android apps. While Compose brings a declarative and more intuitive way to craft UIs, the underlying Android",
+          "img": "config-changes-compose.jpg",
+          "type": "Article"
+        },
+        {
+          "id": "compose-local-providers",
+          "title": "CompositionLocals - When to Use Static vs. Dynamic",
+          "description": "So, you're diving deep into Jetpack Compose, crafting beautiful, reactive UIs. You've probably encountered situations where you need to pass data down your Composable tree, but \"prop drilling\" ",
+          "img": "compose-local-providers.jpg",
+          "type": "Article"
+        },
+        {
+          "id": "room",
+          "title": "Jetpack Room with Compose - The Ultimate Guide!",
+          "description": "In this post, we're diving deep into why Room is the go-to solution for local storage in Android and, more importantly, how to make it sing in harmony with Jetpack Compose.",
+          "img": "room.jpg",
+          "type": "Article"
+        },
+        {
+          "id": "jetpack-datastore",
+          "title": "Jetpack DataStore Preferences",
+          "description": "Enter Jetpack DataStore Preferences! This is Google's modern, robust, and safer alternative for storing key-value pairs. If you're building with Jetpack Compose and want a reactive",
+          "img": "jetpack-datastore.jpg",
+          "type": "Article"
+        }
+      ]
     }
   ]
 }
