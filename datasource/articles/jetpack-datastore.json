@@ -1,0 +1,8 @@
+{
+  "id": "jetpack-datastore",
+  "title": "Jetpack DataStore Preferences",
+  "description": "Enter Jetpack DataStore Preferences! This is Google's modern, robust, and safer alternative for storing key-value pairs. If you're building with Jetpack Compose and want a reactive",
+  "img": "jetpack-datastore.jpg",
+  "markdown": "jetpack-datastore.md",
+  "podcast": null
+}

@@ -106,5 +106,11 @@
     "title": "Jetpack Room with Compose - The Ultimate Guide!",
     "description": "In this post, we're diving deep into why Room is the go-to solution for local storage in Android and, more importantly, how to make it sing in harmony with Jetpack Compose.",
     "img": "room.jpg"
+  },
+  {
+    "id": "jetpack-datastore",
+    "title": "Jetpack DataStore Preferences",
+    "description": "Enter Jetpack DataStore Preferences! This is Google's modern, robust, and safer alternative for storing key-value pairs. If you're building with Jetpack Compose and want a reactive",
+    "img": "jetpack-datastore.jpg"
   }
 ]
