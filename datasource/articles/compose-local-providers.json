@@ -1,0 +1,8 @@
+{
+  "id": "compose-local-providers",
+  "title": "CompositionLocals - When to Use Static vs. Dynamic",
+  "description": "So, you're diving deep into Jetpack Compose, crafting beautiful, reactive UIs. You've probably encountered situations where you need to pass data down your Composable tree, but \"prop drilling\" ",
+  "img": "compose-local-providers.jpg",
+  "markdown": "compose-local-providers.md",
+  "podcast": null
+}

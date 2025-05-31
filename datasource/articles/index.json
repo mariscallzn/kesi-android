@@ -94,5 +94,11 @@
     "title": "Configuration Changes in Jetpack Compose",
     "description": "Enter Jetpack Compose, the modern UI toolkit that's revolutionizing how we build Android apps. While Compose brings a declarative and more intuitive way to craft UIs, the underlying Android",
     "img": "config-changes-compose.jpg"
+  },
+  {
+    "id": "compose-local-providers",
+    "title": "CompositionLocals - When to Use Static vs. Dynamic",
+    "description": "So, you're diving deep into Jetpack Compose, crafting beautiful, reactive UIs. You've probably encountered situations where you need to pass data down your Composable tree, but \"prop drilling\" ",
+    "img": "compose-local-providers.jpg"
   }
 ]
