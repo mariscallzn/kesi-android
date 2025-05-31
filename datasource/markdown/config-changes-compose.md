@@ -262,5 +262,3 @@ Handling configuration changes in Jetpack Compose feels significantly more natur
 By understanding and correctly applying `remember`, `rememberSaveable`, and `ViewModel`, you can build robust, professional Android applications that gracefully handle configuration changes, leading to a much smoother user experience.
 
 So, go ahead, rotate that device with confidence! Compose has your back.
-
-**What are your go-to strategies for handling configuration changes in Compose? Share your tips and experiences in the comments below!**
