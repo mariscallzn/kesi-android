@@ -112,5 +112,11 @@
     "title": "Jetpack DataStore Preferences",
     "description": "Enter Jetpack DataStore Preferences! This is Google's modern, robust, and safer alternative for storing key-value pairs. If you're building with Jetpack Compose and want a reactive",
     "img": "jetpack-datastore.jpg"
+  },
+  {
+    "id": "jetpack-datastore-proto",
+    "title": "Jetpack DataStore Proto",
+    "description": "For years, `SharedPreferences` was the go-to for storing small bits of data like user settings or flags. While simple, it came with its own set of challenges: a synchronous API that could block the UI thread, no built-in type",
+    "img": "jetpack-datastore-proto.jpg"
   }
 ]
