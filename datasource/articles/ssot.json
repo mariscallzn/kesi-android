@@ -1,0 +1,8 @@
+{
+  "id": "ssot",
+  "title": "Mastering Single Source of Truth in Jetpack Compose",
+  "description": "In the ever-evolving landscape of Android development, one principle remains a steadfast guide to building clean, predictable, and scalable applications: the Single Source of Truth (SSoT)",
+  "img": "ssot.jpg",
+  "markdown": "ssot.md",
+  "podcast": null
+}

@@ -106,6 +106,13 @@
           "description": "Ever found yourself tangled in a web of Activity code that does everything from UI updates to network calls and database queries? Or maybe you've dreaded making a",
           "img": "clean-architecture.jpg",
           "type": "Article"
+        },
+        {
+          "id": "ssot",
+          "title": "Mastering Single Source of Truth in Jetpack Compose",
+          "description": "In the ever-evolving landscape of Android development, one principle remains a steadfast guide to building clean, predictable, and scalable applications: the Single Source of Truth (SSoT)",
+          "img": "ssot.jpg",
+          "type": "Article"
         }
       ]
     },
