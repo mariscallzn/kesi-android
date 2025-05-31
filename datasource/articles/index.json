@@ -76,5 +76,11 @@
     "title": "Mastering Single Source of Truth in Jetpack Compose",
     "description": "In the ever-evolving landscape of Android development, one principle remains a steadfast guide to building clean, predictable, and scalable applications: the Single Source of Truth (SSoT)",
     "img": "ssot.jpg"
+  },
+  {
+    "id": "udf",
+    "title": "Unidirectional Data Flow in Jetpack Compose",
+    "description": "Tired of tangled UI logic and unpredictable state changes? Ever found yourself debugging for hours, lost in a maze of callbacks and mutable variables? If you're nodding along, then",
+    "img": "udf.jpg"
   }
 ]

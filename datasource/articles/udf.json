@@ -1,0 +1,8 @@
+{
+  "id": "udf",
+  "title": "Unidirectional Data Flow in Jetpack Compose",
+  "description": "Tired of tangled UI logic and unpredictable state changes? Ever found yourself debugging for hours, lost in a maze of callbacks and mutable variables? If you're nodding along, then",
+  "img": "udf.jpg",
+  "markdown": "udf.md",
+  "podcast": null
+}
