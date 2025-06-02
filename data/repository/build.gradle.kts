@@ -6,4 +6,5 @@ plugins {
 dependencies {
     api(projects.core.model)
     implementation(projects.data.api)
+    testImplementation(projects.test.core)
 }

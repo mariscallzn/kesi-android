@@ -12,9 +12,11 @@ import coil3.annotation.DelicateCoilApi
 import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
 import com.kesicollection.articles.model.asUiArticle
+import com.kesicollection.core.uisystem.LocalApp
 import com.kesicollection.core.uisystem.LocalImageLoader
+import com.kesicollection.core.uisystem.PreviewAppManager
 import com.kesicollection.core.uisystem.theme.KesiTheme
-import com.kesicollection.testing.testdata.ArticlesTestData
+import com.kesicollection.test.core.fake.FakeArticles
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -67,20 +69,22 @@ class ArticlesScreenTest {
                     .components { add(fakeImageLoaderEngine) }
                     .build()
 
-                CompositionLocalProvider(
-                    LocalImageLoader provides imageLoader
-                ) {
-                    KesiTheme {
-                        ArticlesScreen(
-                            uiState = UiArticlesState(
-                                isLoading = false,
-                                articles = ArticlesTestData.items.map { it.asUiArticle() }),
-                            onArticleClick = { },
-                            onTryAgain = {},
-                            onBookmarkClick = {},
-                            onNavigateUp = {},
-                            adUnitId = ""
-                        )
+                CompositionLocalProvider(LocalApp provides PreviewAppManager) {
+                    CompositionLocalProvider(
+                        LocalImageLoader provides imageLoader
+                    ) {
+                        KesiTheme {
+                            ArticlesScreen(
+                                uiState = UiArticlesState(
+                                    isLoading = false,
+                                    articles = FakeArticles.items.map { it.asUiArticle() }),
+                                onArticleClick = { },
+                                onTryAgain = {},
+                                onBookmarkClick = {},
+                                onNavigateUp = {},
+                                adUnitId = ""
+                            )
+                        }
                     }
                 }
             }
