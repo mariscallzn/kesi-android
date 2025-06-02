@@ -31,6 +31,10 @@ KesiAndroid is primarily composed of three main screens:
   <img src="screenshots/Screenshot_20250530_120723.png" alt="Audio Player" width="128" height="258">
 </p>
 
+<a href="https://play.google.com/store/apps/details?id=com.kesicollection.kesiandroid">
+  <img src="img/Google_Play_Store_badge_EN.svg.webp" alt="Google Play Store badge" width="512" height="151.8">
+</a>
+
 ## Features
 
 * Browse and read articles on Android development topics.
