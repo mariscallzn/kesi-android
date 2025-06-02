@@ -1,9 +1,29 @@
-package com.kesicollection.testing.testdata
+/**
+ * This file contains fake article data used for testing and development purposes.
+ * It provides a list of `Article` objects, each with details such as ID, title,
+ * description, image, markdown content, and an optional associated podcast.
+ */
+package com.kesicollection.test.core.fake
 
 import com.kesicollection.core.model.Article
 import com.kesicollection.core.model.Podcast
 
-object ArticlesTestData {
+/**
+ * `FakeArticles` is an object that holds a list of predefined [Article] instances.
+ * This is useful for populating UI previews, running tests, or demonstrating
+ * features without needing a live data source.
+ */
+object FakeArticles {
+    /**
+     * A list of [Article] objects representing fake articles.
+     * Each article includes:
+     * - `id`: A unique identifier for the article.
+     * - `title`: The title of the article.
+     * - `description`: A short summary of the article.
+     * - `img`: The filename of the image associated with the article.
+     * - `markdown`: The full content of the article in Markdown format.
+     * - `podcast`: An optional [Podcast] object linked to the article.
+     */
     val items = listOf(
         Article(
             id = "1",

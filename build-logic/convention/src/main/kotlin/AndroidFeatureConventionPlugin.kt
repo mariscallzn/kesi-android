@@ -1,4 +1,5 @@
 import com.android.build.gradle.LibraryExtension
+import com.kesicollection.buildlogic.androidTestImplementation
 import com.kesicollection.buildlogic.debugImplementation
 import com.kesicollection.buildlogic.implementation
 import com.kesicollection.buildlogic.libs
@@ -10,30 +11,17 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
- * A convention plugin that applies common configurations for Android Feature modules.
+ * This plugin is applied to all Android feature modules.
+ * It applies the following plugins:
+ * - `kesiandroid.android.library`
+ * - `kesiandroid.hilt`
  *
- * This plugin applies the following plugins:
- * - `kesiandroid.android.library`: Applies common Android library configurations
- * - `kesiandroid.hilt`: Applies Hilt dependency injection configurations
- *
- * It also adds common dependencies required for feature modules, including:
- * - `androidx.hilt.navigation.compose`: Hilt integration for Jetpack Navigation Compose.
- * - `androidx.lifecycle.runtimeCompose`: Lifecycle runtime support for Compose.
- * - `androidx.lifecycle.viewModelCompose`: ViewModel support for Compose.
- * - `androidx.navigation.compose`: Jetpack Navigation Compose.
- *
- * It comments out the implementation of `:core:uisystem` and `:data:repository` because
- * this plugin should be generic, and the features may not always require those.
- *
- * Usage:
- * Apply this plugin to your Android feature module's `build.gradle.kts` file:
- *
- * ```kotlin
- * plugins {
- *      id("your.plugin.id.android.feature") // Replace with your plugin ID
- * }
- * ```
- *
+ * It also adds the following dependencies:
+ * - `:core:uisystem`
+ * - `:domain`
+ * - `androidx.hilt.navigation.compose`
+ * - `androidx.lifecycle.runtimeCompose`
+ * - `androidx.lifecycle.viewModelCompose`
  */
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -58,7 +46,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementation(libs.findLibrary("androidx.navigation.compose").get())
                 implementation(libs.findLibrary("kotlinx.collections.immutable").get())
 
-                testImplementation(project(":testing"))
+                testImplementation(project(":test:core"))
+                androidTestImplementation(project(":test:instrumentation"))
                 testImplementation(libs.findLibrary("robolectric").get())
                 debugImplementation(libs.findBundle("androidx.compose.ui.test").get())
 

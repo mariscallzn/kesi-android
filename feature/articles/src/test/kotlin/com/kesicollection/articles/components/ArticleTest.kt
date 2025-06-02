@@ -14,12 +14,12 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.test.FakeImageLoaderEngine
 import com.kesicollection.articles.model.asUiArticle
 import com.kesicollection.core.uisystem.LocalImageLoader
-import com.kesicollection.testing.testdata.ArticlesTestData
+import com.kesicollection.test.core.fake.FakeArticles
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import kotlin.test.Test
 
 /**
  * Test class for the [Article] composable.
@@ -65,7 +65,7 @@ class ArticleTest {
     @OptIn(ExperimentalCoilApi::class, DelicateCoilApi::class)
     @Test
     fun `validate that all components are present`() {
-        val article = ArticlesTestData.items.first().asUiArticle()
+        val article = FakeArticles.items.first().asUiArticle()
         with(composeRule) {
             setContent {
                 val imageLoader = ImageLoader.Builder(LocalContext.current)
