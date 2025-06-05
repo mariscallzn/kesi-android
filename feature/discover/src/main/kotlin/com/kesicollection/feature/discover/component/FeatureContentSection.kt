@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +54,7 @@ fun LazyListScope.featuredContentSection(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             LazyRow(
+                modifier = featuredLazyRowModifier,
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -71,6 +73,9 @@ fun LazyListScope.featuredContentSection(
 val featuredModifier = Modifier
     .size(320.dp)
     .clip(RoundedCornerShape(8.dp))
+
+val featuredLazyRowModifier = Modifier
+    .testTag(":feature:discover:featuredLazyRow")
 
 @Composable
 fun FeaturedCard(

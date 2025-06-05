@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -56,48 +57,61 @@ fun LazyListScope.promotedContentSections(
     onSeeAllClick: (UICategory) -> Unit = {},
 ) {
     promotedContent.forEach { (category, contentList) ->
-        item {
-            val rememberedOnSeeAllClick = remember { { onSeeAllClick(category) } }
+        if (contentList.isNotEmpty()) {
+            item {
+                val rememberedOnSeeAllClick = remember { { onSeeAllClick(category) } }
 
-            Column(
-                modifier = modifier
-                    .padding(bottom = 16.dp)
-                    .fillParentMaxWidth(),
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillParentMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = modifier
+                        .padding(bottom = 16.dp)
+                        .fillParentMaxWidth(),
                 ) {
-                    Text(
-                        text = category.name,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillParentMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = category.name,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = 16.dp,
+                                    vertical = 8.dp
+                                )
                         )
-                    )
-                    TextButton(onClick = rememberedOnSeeAllClick) {
-                        Text(text = stringResource(R.string.feature_discover_see_all))
+                        TextButton(
+                            onClick = rememberedOnSeeAllClick,
+                            modifier = seeAllButtonModifier
+                        ) {
+                            Text(text = stringResource(R.string.feature_discover_see_all))
+                        }
                     }
-                }
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(contentList) { content ->
-                        PromotedCard(
-                            uiContent = content,
-                            onContentClick = onContentClick
-                        )
+                    LazyRow(
+                        modifier = promotedLazyRowModifier,
+                        contentPadding = PaddingValues(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(contentList) { content ->
+                            PromotedCard(
+                                uiContent = content,
+                                onContentClick = onContentClick
+                            )
+                        }
                     }
                 }
             }
         }
     }
 }
+
+private val promotedLazyRowModifier = Modifier
+    .testTag(":feature:discover:promotedLazyRowModifier")
+
+private val seeAllButtonModifier = Modifier
+    .testTag(":feature:discover:seeAllButton")
 
 @Composable
 fun PromotedCard(
