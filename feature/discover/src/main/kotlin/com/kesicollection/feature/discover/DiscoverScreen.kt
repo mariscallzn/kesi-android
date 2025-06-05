@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -90,7 +91,7 @@ fun DiscoverScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DiscoverScreen(
+internal fun DiscoverScreen(
     uiState: UiState,
     onSeeAllClick: (UICategory) -> Unit,
     onContentClick: (UIContent) -> Unit,
@@ -115,6 +116,7 @@ private fun DiscoverScreen(
                 Modifier
                     .padding(innerPadding)
                     .padding(start = 16.dp, top = 16.dp)
+                    .testTag(":feature:discover:LoadingDiscover")
             )
 
             is UiState.DiscoverContent -> DiscoverContent(
@@ -123,6 +125,7 @@ private fun DiscoverScreen(
                 onContentClick = onContentClick,
                 modifier = Modifier
                     .padding(innerPadding)
+                    .testTag(":feature:discover:DiscoverContent")
             )
 
             is UiState.Error -> {
@@ -132,6 +135,7 @@ private fun DiscoverScreen(
                         .fillMaxSize()
                         .padding(innerPadding)
                         .padding(horizontal = 16.dp)
+                        .testTag(":feature:discover:ShowError")
                 )
             }
         }
@@ -179,10 +183,12 @@ fun DiscoverContent(
     LazyColumn(
         modifier = modifier,
     ) {
-        featuredContentSection(
-            featuredContent = uiState.featuredContent,
-            onContentClick = onFeatureContentClick
-        )
+        if (uiState.featuredContent.isNotEmpty()) {
+            featuredContentSection(
+                featuredContent = uiState.featuredContent,
+                onContentClick = onFeatureContentClick
+            )
+        }
         promotedContentSections(
             promotedContent = uiState.promotedContent,
             onSeeAllClick = rememberedOnSeeAllClick,
