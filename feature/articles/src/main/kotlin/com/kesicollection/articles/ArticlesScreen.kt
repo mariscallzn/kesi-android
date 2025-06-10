@@ -40,7 +40,6 @@ import coil3.compose.AsyncImagePreviewHandler
 import coil3.compose.LocalAsyncImagePreviewHandler
 import com.kesicollection.articles.components.Article
 import com.kesicollection.articles.components.LoadingArticles
-import com.kesicollection.articles.di.ArticlesEntryPoint
 import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.model.ErrorState
 import com.kesicollection.core.uisystem.LocalApp
@@ -51,7 +50,7 @@ import com.kesicollection.core.uisystem.component.ShowError
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.articles.R
-import dagger.hilt.EntryPoints
+import com.kesicollection.core.uisystem.R as CoreUiSystemR
 
 /**
  * Composable function that displays a screen for listing articles.
@@ -77,11 +76,6 @@ fun ArticlesScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val analytics = LocalApp.current.analytics
-
-    val articlesEntryPoint = EntryPoints.get(
-        LocalContext.current.applicationContext,
-        ArticlesEntryPoint::class.java
-    )
 
     SideEffect {
         analytics.logEvent(
@@ -120,7 +114,7 @@ fun ArticlesScreen(
             viewModel.sendIntent(it)
         },
         uiState = uiState,
-        adUnitId = articlesEntryPoint.articlesAdKey()
+        adUnitId = uiState.adKey
     )
 }
 
@@ -166,7 +160,12 @@ internal fun ArticlesScreen(
                 },
                 navigationIcon = {
                     IconButton(onNavigateUp) {
-                        Icon(imageVector = KIcon.ArrowBack, null)
+                        Icon(
+                            imageVector = KIcon.ArrowBack,
+                            stringResource(
+                                CoreUiSystemR.string.core_uisystem_navigate_up
+                            )
+                        )
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -242,6 +241,18 @@ private fun LoadingArticlesScreenPreview() {
 @Composable
 private fun ErrorArticlesScreenPreview() {
     ArticlesScreenExample(uiState = UiArticlesState(error = ErrorState(ArticlesErrors.NetworkError)))
+}
+
+@PreviewLightDark
+@Composable
+private fun NoErrorNoLoadingAndEmptyPreview() {
+    ArticlesScreenExample(
+        uiState = UiArticlesState(
+            error = null,
+            articles = emptyList(),
+            isLoading = false
+        )
+    )
 }
 
 @OptIn(ExperimentalCoilApi::class)

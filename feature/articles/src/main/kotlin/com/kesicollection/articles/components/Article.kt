@@ -3,12 +3,11 @@ package com.kesicollection.articles.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -17,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -38,6 +39,7 @@ import com.kesicollection.articles.model.UiArticle
 import com.kesicollection.core.uisystem.LocalImageLoader
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.articles.R
 
 @Composable
 fun Article(
@@ -46,13 +48,18 @@ fun Article(
     onArticleClick: (UiArticle) -> Unit = {},
     onBookmarkClick: (id: String) -> Unit = {},
 ) {
+
+    val rememberedOnBookmarkClicked = remember { { onBookmarkClick(article.articleId) } }
+    val rememberedOnArticleClicked = remember { { onArticleClick(article) } }
+
     Row(
         modifier = modifier.then(
             Modifier
-                .clickable { onArticleClick(article) }
-                .height(IntrinsicSize.Min)
+                .clickable(onClick = rememberedOnArticleClicked)
+                .heightIn(min = 100.dp, max = 200.dp)
                 .padding(horizontal = 16.dp)
-                .padding(top = 24.dp, bottom = 8.dp)),
+                .padding(top = 24.dp, bottom = 8.dp)
+        ),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -62,6 +69,8 @@ fun Article(
         ) {
             Text(
                 article.title,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             Text(
@@ -88,14 +97,20 @@ fun Article(
                 contentDescription = null
             )
             IconButton(
-                { onBookmarkClick(article.articleId) },
+                onClick = rememberedOnBookmarkClicked,
                 modifier = Modifier
+                    .testTag(":feature:articles:bookmarkButton")
+                    .size(48.dp)
                     .align(Alignment.End),
             ) {
                 Icon(
-                    tint = if (article.isBookmarked) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.outline,
+                    tint = if (article.isBookmarked)
+                        MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.outline,
                     imageVector = KIcon.Bookmark,
-                    contentDescription = null
+                    contentDescription = if (article.isBookmarked) stringResource(
+                        R.string.feature_articles_unbookmark
+                    ) else stringResource(R.string.feature_articles_bookmark),
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
@@ -113,8 +128,8 @@ private fun PreviewArticle() {
 private fun PreviewArticleBookmarked() {
     ExampleArticle(
         article = UiArticle(
-            title = "Modern Android development Bigger Text",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.",
+            title = "Modern .",
+            description = "Lorem ",
             articleId = "1",
             thumbnail = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg27sYPdusU5NPkS_XdrPPwOlhQPNa8jHzVaivFqJtGzT3g87dV914Toto-lnTrxK3n8G7mJJX7MszRXnUeuK6wK5EI_ePZAK1pHdaZcxXVZ0feXvCXAIlJQJz2WnzrZlehhDxU31VjvOo/s0/3+things+to+know+for+Modern+Android+Development-Social.png",
             isBookmarked = true,

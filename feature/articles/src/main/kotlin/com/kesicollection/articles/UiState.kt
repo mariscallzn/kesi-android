@@ -15,7 +15,8 @@ val initialState = UiArticlesState()
 data class UiArticlesState(
     val articles: List<UiArticle> = emptyList(),
     val isLoading: Boolean = true,
-    val error: ErrorState<ArticlesErrors>? = null
+    val error: ErrorState<ArticlesErrors>? = null,
+    val adKey: String = "",
 )
 
 /**

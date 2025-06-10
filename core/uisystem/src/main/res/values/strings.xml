@@ -2,4 +2,5 @@
 <resources>
     <string name="core_uisystem_network_error">There was an error, please try again</string>
     <string name="core_uisystem_try_again">Try again</string>
+    <string name="core_uisystem_navigate_up">Navigate up</string>
 </resources>

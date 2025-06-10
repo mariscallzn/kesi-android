@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
 import com.kesicollection.core.app.Reducer
+import com.kesicollection.core.app.qualifiers.ArticlesAdKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,14 +32,18 @@ import javax.inject.Inject
  * @property dispatcher The [CoroutineDispatcher] used for all coroutine operations within this
  *                     ViewModel, ensuring that background tasks and state updates are managed
  *                     efficiently without blocking the main thread.
+ * @property adKey The ad key specific to the articles section, used for displaying relevant
+ *                 advertisements.
  */
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
     private val intentProcessorFactory: IntentProcessorFactory<UiArticlesState, Intent>,
+    @ArticlesAdKey
+    private val adKey: String,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(initialState)
+    private val _uiState = MutableStateFlow(initialState.copy(adKey = adKey))
     val uiState = _uiState.asStateFlow()
 
     private val intentFlow = MutableSharedFlow<Intent>()
