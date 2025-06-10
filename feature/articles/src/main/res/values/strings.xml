@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="feature_articles_topbar_title">Articles</string>
+    <string name="feature_articles_bookmark">Bookmark</string>
+    <string name="feature_articles_unbookmark">Unbookmark</string>
 </resources>

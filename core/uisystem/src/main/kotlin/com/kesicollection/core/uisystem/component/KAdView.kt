@@ -5,11 +5,16 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.kesicollection.core.uisystem.LocalApp
+
+object KAdView {
+    const val TEST_TAG = ":core:uisystem:AdView"
+}
 
 @SuppressLint("MissingPermission")
 @Composable
@@ -21,7 +26,8 @@ fun KAdView(
     val context = LocalContext.current
     val analytics = LocalApp.current.analytics
     AndroidView(
-        modifier = modifier,
+        modifier = modifier
+            .testTag(KAdView.TEST_TAG),
         factory = {
             AdView(context).apply {
                 setAdSize(com.google.android.gms.ads.AdSize.BANNER)
