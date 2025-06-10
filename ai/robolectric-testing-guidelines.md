@@ -5,6 +5,8 @@ Libraries that must be used for UI testing:
 - androidx.compose.ui.test.junit4.createComposeRule
 - Google's truth library for assertions
 
+Always use backsticks (``) to name the tests using the template: "when", "then"
+
 If you detect that `coil3.*` libraries are used, make sure to use `coil3.test.FakeImageLoaderEngine` to build an instance as follow:
 ```kotlin
 fakeImageLoaderEngine = FakeImageLoaderEngine.Builder()
@@ -30,3 +32,5 @@ fun someMethod() {
     applicationContext.getString(R.string.example)
 }
 ```
+
+Document all in the new file and make sure to add a list of test in the class kdoc

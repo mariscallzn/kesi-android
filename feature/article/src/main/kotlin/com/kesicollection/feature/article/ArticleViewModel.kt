@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kesicollection.core.app.IntentProcessor
 import com.kesicollection.core.app.IntentProcessorFactory
 import com.kesicollection.core.app.Reducer
+import com.kesicollection.core.app.qualifiers.ArticleAdKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,9 +29,11 @@ import javax.inject.Inject
 class ArticleViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
     private val intentProcessorFactory: IntentProcessorFactory<UiArticleState, Intent>,
+    @ArticleAdKey
+    private val adKey: String,
 ) : ViewModel() {
 
-    private var _uiState = MutableStateFlow(initialState)
+    private var _uiState = MutableStateFlow(initialState.copy(adKey = adKey))
     val uiState = _uiState.asStateFlow()
 
     private val intentFlow = MutableSharedFlow<Intent>()

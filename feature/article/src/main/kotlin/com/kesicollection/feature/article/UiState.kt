@@ -13,6 +13,7 @@ data class UiArticleState(
     val podcast: UiPodcast? = null,
     val content: String = "",
     val error: ErrorState<ArticleErrors>? = null,
+    val adKey: String = "",
 )
 
 enum class ArticleErrors {
