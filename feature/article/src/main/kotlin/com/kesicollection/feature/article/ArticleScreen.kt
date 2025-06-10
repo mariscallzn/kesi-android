@@ -43,6 +43,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -67,9 +69,8 @@ import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import com.kesicollection.feature.article.components.LoadingArticle
 import com.kesicollection.feature.article.components.PodcastCard
-import com.kesicollection.feature.article.di.ArticleEntryPoint
 import com.kesicollection.feature.article.uimodel.UiPodcast
-import dagger.hilt.android.EntryPointAccessors
+import com.kesicollection.core.uisystem.R as UiSystemR
 
 /**
  * Composable function that displays the Article screen.
@@ -92,10 +93,6 @@ fun ArticleScreen(
     onPodcastClick: (audioId: String) -> Unit,
     viewModel: ArticleViewModel = hiltViewModel(),
 ) {
-    val articleEntryPoint = EntryPointAccessors.fromApplication(
-        LocalContext.current,
-        ArticleEntryPoint::class.java
-    )
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -116,7 +113,7 @@ fun ArticleScreen(
     }
     ArticleScreen(
         uiState = uiState,
-        adUnitId = articleEntryPoint.getArticleAdKey(),
+        adUnitId = uiState.adKey,
         onNavigateUp = onNavigateUp,
         onPodcastClick = onPodcastClick,
         onTryAgain = {
@@ -200,6 +197,7 @@ internal fun ArticleScreen(
             LoadingArticle(
                 Modifier
                     .fillMaxSize()
+                    .testTag(":feature:article:LoadingArticle")
                     .padding(
                         start = 16.dp,
                         end = 16.dp,
@@ -238,7 +236,10 @@ internal fun ArticleScreen(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                     title = {}, navigationIcon = {
                         IconButton(onNavigateUp) {
-                            Icon(KIcon.ArrowBack, "")
+                            Icon(
+                                KIcon.ArrowBack,
+                                stringResource(UiSystemR.string.core_uisystem_navigate_up)
+                            )
                         }
                     })
                 Column(

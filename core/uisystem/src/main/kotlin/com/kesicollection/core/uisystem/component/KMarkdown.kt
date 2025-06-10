@@ -8,16 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.res.ResourcesCompat
 import com.kesicollection.core.uisystem.KotlinGrammarLocator
 import com.kesicollection.core.uisystem.R
+import com.kesicollection.core.uisystem.component.KMarkdown.TEST_TAG
 import com.kesicollection.core.uisystem.theme.KesiTheme
 import io.noties.markwon.Markwon
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
+
+object KMarkdown {
+    const val TEST_TAG = ":core:uisystem:KMarkdown"
+}
 
 /**
  * Composable function to display Markdown text.
@@ -55,7 +61,7 @@ fun KMarkdown(
 
     // Use AndroidView to embed the TextView that will display the Markdown.
     AndroidView(
-        modifier = modifier,
+        modifier = modifier.testTag(TEST_TAG),
         // Factory function to create the TextView.
         factory = { ctx ->
             TextView(ctx).apply {

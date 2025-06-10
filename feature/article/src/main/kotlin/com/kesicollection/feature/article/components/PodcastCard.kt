@@ -15,15 +15,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.kesicollection.core.uisystem.component.KCard
 import com.kesicollection.core.uisystem.theme.KIcon
 import com.kesicollection.core.uisystem.theme.KesiTheme
+import com.kesicollection.feature.article.R
 import com.kesicollection.feature.article.uimodel.UiPodcast
 
 /**
@@ -42,16 +45,19 @@ fun PodcastCard(
     onPodcastClick: (uiPodcast: UiPodcast) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    val rememberedOnPodcastClick = remember { { onPodcastClick(uiPodcast) } }
+
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .clickable { onPodcastClick(uiPodcast) },
+            .clickable(onClick = rememberedOnPodcastClick),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         KCard {
             Icon(
-                KIcon.Podcasts, null,
+                KIcon.Podcasts, stringResource(R.string.feature_article_podcast),
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -71,7 +77,7 @@ fun PodcastCard(
         ) {
             Icon(
                 KIcon.PlayArrow,
-                null,
+                stringResource(R.string.feature_article_play_podcast),
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.Center),
