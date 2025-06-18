@@ -1,0 +1,38 @@
+[
+  {
+    "id": "architecture",
+    "name": "Architecture",
+    "description": "High-level structure, patterns, and the plumbing that connects the app.",
+    "icon": "account_tree",
+    "color": "#FF6F00",
+    "status": "active",
+    "displayOrder": 1
+  },
+  {
+    "id": "ui_layer",
+    "name": "UI Layer",
+    "description": "Everything related to what the user sees and interacts with.",
+    "icon": "palette",
+    "color": "#2962FF",
+    "status": "active",
+    "displayOrder": 2
+  },
+  {
+    "id": "data_layer",
+    "name": "Data Layer",
+    "description": "Handling application data, from local storage to network requests.",
+    "icon": "storage",
+    "color": "#00838F",
+    "status": "coming_soon",
+    "displayOrder": 3
+  },
+  {
+    "id": "testing",
+    "name": "Testing",
+    "description": "Ensuring code quality, reliability, and bug prevention.",
+    "icon": "bug_report",
+    "color": "#2E7D32",
+    "status": "coming_soon",
+    "displayOrder": 4
+  }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "multi-module",
+    "name": "Multi-module",
+    "description": "Structuring an application into independent, interchangeable modules.",
+    "color": "#4A148C"
+  },
+  {
+    "id": "mvi",
+    "name": "MVI",
+    "description": "Model-View-Intent, a unidirectional data flow architecture pattern.",
+    "color": "#4A148C"
+  },
+  {
+    "id": "clean-architecture",
+    "name": "Clean Architecture",
+    "description": "A software design philosophy that separates elements of a design into ring-like layers.",
+    "color": "#4A148C"
+  },
+  {
+    "id": "jetpack-compose",
+    "name": "Jetpack Compose",
+    "description": "Android's modern toolkit for building native UI. Use for general Compose topics.",
+    "color": "#01579B"
+  },
+  {
+    "id": "state-management",
+    "name": "State Management",
+    "description": "Techniques for handling and observing UI state in a declarative way.",
+    "color": "#01579B"
+  },
+  {
+    "id": "theming",
+    "name": "Theming",
+    "description": "Applying consistent colors, typography, and shapes across the UI.",
+    "color": "#01579B"
+  },
+  {
+    "id": "local-providers",
+    "name": "LocalProviders",
+    "description": "A mechanism in Compose for implicitly passing data down the composition tree.",
+    "color": "#01579B"
+  },
+  {
+    "id": "animation",
+    "name": "Animation",
+    "description": "Creating motion and transitions in the user interface.",
+    "color": "#01579B"
+  },
+  {
+    "id": "coroutines",
+    "name": "Coroutines",
+    "description": "A concurrency design pattern for simplifying code that executes asynchronously.",
+    "color": "#D84315"
+  },
+  {
+    "id": "flows",
+    "name": "Flows",
+    "description": "A type from Kotlin Coroutines for asynchronously returning a stream of values.",
+    "color": "#D84315"
+  },
+  {
+    "id": "dependency-injection",
+    "name": "Dependency Injection",
+    "description": "A design pattern in which an object or function receives other objects or functions that it depends on.",
+    "color": "#B71C1C"
+  },
+  {
+    "id": "hilt",
+    "name": "Hilt",
+    "description": "Google's recommended dependency injection framework for Android.",
+    "color": "#B71C1C"
+  },
+  {
+    "id": "gradle",
+    "name": "Gradle",
+    "description": "The build automation tool used for Android app development.",
+    "color": "#004D40"
+  },
+  {
+    "id": "version-catalog",
+    "name": "Version Catalog",
+    "description": "A centralized way to manage dependency versions in Gradle.",
+    "color": "#004D40"
+  },
+  {
+    "id": "navigation",
+    "name": "Navigation",
+    "description": "Implementing and managing movement between screens, using the Jetpack Navigation component.",
+    "color": "#3E2723"
+  },
+  {
+    "id": "room",
+    "name": "Room",
+    "description": "A persistence library that provides an abstraction layer over SQLite.",
+    "color": "#3E2723"
+  },
+  {
+    "id": "datastore",
+    "name": "DataStore",
+    "description": "A data storage solution that allows you to store key-value pairs or typed objects with protocol buffers.",
+    "color": "#3E2723"
+  },
+  {
+    "id": "lifecycle",
+    "name": "Lifecycle",
+    "description": "Managing activity and fragment lifecycles using lifecycle-aware components.",
+    "color": "#827717"
+  },
+  {
+    "id": "unit-testing",
+    "name": "Unit Testing",
+    "description": "Testing individual functions, methods, or classes in isolation.",
+    "color": "#1B5E20"
+  },
+  {
+    "id": "ui-testing",
+    "name": "UI Testing",
+    "description": "Automating tests to verify the correctness of the user interface.",
+    "color": "#1B5E20"
+  },
+  {
+    "id": "ai-generated",
+    "name": "AI Generated",
+    "description": "This content was created using AI.",
+    "color": "#2A5E21"
+  }
+]
