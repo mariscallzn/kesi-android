@@ -58,7 +58,10 @@ fun LazyListScope.promotedContentSections(
 ) {
     promotedContent.forEach { (category, contentList) ->
         if (contentList.isNotEmpty()) {
-            item {
+            item(
+                key = category.id,
+                contentType = "promotedContentSections",
+            ) {
                 val rememberedOnSeeAllClick = remember { { onSeeAllClick(category) } }
 
                 Column(
@@ -94,7 +97,10 @@ fun LazyListScope.promotedContentSections(
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        items(contentList) { content ->
+                        items(
+                            items = contentList,
+                            key = { it.id },
+                            contentType = { "PromotedCard" }) { content ->
                             PromotedCard(
                                 uiContent = content,
                                 onContentClick = onContentClick

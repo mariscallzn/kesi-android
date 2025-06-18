@@ -40,11 +40,16 @@ import com.kesicollection.feature.discover.R
 import com.kesicollection.feature.discover.UIContent
 
 fun LazyListScope.featuredContentSection(
+    key: String,
+    contentType: String,
     featuredContent: List<UIContent>,
     onContentClick: (UIContent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    item {
+    item(
+        key = key,
+        contentType = contentType
+    ) {
         Column(modifier = modifier.padding(bottom = 16.dp)) {
             Text(
                 text = stringResource(R.string.feature_discover_featured),
