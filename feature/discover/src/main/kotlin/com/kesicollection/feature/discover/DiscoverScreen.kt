@@ -186,13 +186,15 @@ fun DiscoverContent(
         if (uiState.featuredContent.isNotEmpty()) {
             featuredContentSection(
                 featuredContent = uiState.featuredContent,
-                onContentClick = onFeatureContentClick
+                onContentClick = onFeatureContentClick,
+                key = "featuredContentSection",
+                contentType = "featuredContentType"
             )
         }
         promotedContentSections(
             promotedContent = uiState.promotedContent,
             onSeeAllClick = rememberedOnSeeAllClick,
-            onContentClick = onPromotedContentClick
+            onContentClick = onPromotedContentClick,
         )
     }
 }
