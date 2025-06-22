@@ -1,5 +1,6 @@
 package com.kesicollection.feature.discover
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -119,14 +120,17 @@ internal fun DiscoverScreen(
                     .testTag(":feature:discover:LoadingDiscover")
             )
 
-            is UiState.DiscoverContent -> DiscoverContent(
-                uiState = uiState,
-                onSeeAllClick = onSeeAllClick,
-                onContentClick = onContentClick,
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .testTag(":feature:discover:DiscoverContent")
-            )
+            is UiState.DiscoverContent -> {
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    DiscoverContent(
+                        uiState = uiState,
+                        onSeeAllClick = onSeeAllClick,
+                        onContentClick = onContentClick,
+                        modifier = Modifier
+                            .testTag(":feature:discover:DiscoverContent")
+                    )
+                }
+            }
 
             is UiState.Error -> {
                 ShowError(
