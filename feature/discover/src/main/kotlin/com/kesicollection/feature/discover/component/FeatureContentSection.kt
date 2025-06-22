@@ -63,7 +63,7 @@ fun LazyListScope.featuredContentSection(
                 contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(featuredContent) { content ->
+                items(featuredContent, key = { it.id }) { content ->
                     FeaturedCard(
                         uiContent = content,
                         onContentClick = onContentClick,
